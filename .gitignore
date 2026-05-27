@@ -1,0 +1,22 @@
+# Secrets
+.env
+*.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+*.egg-info/
+
+# Vector index (rebuilt from PDFs via ingest.py — too large for git)
+compass-app/backend/faiss_index/
+
+# Node
+node_modules/
+
+# macOS
+.DS_Store
+
+# Claude memory
+.claude/
