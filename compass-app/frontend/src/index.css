@@ -4,17 +4,33 @@
 
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-800 antialiased;
+    background-color: #05141c;
+    color: #e2f0f0;
+    -webkit-font-smoothing: antialiased;
   }
 }
 
 /* Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #0f3d52; border-radius: 9999px; }
+
+/* Particle dots for welcome screen */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(0, 212, 224, 0.7);
+  pointer-events: none;
 }
-::-webkit-scrollbar-track {
-  @apply bg-transparent;
+
+/* Glow line borders */
+.glow-border {
+  border-color: rgba(0, 212, 224, 0.25);
 }
-::-webkit-scrollbar-thumb {
-  @apply bg-slate-300 rounded-full;
+
+/* Glass card */
+.glass {
+  background: rgba(10, 37, 53, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 212, 224, 0.15);
 }

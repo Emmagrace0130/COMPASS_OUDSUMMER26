@@ -1,3 +1,5 @@
+import csv
+from pathlib import Path
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -116,3 +118,26 @@ async def chat(req: ChatRequest):
     except Exception as e:
         raise HTTPException(status_code=502, detail=f"Ollama error: {e}")
     return ChatResponse(answer=result["result"], sources=format_sources(result.get("source_documents", [])), backend="ollama")
+
+
+FACILITIES_CSV = Path(__file__).parent.parent.parent / "Vector_Library" / "T1:OUD_med&treat" / "opioid-treatment-directory-1779729812.csv"
+
+
+@app.get("/data/facilities")
+async def get_facilities():
+    if not FACILITIES_CSV.exists():
+        raise HTTPException(status_code=404, detail="Facilities CSV not found.")
+    facilities = []
+    with open(FACILITIES_CSV, newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            facilities.append({
+                "name": row["Program Name"],
+                "street": row["Street"],
+                "city": row["City"],
+                "state": row["State"],
+                "zip": row["Zip Code"],
+                "phone": row["Phone"],
+                "certification": row["Certification"],
+                "certified_date": row["First Full Certification Date/CMS Use"],
+            })
+    return {"facilities": facilities}

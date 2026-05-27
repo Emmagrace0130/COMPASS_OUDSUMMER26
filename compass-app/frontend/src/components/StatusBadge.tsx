@@ -18,20 +18,19 @@ export function StatusBadge() {
 
   if (!status) return null;
 
-  const allGood = status.index_ready && status.ollama_reachable && status.chain_loaded;
+  const allGood = status.index_ready && status.chain_loaded;
 
   return (
-    <div className="flex items-center gap-2 text-xs text-slate-500">
+    <div className="flex items-center gap-2 text-[10px] text-compass-steel/70 tracking-wide uppercase">
       <span
-        className={`inline-block w-2 h-2 rounded-full ${allGood ? "bg-emerald-400" : "bg-amber-400"}`}
+        className={`inline-block w-1.5 h-1.5 rounded-full ${
+          allGood ? "bg-compass-glow shadow-glow" : "bg-amber-400"
+        }`}
       />
-      {allGood ? (
-        "Ready"
-      ) : (
+      {allGood ? "Ready" : (
         <span>
-          {!status.index_ready && "Index not built · "}
-          {status.index_ready && !status.ollama_reachable && "Ollama offline · "}
-          {status.index_ready && status.ollama_reachable && !status.chain_loaded && "Loading · "}
+          {!status.index_ready && "Index not built"}
+          {status.index_ready && !status.chain_loaded && "Loading"}
         </span>
       )}
     </div>
