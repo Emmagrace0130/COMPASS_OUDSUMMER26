@@ -6,7 +6,7 @@ from pydantic import BaseModel
 import httpx
 
 from config import FAISS_INDEX_PATH, OLLAMA_BASE_URL, LLM_BACKEND, ANTHROPIC_API_KEY, CLAUDE_MODEL, HF_API_TOKEN, HF_MODEL
-from rag import load_retriever, build_ollama_chain, retrieve_docs, run_huggingface, run_claude, format_sources
+from rag import load_retriever, build_ollama_chain, retrieve_docs, run_huggingface_with_tools, run_claude_with_tools, format_sources
 
 app = FastAPI(title="COMPASS OUD Research Assistant")
 
@@ -90,13 +90,11 @@ async def chat(req: ChatRequest):
             raise HTTPException(status_code=503, detail="Vector index not built yet. Run `python ingest.py` first.")
         raise HTTPException(status_code=503, detail="Server is still loading. Retry in a moment.")
 
-    docs = retrieve_docs(retriever, req.question)
-
     if LLM_BACKEND == "huggingface":
         if not HF_API_TOKEN:
             raise HTTPException(status_code=503, detail="HF_API_TOKEN not set in .env")
         try:
-            answer = run_huggingface(docs, req.question)
+            answer, docs = run_huggingface_with_tools(retriever, req.question)
         except Exception as e:
             raise HTTPException(status_code=502, detail=f"HuggingFace API error: {e}")
         return ChatResponse(answer=answer, sources=format_sources(docs), backend="huggingface")
@@ -105,7 +103,7 @@ async def chat(req: ChatRequest):
         if not ANTHROPIC_API_KEY:
             raise HTTPException(status_code=503, detail="ANTHROPIC_API_KEY not set in .env")
         try:
-            answer = run_claude(docs, req.question)
+            answer, docs = run_claude_with_tools(retriever, req.question)
         except Exception as e:
             raise HTTPException(status_code=502, detail=f"Claude API error: {e}")
         return ChatResponse(answer=answer, sources=format_sources(docs), backend="claude")

@@ -72,7 +72,32 @@ def retrieve_docs(retriever, question: str) -> list:
     return retriever.invoke(question)
 
 
-def run_huggingface(docs: list, question: str) -> str:
+HF_RAG_TOOL = {
+    "type": "function",
+    "function": {
+        "name": "search_research_documents",
+        "description": (
+            "Search the COMPASS library of OUD clinical guidelines, research papers, and Tennessee "
+            "policy documents. Call this whenever you need evidence to answer a question. "
+            "You may call it more than once with different queries for multi-part questions."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "query": {
+                    "type": "string",
+                    "description": "Specific search query using relevant medical or policy terminology.",
+                }
+            },
+            "required": ["query"],
+        },
+    },
+}
+
+
+def _run_huggingface_fallback(retriever, question: str) -> tuple[str, list]:
+    """Classic pre-fetch RAG when the model doesn't support tool calls."""
+    docs = retrieve_docs(retriever, question)
     context = "\n\n---\n\n".join(
         f"[{doc.metadata.get('source_file', 'unknown')} p.{doc.metadata.get('page', '?')}]\n{doc.page_content}"
         for doc in docs
@@ -82,35 +107,156 @@ def run_huggingface(docs: list, question: str) -> str:
         model=HF_MODEL,
         messages=[
             {"role": "system", "content": SYSTEM_PROMPT_TEXT},
-            {
-                "role": "user",
-                "content": f"Retrieved context:\n{context}\n\nQuestion: {question}",
-            },
+            {"role": "user", "content": f"Retrieved context:\n{context}\n\nQuestion: {question}"},
         ],
         max_tokens=1500,
         temperature=0.1,
     )
-    return response.choices[0].message.content
+    return response.choices[0].message.content, docs
 
 
-def run_claude(docs: list, question: str) -> str:
-    context = "\n\n---\n\n".join(
-        f"[{doc.metadata.get('source_file', 'unknown')} p.{doc.metadata.get('page', '?')}]\n{doc.page_content}"
-        for doc in docs
-    )
-    client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
-    message = client.messages.create(
-        model=CLAUDE_MODEL,
-        max_tokens=1500,
-        system=SYSTEM_PROMPT_TEXT,
-        messages=[
-            {
-                "role": "user",
-                "content": f"Retrieved context:\n{context}\n\nQuestion: {question}",
+def run_huggingface_with_tools(retriever, question: str) -> tuple[str, list]:
+    """Agentic RAG: Llama 3.1 decides when to call search_research_documents.
+    Falls back to classic pre-fetch if the endpoint doesn't support tool calls."""
+    import json
+
+    client = InferenceClient(api_key=HF_API_TOKEN)
+    messages = [
+        {"role": "system", "content": TOOL_SYSTEM_PROMPT},
+        {"role": "user", "content": question},
+    ]
+    all_docs: list = []
+    seen_keys: set = set()
+
+    for _ in range(5):  # guard against runaway tool loops
+        try:
+            response = client.chat.completions.create(
+                model=HF_MODEL,
+                messages=messages,
+                tools=[HF_RAG_TOOL],
+                max_tokens=1500,
+                temperature=0.1,
+            )
+        except Exception as e:
+            if "bad request" in str(e).lower() or "400" in str(e):
+                print(f"Tool calls not supported by {HF_MODEL}, falling back to pre-fetch RAG.", flush=True)
+                return _run_huggingface_fallback(retriever, question)
+            raise
+
+        choice = response.choices[0]
+
+        if choice.finish_reason == "tool_calls" and choice.message.tool_calls:
+            # Append the assistant turn with its tool_calls
+            messages.append({
+                "role": "assistant",
+                "content": choice.message.content or "",
+                "tool_calls": [
+                    {
+                        "id": tc.id,
+                        "type": "function",
+                        "function": {"name": tc.function.name, "arguments": tc.function.arguments},
+                    }
+                    for tc in choice.message.tool_calls
+                ],
+            })
+
+            # Execute each tool call and append results
+            for tc in choice.message.tool_calls:
+                args = json.loads(tc.function.arguments)
+                query = args.get("query", question)
+                docs = retrieve_docs(retriever, query)
+
+                for doc in docs:
+                    key = (doc.metadata.get("source_file", ""), doc.metadata.get("page", ""))
+                    if key not in seen_keys:
+                        seen_keys.add(key)
+                        all_docs.append(doc)
+
+                tool_result = "\n\n---\n\n".join(
+                    f"[{doc.metadata.get('source_file', 'unknown')} p.{doc.metadata.get('page', '?')}]\n{doc.page_content}"
+                    for doc in docs
+                )
+                messages.append({
+                    "role": "tool",
+                    "tool_call_id": tc.id,
+                    "content": tool_result,
+                })
+
+        else:
+            return choice.message.content or "", all_docs
+
+    # Fallback if loop limit hit
+    return choice.message.content or "", all_docs
+
+
+RAG_TOOL = {
+    "name": "search_research_documents",
+    "description": (
+        "Search the COMPASS library of OUD clinical guidelines, research papers, and Tennessee "
+        "policy documents. Call this whenever you need evidence to answer a question. "
+        "You may call it more than once with different queries for multi-part questions."
+    ),
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "query": {
+                "type": "string",
+                "description": "Specific search query using relevant medical or policy terminology.",
             }
-        ],
-    )
-    return message.content[0].text
+        },
+        "required": ["query"],
+    },
+}
+
+TOOL_SYSTEM_PROMPT = SYSTEM_PROMPT_TEXT + (
+    "\n\nYou have access to a search tool that retrieves relevant passages from the COMPASS "
+    "research library. Always call the tool before answering factual questions — do not rely "
+    "on training knowledge for clinical or policy claims."
+)
+
+
+def run_claude_with_tools(retriever, question: str) -> tuple[str, list]:
+    """Agentic RAG: Claude decides when to call search_research_documents."""
+    client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+    messages = [{"role": "user", "content": question}]
+    all_docs: list = []
+    seen_keys: set = set()
+
+    while True:
+        response = client.messages.create(
+            model=CLAUDE_MODEL,
+            max_tokens=1500,
+            system=TOOL_SYSTEM_PROMPT,
+            tools=[RAG_TOOL],
+            messages=messages,
+        )
+
+        if response.stop_reason == "tool_use":
+            tool_block = next(b for b in response.content if b.type == "tool_use")
+            query = tool_block.input["query"]
+            docs = retrieve_docs(retriever, query)
+
+            # Deduplicate across multiple tool calls
+            for doc in docs:
+                key = (doc.metadata.get("source_file", ""), doc.metadata.get("page", ""))
+                if key not in seen_keys:
+                    seen_keys.add(key)
+                    all_docs.append(doc)
+
+            tool_result = "\n\n---\n\n".join(
+                f"[{doc.metadata.get('source_file', 'unknown')} p.{doc.metadata.get('page', '?')}]\n{doc.page_content}"
+                for doc in docs
+            )
+
+            messages.append({"role": "assistant", "content": response.content})
+            messages.append({
+                "role": "user",
+                "content": [{"type": "tool_result", "tool_use_id": tool_block.id, "content": tool_result}],
+            })
+
+        else:
+            text = next((b.text for b in response.content if hasattr(b, "text")), "")
+            return text, all_docs
 
 
 def format_sources(docs: list) -> list[dict]:
