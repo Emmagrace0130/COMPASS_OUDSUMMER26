@@ -15,11 +15,20 @@ services:
 
   frontend:
     build: ./frontend
-    ports:
-      - "127.0.0.1:8020:80"
+    environment:
+      - VIRTUAL_HOST=compass.axiomsystemslab.com
+      - LETSENCRYPT_HOST=compass.axiomsystemslab.com
+      - LETSENCRYPT_EMAIL=asl@utk.edu
+    networks:
+      - default
+      - viridian_network
     depends_on:
       - backend
     restart: unless-stopped
 
 volumes:
   fastembed_cache:
+
+networks:
+  viridian_network:
+    external: true
