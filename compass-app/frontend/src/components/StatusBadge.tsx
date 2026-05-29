@@ -10,7 +10,6 @@ export function StatusBadge() {
         .then((r) => r.json())
         .then(setStatus)
         .catch(() => setStatus(null));
-
     check();
     const interval = setInterval(check, 15_000);
     return () => clearInterval(interval);
@@ -21,12 +20,8 @@ export function StatusBadge() {
   const allGood = status.index_ready && status.chain_loaded;
 
   return (
-    <div className="flex items-center gap-2 text-[10px] text-compass-steel/70 tracking-wide uppercase">
-      <span
-        className={`inline-block w-1.5 h-1.5 rounded-full ${
-          allGood ? "bg-compass-glow shadow-glow" : "bg-amber-400"
-        }`}
-      />
+    <div className="flex items-center gap-2 text-[10px] text-compass-muted tracking-wide uppercase">
+      <span className={`inline-block w-1.5 h-1.5 rounded-full ${allGood ? "bg-compass-cyan shadow-cyan" : "bg-amber-400"}`} />
       {allGood ? "Ready" : (
         <span>
           {!status.index_ready && "Index not built"}

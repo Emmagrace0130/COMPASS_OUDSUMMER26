@@ -4,8 +4,8 @@
 
 @layer base {
   body {
-    background-color: #05141c;
-    color: #e2f0f0;
+    background-color: #0a0a18;
+    color: #f0f0ff;
     -webkit-font-smoothing: antialiased;
   }
 }
@@ -13,24 +13,16 @@
 /* Scrollbar */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #0f3d52; border-radius: 9999px; }
-
-/* Particle dots for welcome screen */
-.particle {
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(0, 212, 224, 0.7);
-  pointer-events: none;
-}
-
-/* Glow line borders */
-.glow-border {
-  border-color: rgba(0, 212, 224, 0.25);
-}
+::-webkit-scrollbar-thumb { background: #252550; border-radius: 9999px; }
 
 /* Glass card */
 .glass {
-  background: rgba(10, 37, 53, 0.7);
+  background: rgba(36, 36, 70, 0.92);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 212, 224, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.3);
 }
+
+/* Neon border variants */
+.border-purple-glow { border-color: rgba(124, 58, 237, 0.4); }
+.border-pink-glow   { border-color: rgba(236, 72, 153, 0.4); }
+.border-cyan-glow   { border-color: rgba(6, 182, 212, 0.4);  }

@@ -18,7 +18,7 @@ export function ParticleBackground() {
 
     const PARTICLE_COUNT = 70;
     const CONNECTION_DIST = 130;
-    const COLOR = "0, 212, 224";
+    const COLOR = "168, 85, 247";
 
     const particles = Array.from({ length: PARTICLE_COUNT }, () => ({
       x: Math.random() * canvas.width,

@@ -4,44 +4,38 @@ export default {
   theme: {
     extend: {
       colors: {
-        space:   "#05141c",
-        deep:    "#0a2535",
-        mid:     "#0f3d52",
+        void:  "#0a0a18",
+        dark:  "#12122a",
+        panel: "#1a1a35",
+        rim:   "#252550",
         compass: {
-          slate: "#36565F",
-          steel: "#5F8190",
-          mist:  "#E2F0F0",
-          black: "#141414",
-          glow:  "#00d4e0",
-          bright:"#7ef0f7",
+          purple: "#7c3aed",
+          violet: "#a855f7",
+          pink:   "#ec4899",
+          cyan:   "#06b6d4",
+          white:  "#f0f0ff",
+          muted:  "#6b6b9a",
         },
       },
-      backgroundImage: {
-        "radial-glow": "radial-gradient(ellipse at 60% 40%, #0f3d52 0%, #0a2535 50%, #05141c 100%)",
-      },
       boxShadow: {
-        glow: "0 0 20px rgba(0,212,224,0.35)",
-        "glow-lg": "0 0 40px rgba(0,212,224,0.25)",
+        purple: "0 0 20px rgba(124,58,237,0.4)",
+        pink:   "0 0 20px rgba(236,72,153,0.35)",
+        cyan:   "0 0 20px rgba(6,182,212,0.35)",
       },
       keyframes: {
-        pulse_glow: {
-          "0%, 100%": { opacity: "0.4", transform: "scale(1)" },
-          "50%":       { opacity: "0.9", transform: "scale(1.15)" },
+        pulse_purple: {
+          "0%, 100%": { opacity: "0.5", transform: "scale(1)" },
+          "50%":       { opacity: "1",   transform: "scale(1.12)" },
         },
         float: {
           "0%, 100%": { transform: "translateY(0px) translateX(0px)" },
           "33%":      { transform: "translateY(-18px) translateX(12px)" },
           "66%":      { transform: "translateY(10px) translateX(-10px)" },
         },
-        drift: {
-          "0%":   { transform: "translateX(0) translateY(0)" },
-          "100%": { transform: "translateX(-50%) translateY(-20px)" },
-        },
       },
       animation: {
-        pulse_glow: "pulse_glow 3s ease-in-out infinite",
-        float:      "float 6s ease-in-out infinite",
-        drift:      "drift 20s linear infinite",
+        pulse_purple: "pulse_purple 3s ease-in-out infinite",
+        float:        "float 6s ease-in-out infinite",
       },
     },
   },
