@@ -5,14 +5,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import httpx
 
-from config import FAISS_INDEX_PATH, OLLAMA_BASE_URL, LLM_BACKEND, ANTHROPIC_API_KEY, CLAUDE_MODEL, HF_API_TOKEN, HF_MODEL
+from config import FAISS_INDEX_PATH, OLLAMA_BASE_URL, OLLAMA_MODEL, LLM_BACKEND, ANTHROPIC_API_KEY, CLAUDE_MODEL, HF_API_TOKEN, HF_MODEL, OLLAMA_USERNAME, OLLAMA_PASSWORD
 from rag import load_retriever, build_ollama_chain, retrieve_docs, run_huggingface_with_tools, run_claude_with_tools, format_sources
 
 app = FastAPI(title="COMPASS OUD Research Assistant")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"],
+    allow_origins=["http://localhost:5173", "http://localhost:3000", "https://compass.axiomsystemslab.com"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -41,7 +41,7 @@ async def startup():
     elif LLM_BACKEND == "claude":
         backend_label = f"Claude ({CLAUDE_MODEL})"
     else:
-        backend_label = f"Ollama ({OLLAMA_BASE_URL})"
+        backend_label = f"Ollama ({OLLAMA_MODEL} @ {OLLAMA_BASE_URL})"
     print(f"COMPASS ready — backend: {backend_label}", flush=True)
 
 
@@ -68,7 +68,8 @@ async def health():
 
     ollama_ok = False
     try:
-        async with httpx.AsyncClient(timeout=3.0) as client:
+        auth = (OLLAMA_USERNAME, OLLAMA_PASSWORD) if OLLAMA_USERNAME else None
+        async with httpx.AsyncClient(timeout=3.0, auth=auth) as client:
             r = await client.get(f"{OLLAMA_BASE_URL}/api/tags")
             ollama_ok = r.status_code == 200
     except Exception:

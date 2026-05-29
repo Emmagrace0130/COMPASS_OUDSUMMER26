@@ -1,6 +1,7 @@
 """
 RAG pipeline: FAISS retrieval + LLM (Ollama or Claude) generation.
 """
+import base64
 import anthropic
 from huggingface_hub import InferenceClient
 from langchain_community.embeddings import FastEmbedEmbeddings
@@ -13,6 +14,8 @@ from config import (
     EMBEDDING_MODEL,
     OLLAMA_BASE_URL,
     OLLAMA_MODEL,
+    OLLAMA_USERNAME,
+    OLLAMA_PASSWORD,
     LLM_BACKEND,
     HF_API_TOKEN,
     HF_MODEL,
@@ -57,8 +60,15 @@ def load_retriever():
     )
 
 
+def _ollama_headers() -> dict:
+    if OLLAMA_USERNAME and OLLAMA_PASSWORD:
+        token = base64.b64encode(f"{OLLAMA_USERNAME}:{OLLAMA_PASSWORD}".encode()).decode()
+        return {"Authorization": f"Basic {token}"}
+    return {}
+
+
 def build_ollama_chain(retriever):
-    llm = Ollama(base_url=OLLAMA_BASE_URL, model=OLLAMA_MODEL, temperature=0.1)
+    llm = Ollama(base_url=OLLAMA_BASE_URL, model=OLLAMA_MODEL, temperature=0.1, headers=_ollama_headers())
     return RetrievalQA.from_chain_type(
         llm=llm,
         chain_type="stuff",

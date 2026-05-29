@@ -1,0 +1,25 @@
+services:
+  backend:
+    build: ./backend
+    env_file: ./backend/.env
+    environment:
+      - VECTOR_LIBRARY_PATH=/app/Vector_Library
+      - FAISS_INDEX_PATH=/app/faiss_index
+    volumes:
+      - ../Vector_Library:/app/Vector_Library:ro
+      - ./backend/faiss_index:/app/faiss_index
+      - fastembed_cache:/root/.cache/fastembed
+    extra_hosts:
+      - "host.containers.internal:host-gateway"
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "127.0.0.1:8020:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  fastembed_cache:
