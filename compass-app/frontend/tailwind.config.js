@@ -32,10 +32,15 @@ export default {
           "33%":      { transform: "translateY(-18px) translateX(12px)" },
           "66%":      { transform: "translateY(10px) translateX(-10px)" },
         },
+        spin_slow: {
+          "0%":   { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
       },
       animation: {
         pulse_purple: "pulse_purple 3s ease-in-out infinite",
         float:        "float 6s ease-in-out infinite",
+        spin_slow:    "spin_slow 28s linear infinite",
       },
     },
   },

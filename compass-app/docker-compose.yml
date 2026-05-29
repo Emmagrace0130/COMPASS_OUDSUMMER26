@@ -1,5 +1,8 @@
+name: compass-oudsummer26
+
 services:
   backend:
+    container_name: compass-backend
     build: ./backend
     env_file: ./backend/.env
     environment:
@@ -14,6 +17,7 @@ services:
     restart: unless-stopped
 
   frontend:
+    container_name: compass-frontend
     build: ./frontend
     environment:
       - VIRTUAL_HOST=compass.axiomsystemslab.com

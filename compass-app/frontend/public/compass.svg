@@ -1,0 +1,180 @@
+<svg width="100%" viewBox="0 0 680 540" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Compass Logo with Opioid Molecular Structure</title>
+  <defs>
+    <filter id="glow-purple">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-text">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-atom">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="needle-n" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c084fc"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="needle-s" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="100%" stop-color="#312e81"/>
+    </linearGradient>
+    <linearGradient id="face-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0f0a1e"/>
+      <stop offset="100%" stop-color="#13102a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect x="40" y="15" width="600" height="510" rx="16" fill="#090714" stroke="#2d1f6e" stroke-width="1"/>
+
+  <!-- MORPHINE label + structure -->
+  <text x="62" y="42" font-family="Orbitron, monospace" font-size="8" fill="#4a3878">MORPHINE · C₁₇H₁₉NO₃</text>
+  <line x1="62" y1="45" x2="200" y2="45" stroke="#2a1f5e" stroke-width="0.5"/>
+  <polygon points="80,80 96,70 112,80 112,100 96,110 80,100" fill="none" stroke="#3b2d7a" stroke-width="1"/>
+  <polygon points="112,80 128,70 144,80 144,100 128,110 112,100" fill="none" stroke="#3b2d7a" stroke-width="1"/>
+  <polygon points="144,80 160,70 176,80 176,100 160,110 144,100" fill="none" stroke="#3b2d7a" stroke-width="1"/>
+  <line x1="96" y1="110" x2="96" y2="125" stroke="#3b2d7a" stroke-width="1"/>
+  <line x1="128" y1="110" x2="128" y2="125" stroke="#3b2d7a" stroke-width="1"/>
+  <line x1="96" y1="125" x2="128" y2="125" stroke="#3b2d7a" stroke-width="1"/>
+  <line x1="80" y1="90" x2="66" y2="82" stroke="#3b2d7a" stroke-width="1"/>
+  <text x="58" y="85" font-family="Rajdhani, sans-serif" font-size="10" font-weight="600" fill="#5b4fa8">O</text>
+  <line x1="176" y1="90" x2="190" y2="82" stroke="#3b2d7a" stroke-width="1"/>
+  <text x="190" y="85" font-family="Rajdhani, sans-serif" font-size="10" font-weight="600" fill="#7c5fc8">N</text>
+  <line x1="82" y1="83" x2="94" y2="76" stroke="#4a3888" stroke-width="0.6" stroke-dasharray="2 2"/>
+  <line x1="114" y1="83" x2="126" y2="76" stroke="#4a3888" stroke-width="0.6" stroke-dasharray="2 2"/>
+  <circle cx="96" cy="70" r="3" fill="#1a1240" stroke="#5b4fa8" stroke-width="0.8"/>
+  <circle cx="128" cy="70" r="3" fill="#1a1240" stroke="#5b4fa8" stroke-width="0.8"/>
+  <circle cx="160" cy="70" r="3" fill="#1a1240" stroke="#7c5fc8" stroke-width="0.8"/>
+  <circle cx="176" cy="90" r="3" fill="#1a1240" stroke="#7c5fc8" stroke-width="0.8"/>
+
+  <!-- FENTANYL label + structure -->
+  <text x="430" y="42" font-family="Orbitron, monospace" font-size="8" fill="#4a3878">FENTANYL · C₂₂H₂₈N₂O</text>
+  <line x1="430" y1="45" x2="618" y2="45" stroke="#2a1f5e" stroke-width="0.5"/>
+  <polygon points="510,60 526,52 542,60 542,78 526,86 510,78" fill="none" stroke="#2e246e" stroke-width="1"/>
+  <text x="521" y="75" font-family="Rajdhani, sans-serif" font-size="10" font-weight="600" fill="#7c5fc8">N</text>
+  <line x1="510" y1="69" x2="494" y2="61" stroke="#2e246e" stroke-width="1"/>
+  <line x1="494" y1="61" x2="478" y2="69" stroke="#2e246e" stroke-width="1"/>
+  <polygon points="462,60 478,52 494,60 494,78 478,86 462,78" fill="none" stroke="#2e246e" stroke-width="1"/>
+  <line x1="542" y1="69" x2="558" y2="61" stroke="#2e246e" stroke-width="1"/>
+  <polygon points="558,52 574,44 590,52 590,70 574,78 558,70" fill="none" stroke="#2e246e" stroke-width="1"/>
+  <line x1="542" y1="69" x2="554" y2="84" stroke="#2e246e" stroke-width="1"/>
+  <text x="553" y="96" font-family="Rajdhani, sans-serif" font-size="10" font-weight="600" fill="#9d6fc0">O</text>
+  <line x1="526" y1="86" x2="526" y2="100" stroke="#2e246e" stroke-width="1"/>
+  <text x="521" y="112" font-family="Rajdhani, sans-serif" font-size="10" font-weight="600" fill="#7c5fc8">N</text>
+  <circle cx="478" cy="52" r="2.5" fill="#1a1240" stroke="#5b4fa8" stroke-width="0.8"/>
+  <circle cx="574" cy="44" r="2.5" fill="#1a1240" stroke="#5b4fa8" stroke-width="0.8"/>
+  <circle cx="526" cy="86" r="3" fill="#1a1240" stroke="#7c5fc8" stroke-width="1"/>
+
+  <!-- COMPASS ROSE -->
+  <circle cx="340" cy="295" r="168" fill="none" stroke="#1a1240" stroke-width="1" stroke-dasharray="3 4"/>
+  <circle cx="340" cy="295" r="150" fill="none" stroke="#1e1650" stroke-width="0.8"/>
+  <circle cx="340" cy="295" r="135" fill="url(#face-grad)" stroke="#4c1d95" stroke-width="1.5"/>
+  <circle cx="340" cy="295" r="133" fill="none" stroke="#7c3aed" stroke-width="0.4" opacity="0.5"/>
+
+  <!-- Cardinal ticks -->
+  <line x1="340" y1="162" x2="340" y2="175" stroke="#7c3aed" stroke-width="2"/>
+  <line x1="340" y1="415" x2="340" y2="428" stroke="#4c1d95" stroke-width="2"/>
+  <line x1="207" y1="295" x2="220" y2="295" stroke="#4c1d95" stroke-width="2"/>
+  <line x1="460" y1="295" x2="473" y2="295" stroke="#4c1d95" stroke-width="2"/>
+  <!-- Intercardinal ticks -->
+  <line x1="435" y1="200" x2="426" y2="209" stroke="#312e81" stroke-width="1.2"/>
+  <line x1="435" y1="390" x2="426" y2="381" stroke="#312e81" stroke-width="1.2"/>
+  <line x1="245" y1="200" x2="254" y2="209" stroke="#312e81" stroke-width="1.2"/>
+  <line x1="245" y1="390" x2="254" y2="381" stroke="#312e81" stroke-width="1.2"/>
+  <!-- Minor ticks -->
+  <line x1="387" y1="163" x2="384" y2="174" stroke="#231850" stroke-width="0.8"/>
+  <line x1="293" y1="163" x2="296" y2="174" stroke="#231850" stroke-width="0.8"/>
+  <line x1="387" y1="427" x2="384" y2="416" stroke="#231850" stroke-width="0.8"/>
+  <line x1="293" y1="427" x2="296" y2="416" stroke="#231850" stroke-width="0.8"/>
+  <line x1="207" y1="342" x2="219" y2="339" stroke="#231850" stroke-width="0.8"/>
+  <line x1="207" y1="248" x2="219" y2="251" stroke="#231850" stroke-width="0.8"/>
+  <line x1="473" y1="342" x2="461" y2="339" stroke="#231850" stroke-width="0.8"/>
+  <line x1="473" y1="248" x2="461" y2="251" stroke="#231850" stroke-width="0.8"/>
+
+  <!-- Direction labels -->
+  <text x="340" y="158" text-anchor="middle" font-family="Orbitron, monospace" font-size="13" font-weight="700" fill="#c084fc" filter="url(#glow-purple)">N</text>
+  <text x="340" y="447" text-anchor="middle" font-family="Orbitron, monospace" font-size="13" font-weight="700" fill="#4c3688">S</text>
+  <text x="200" y="300" text-anchor="middle" font-family="Orbitron, monospace" font-size="13" font-weight="700" fill="#4c3688">W</text>
+  <text x="480" y="300" text-anchor="middle" font-family="Orbitron, monospace" font-size="13" font-weight="700" fill="#4c3688">E</text>
+  <text x="434" y="198" text-anchor="middle" font-family="Orbitron, monospace" font-size="9" fill="#312e81">NE</text>
+  <text x="246" y="198" text-anchor="middle" font-family="Orbitron, monospace" font-size="9" fill="#312e81">NW</text>
+  <text x="434" y="398" text-anchor="middle" font-family="Orbitron, monospace" font-size="9" fill="#312e81">SE</text>
+  <text x="246" y="398" text-anchor="middle" font-family="Orbitron, monospace" font-size="9" fill="#312e81">SW</text>
+
+  <!-- Crosshairs -->
+  <line x1="340" y1="180" x2="340" y2="410" stroke="#2d1f6e" stroke-width="0.5" stroke-dasharray="3 4"/>
+  <line x1="222" y1="295" x2="458" y2="295" stroke="#2d1f6e" stroke-width="0.5" stroke-dasharray="3 4"/>
+
+  <!-- Needle North -->
+  <polygon points="340,188 333,295 340,283 347,295" fill="url(#needle-n)" filter="url(#glow-purple)"/>
+  <!-- Needle South -->
+  <polygon points="340,402 333,295 340,307 347,295" fill="url(#needle-s)"/>
+
+  <!-- Center hub -->
+  <circle cx="340" cy="295" r="8" fill="#090714" stroke="#7c3aed" stroke-width="1.5"/>
+  <circle cx="340" cy="295" r="3" fill="#c084fc" filter="url(#glow-purple)"/>
+
+  <!-- COMPASS wordmark -->
+  <text x="340" y="272" text-anchor="middle" font-family="Orbitron, monospace" font-size="22" font-weight="900" fill="#f0f4ff" filter="url(#glow-text)">COMPASS</text>
+  <line x1="282" y1="278" x2="398" y2="278" stroke="#7c3aed" stroke-width="0.6" opacity="0.7"/>
+  <text x="340" y="315" text-anchor="middle" font-family="Rajdhani, sans-serif" font-size="10" font-weight="300" fill="#7c6fab">35.5°N · 86.7°W</text>
+
+  <!-- Rim dots -->
+  <circle cx="340" cy="180" r="3" fill="#c084fc" opacity="0.8" filter="url(#glow-purple)"/>
+  <circle cx="430" cy="212" r="2" fill="#a78bfa" opacity="0.5"/>
+  <circle cx="430" cy="378" r="2" fill="#a78bfa" opacity="0.5"/>
+  <circle cx="250" cy="212" r="2" fill="#a78bfa" opacity="0.5"/>
+  <circle cx="250" cy="378" r="2" fill="#a78bfa" opacity="0.5"/>
+
+  <!-- NALOXONE label + structure -->
+  <text x="56" y="472" font-family="Orbitron, monospace" font-size="8" fill="#4a3878">NALOXONE · C₁₉H₂₁NO₄</text>
+  <line x1="56" y1="455" x2="200" y2="455" stroke="#2a1f5e" stroke-width="0.5"/>
+  <polygon points="72,430 86,422 100,430 100,448 86,456 72,448" fill="none" stroke="#2a1f5e" stroke-width="1"/>
+  <polygon points="100,430 114,422 128,430 128,448 114,456 100,448" fill="none" stroke="#2a1f5e" stroke-width="1"/>
+  <polygon points="128,430 142,422 156,430 156,448 142,456 128,448" fill="none" stroke="#2a1f5e" stroke-width="1"/>
+  <line x1="156" y1="439" x2="170" y2="431" stroke="#2a1f5e" stroke-width="1"/>
+  <line x1="170" y1="431" x2="184" y2="439" stroke="#2a1f5e" stroke-width="1"/>
+  <line x1="170" y1="431" x2="170" y2="418" stroke="#2a1f5e" stroke-width="1"/>
+  <text x="150" y="445" font-family="Rajdhani, sans-serif" font-size="10" font-weight="600" fill="#7c5fc8">N</text>
+  <line x1="72" y1="439" x2="60" y2="431" stroke="#2a1f5e" stroke-width="1"/>
+  <text x="52" y="434" font-family="Rajdhani, sans-serif" font-size="10" font-weight="600" fill="#5b4fa8">O</text>
+  <line x1="86" y1="456" x2="86" y2="468" stroke="#2a1f5e" stroke-width="1"/>
+  <text x="82" y="478" font-family="Rajdhani, sans-serif" font-size="10" font-weight="600" fill="#9d6fc0">O</text>
+  <circle cx="86" cy="422" r="2.5" fill="#1a1240" stroke="#5b4fa8" stroke-width="0.8"/>
+  <circle cx="114" cy="422" r="2.5" fill="#1a1240" stroke="#5b4fa8" stroke-width="0.8"/>
+  <circle cx="142" cy="422" r="2.5" fill="#1a1240" stroke="#7c5fc8" stroke-width="0.8"/>
+
+  <!-- OXYCODONE label + structure -->
+  <text x="435" y="472" font-family="Orbitron, monospace" font-size="8" fill="#4a3878">OXYCODONE · C₁₈H₂₁NO₄</text>
+  <line x1="435" y1="455" x2="618" y2="455" stroke="#2a1f5e" stroke-width="0.5"/>
+  <polygon points="450,430 464,422 478,430 478,448 464,456 450,448" fill="none" stroke="#2a1f5e" stroke-width="1"/>
+  <polygon points="478,430 492,422 506,430 506,448 492,456 478,448" fill="none" stroke="#2a1f5e" stroke-width="1"/>
+  <polygon points="506,430 520,422 534,430 534,448 520,456 506,448" fill="none" stroke="#2a1f5e" stroke-width="1"/>
+  <path d="M464,422 Q478,410 492,422" fill="none" stroke="#2a1f5e" stroke-width="1"/>
+  <text x="474" y="412" font-family="Rajdhani, sans-serif" font-size="10" font-weight="600" fill="#9d6fc0">O</text>
+  <line x1="534" y1="439" x2="548" y2="431" stroke="#2a1f5e" stroke-width="1"/>
+  <text x="548" y="434" font-family="Rajdhani, sans-serif" font-size="10" font-weight="600" fill="#7c5fc8">N</text>
+  <line x1="492" y1="456" x2="492" y2="468" stroke="#2a1f5e" stroke-width="1"/>
+  <text x="488" y="478" font-family="Rajdhani, sans-serif" font-size="10" font-weight="600" fill="#9d6fc0">O</text>
+  <line x1="450" y1="439" x2="438" y2="431" stroke="#2a1f5e" stroke-width="1"/>
+  <text x="430" y="434" font-family="Rajdhani, sans-serif" font-size="10" font-weight="600" fill="#5b4fa8">O</text>
+  <circle cx="464" cy="422" r="2.5" fill="#1a1240" stroke="#5b4fa8" stroke-width="0.8"/>
+  <circle cx="492" cy="422" r="2.5" fill="#1a1240" stroke="#5b4fa8" stroke-width="0.8"/>
+  <circle cx="520" cy="422" r="2.5" fill="#1a1240" stroke="#7c5fc8" stroke-width="0.8"/>
+
+  <!-- Tennessee label -->
+  <text x="340" y="498" text-anchor="middle" font-family="Rajdhani, sans-serif" font-size="11" font-weight="600" fill="#9d8ce0">TENNESSEE</text>
+  <line x1="185" y1="494" x2="278" y2="494" stroke="#4c1d95" stroke-width="0.7"/>
+  <line x1="402" y1="494" x2="498" y2="494" stroke="#4c1d95" stroke-width="0.7"/>
+  <circle cx="280" cy="494" r="2" fill="#7c3aed"/>
+  <circle cx="400" cy="494" r="2" fill="#7c3aed"/>
+
+  <!-- Corner accents -->
+  <path d="M52 27 L52 41 L66 41" fill="none" stroke="#4c1d95" stroke-width="1"/>
+  <path d="M628 27 L628 41 L614 41" fill="none" stroke="#4c1d95" stroke-width="1"/>
+  <path d="M52 513 L52 499 L66 499" fill="none" stroke="#4c1d95" stroke-width="1"/>
+  <path d="M628 513 L628 499 L614 499" fill="none" stroke="#4c1d95" stroke-width="1"/>
+</svg>

@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { MessageBubble } from "./components/MessageBubble";
 import { StatusBadge } from "./components/StatusBadge";
 import { DataView } from "./components/DataView";
-import { ParticleBackground } from "./components/ParticleBackground";
+import { MoleculeBackground } from "./components/MoleculeBackground";
 import type { Message, Source } from "./types";
 
 type Tab = "chat" | "data";
@@ -115,25 +115,22 @@ export default function App() {
         <main className="flex-1 overflow-y-auto relative">
           {isEmpty ? (
             <div className="relative flex flex-col items-center justify-center h-full px-6 pb-24 overflow-hidden">
-              <ParticleBackground />
+              <MoleculeBackground />
 
-              {/* Background glow blobs */}
-              <div className="absolute top-1/3 left-1/4 w-96 h-96 rounded-full bg-compass-purple/10 blur-3xl pointer-events-none" />
-              <div className="absolute bottom-1/3 right-1/4 w-64 h-64 rounded-full bg-compass-pink/8 blur-3xl pointer-events-none" />
+              {/* Subtle radial glow behind compass */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px] rounded-full bg-compass-purple/8 blur-3xl pointer-events-none" />
 
               <div className="relative z-10 flex flex-col items-center">
-                {/* Logo ring */}
-                <div className="relative w-20 h-20 mb-6">
-                  <div className="absolute inset-0 rounded-full border-2 border-compass-violet/50 animate-pulse_purple" />
-                  <div className="absolute inset-2 rounded-full border border-compass-pink/20" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-compass-violet font-bold text-2xl" style={{ textShadow: "0 0 20px #a855f7" }}>C</span>
-                  </div>
+                {/* Spinning compass logo */}
+                <div className="relative mb-6">
+                  <img
+                    src="/compass.svg"
+                    alt="COMPASS"
+                    className="w-72 h-56 animate-spin_slow opacity-90 drop-shadow-[0_0_32px_rgba(124,58,237,0.5)]"
+                    style={{ filter: "drop-shadow(0 0 18px rgba(192,132,252,0.35))" }}
+                  />
                 </div>
 
-                <h2 className="text-2xl font-bold text-compass-white tracking-widest uppercase mb-2" style={{ textShadow: "0 0 30px rgba(168,85,247,0.5)" }}>
-                  COMPASS
-                </h2>
                 <p className="text-compass-violet/70 text-sm tracking-wide mb-1">OUD Research Assistant</p>
                 <p className="text-compass-muted text-xs text-center max-w-sm mb-10">
                   Searching 150+ clinical guidelines, research papers, and Tennessee policy documents.
