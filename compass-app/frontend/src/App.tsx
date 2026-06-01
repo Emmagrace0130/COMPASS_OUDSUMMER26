@@ -114,24 +114,32 @@ export default function App() {
       ) : (
         <main className="flex-1 overflow-y-auto relative">
           {isEmpty ? (
-            <div className="relative flex flex-col items-center justify-center h-full px-6 pb-24 overflow-hidden">
+            <div className="relative flex flex-col items-center justify-center h-full overflow-hidden">
+
+              {/* Layer 1 — spinning compass fills the whole background */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <img
+                  src="/compass-transparent.svg"
+                  alt=""
+                  className="animate-spin_slow"
+                  style={{
+                    width: "max(160%, 160vh)",
+                    height: "max(160%, 160vh)",
+                    opacity: 0.28,
+                    filter: "drop-shadow(0 0 24px rgba(124,58,237,0.3))",
+                  }}
+                />
+              </div>
+
+              {/* Layer 2 — floating molecular structures */}
               <MoleculeBackground />
 
-              {/* Subtle radial glow behind compass */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px] rounded-full bg-compass-purple/8 blur-3xl pointer-events-none" />
-
-              <div className="relative z-10 flex flex-col items-center">
-                {/* Spinning compass logo */}
-                <div className="relative mb-6">
-                  <img
-                    src="/compass.svg"
-                    alt="COMPASS"
-                    className="w-72 h-56 animate-spin_slow opacity-90 drop-shadow-[0_0_32px_rgba(124,58,237,0.5)]"
-                    style={{ filter: "drop-shadow(0 0 18px rgba(192,132,252,0.35))" }}
-                  />
-                </div>
-
-                <p className="text-compass-violet/70 text-sm tracking-wide mb-1">OUD Research Assistant</p>
+              {/* Layer 3 — content */}
+              <div className="relative z-10 flex flex-col items-center px-6 pb-24">
+                <p className="text-compass-violet/80 text-sm tracking-widest uppercase mb-1 font-semibold"
+                   style={{ fontFamily: "Orbitron, monospace", textShadow: "0 0 16px rgba(168,85,247,0.6)" }}>
+                  OUD Research Assistant
+                </p>
                 <p className="text-compass-muted text-xs text-center max-w-sm mb-10">
                   Searching 150+ clinical guidelines, research papers, and Tennessee policy documents.
                 </p>

@@ -140,7 +140,7 @@ export function MoleculeBackground() {
       rot:   Math.random() * Math.PI * 2,
       rotV:  (Math.random() - 0.5) * 0.003,
       kind:  KINDS[i % 4],
-      alpha: 0.04 + Math.random() * 0.06,
+      alpha: 0.07 + Math.random() * 0.08,
       scale: 0.7 + Math.random() * 0.6,
     }));
 
