@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>COMPASS — Poster Infographic</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@700;900&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0d0d14;
+    --panel:    #13131f;
+    --rim:      #2a2a40;
+    --violet:   #a855f7;
+    --purple:   #7c3aed;
+    --amber:    #d97316;
+    --teal:     #14b8a6;
+    --rose:     #f43f5e;
+    --white:    #f0eefc;
+    --muted:    #8b8aad;
+    --faint:    #1e1e2f;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Inter', system-ui, sans-serif;
+    /* 48in × 36in at 96dpi = 4608 × 3456px; scale to fit screen */
+    width: 1440px;
+    min-height: 1080px;
+    margin: 0 auto;
+  }
+
+  /* ── utilities ── */
+  .tag {
+    display: inline-block;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    border-radius: 4px;
+    border: 1px solid;
+  }
+  .tag-violet { color: var(--violet); border-color: rgba(168,85,247,.35); background: rgba(168,85,247,.08); }
+  .tag-amber  { color: var(--amber);  border-color: rgba(217,115,22,.35);  background: rgba(217,115,22,.08); }
+  .tag-teal   { color: var(--teal);   border-color: rgba(20,184,166,.35);  background: rgba(20,184,166,.08); }
+  .tag-rose   { color: var(--rose);   border-color: rgba(244,63,94,.35);   background: rgba(244,63,94,.08); }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--rim);
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+
+  .section-label {
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rim);
+  }
+
+  /* ── HEADER BANNER ── */
+  .header {
+    padding: 28px 48px 24px;
+    border-bottom: 1px solid var(--rim);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    background: linear-gradient(135deg, #0d0d14 0%, #130d24 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 120% at 50% -20%, rgba(124,58,237,.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .header-left { display: flex; align-items: center; gap: 20px; }
+  .compass-badge {
+    width: 64px; height: 64px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(124,58,237,.3), rgba(168,85,247,.15));
+    border: 1.5px solid rgba(168,85,247,.4);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    box-shadow: 0 0 24px rgba(168,85,247,.3);
+    flex-shrink: 0;
+  }
+  .header-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 36px;
+    font-weight: 900;
+    letter-spacing: .12em;
+    color: var(--white);
+    line-height: 1;
+  }
+  .header-subtitle {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: .06em;
+    margin-top: 5px;
+  }
+  .header-subtitle span { color: var(--violet); }
+
+  .header-stats {
+    display: flex;
+    gap: 32px;
+    flex-shrink: 0;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Orbitron', monospace;
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 8px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .header-meta {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .header-meta p { font-size: 10px; color: var(--muted); line-height: 1.7; }
+  .header-meta .url {
+    font-family: 'Orbitron', monospace;
+    font-size: 9px;
+    color: var(--violet);
+    letter-spacing: .06em;
+    margin-top: 6px;
+  }
+
+  /* ── MAIN GRID ── */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr 1fr;
+    gap: 0;
+  }
+
+  .col {
+    padding: 28px 32px;
+    border-right: 1px solid var(--rim);
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .col:last-child { border-right: none; }
+
+  /* ── PROBLEM SECTION ── */
+  .problem-card {
+    background: linear-gradient(135deg, rgba(244,63,94,.08), rgba(217,115,22,.06));
+    border: 1px solid rgba(244,63,94,.25);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .problem-card h3 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: 10px;
+  }
+  .stat-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .mini-stat {
+    flex: 1;
+    background: rgba(0,0,0,.3);
+    border-radius: 8px;
+    padding: 10px 12px;
+    text-align: center;
+  }
+  .mini-stat .n {
+    font-family: 'Orbitron', monospace;
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--rose);
+    line-height: 1;
+  }
+  .mini-stat .l { font-size: 8px; color: var(--muted); letter-spacing: .08em; margin-top: 3px; }
+  .problem-card p { font-size: 9.5px; color: var(--muted); line-height: 1.65; }
+  .problem-card strong { color: var(--white); }
+
+  /* ── WHAT IS ── */
+  .what-card h3 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .what-card p { font-size: 10px; color: var(--muted); line-height: 1.7; }
+  .what-card strong { color: var(--violet); }
+
+  /* ── WHO SECTION ── */
+  .audience-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .audience-item {
+    background: var(--faint);
+    border: 1px solid var(--rim);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .audience-item .icon { font-size: 18px; margin-bottom: 6px; }
+  .audience-item .title { font-size: 10px; font-weight: 700; color: var(--white); margin-bottom: 3px; }
+  .audience-item .desc { font-size: 8.5px; color: var(--muted); line-height: 1.55; }
+
+  /* ── RAG PIPELINE ── */
+  .rag-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+  .rag-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 16px;
+    background: var(--faint);
+    border: 1px solid var(--rim);
+    border-radius: 10px;
+    position: relative;
+  }
+  .rag-connector {
+    width: 2px;
+    height: 16px;
+    background: linear-gradient(to bottom, var(--purple), var(--violet));
+    margin: 0 auto;
+    margin-left: 27px;
+  }
+  .rag-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Orbitron', monospace;
+    font-size: 11px;
+    font-weight: 900;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .rag-step h4 { font-size: 11px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+  .rag-step p  { font-size: 9px;  color: var(--muted); line-height: 1.6; }
+  .rag-step .tag { margin-top: 5px; }
+
+  .arch-diagram {
+    background: var(--faint);
+    border: 1px solid var(--rim);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 4px;
+    flex-wrap: nowrap;
+  }
+  .arch-box {
+    text-align: center;
+    flex: 1;
+  }
+  .arch-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    margin: 0 auto 6px;
+    border: 1px solid;
+  }
+  .arch-name { font-size: 9px; font-weight: 700; color: var(--white); }
+  .arch-sub  { font-size: 7.5px; color: var(--muted); margin-top: 2px; }
+  .arch-arrow { font-size: 14px; color: var(--purple); flex-shrink: 0; margin-top: -6px; }
+
+  /* ── TOPIC LIBRARY ── */
+  .topic-list { display: flex; flex-direction: column; gap: 7px; }
+  .topic-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    background: var(--faint);
+    border: 1px solid var(--rim);
+    border-radius: 8px;
+  }
+  .topic-icon { font-size: 15px; flex-shrink: 0; }
+  .topic-name { font-size: 9.5px; font-weight: 600; color: var(--white); flex: 1; }
+  .topic-count { font-size: 8px; color: var(--muted); text-align: right; white-space: nowrap; }
+
+  /* ── DATA FEATURES ── */
+  .data-feature-list { display: flex; flex-direction: column; gap: 8px; }
+  .data-feature {
+    display: flex;
+    gap: 12px;
+    padding: 12px 14px;
+    background: var(--faint);
+    border: 1px solid var(--rim);
+    border-radius: 10px;
+    align-items: flex-start;
+  }
+  .data-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+  .data-feature h4 { font-size: 10px; font-weight: 700; color: var(--white); margin-bottom: 3px; }
+  .data-feature p  { font-size: 8.5px; color: var(--muted); line-height: 1.55; }
+
+  /* ── BENEFITS ── */
+  .benefit-list { display: flex; flex-direction: column; gap: 9px; }
+  .benefit {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 9.5px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .benefit-check {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: rgba(168,85,247,.15);
+    border: 1px solid rgba(168,85,247,.35);
+    color: var(--violet);
+    font-size: 9px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .benefit strong { color: var(--white); }
+
+  /* ── USE CASES ── */
+  .usecase-list { display: flex; flex-direction: column; gap: 9px; }
+  .usecase {
+    background: var(--faint);
+    border: 1px solid var(--rim);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .usecase-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 5px;
+  }
+  .usecase-icon { font-size: 15px; }
+  .usecase h4 { font-size: 10px; font-weight: 700; color: var(--white); }
+  .usecase p  { font-size: 8.5px; color: var(--muted); line-height: 1.55; }
+  .usecase .example {
+    font-size: 8px;
+    color: var(--violet);
+    margin-top: 5px;
+    font-style: italic;
+    opacity: .8;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 1px solid var(--rim);
+    padding: 16px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--panel);
+  }
+  .footer-left { display: flex; align-items: center; gap: 24px; }
+  .footer-logo {
+    font-family: 'Orbitron', monospace;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .1em;
+    color: var(--violet);
+  }
+  .footer p  { font-size: 8.5px; color: var(--muted); line-height: 1.6; }
+  .footer .url {
+    font-family: 'Orbitron', monospace;
+    font-size: 10px;
+    color: var(--violet);
+    letter-spacing: .06em;
+    border: 1px solid rgba(168,85,247,.35);
+    padding: 5px 14px;
+    border-radius: 20px;
+    background: rgba(168,85,247,.08);
+  }
+
+  /* ── DIVIDER ── */
+  .hdivider {
+    height: 1px;
+    background: var(--rim);
+    margin: 4px 0;
+  }
+
+  /* ── HIGHLIGHT QUOTE ── */
+  .highlight-quote {
+    background: linear-gradient(135deg, rgba(124,58,237,.12), rgba(168,85,247,.06));
+    border: 1px solid rgba(168,85,247,.25);
+    border-left: 3px solid var(--violet);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 9.5px;
+    color: var(--muted);
+    line-height: 1.65;
+    font-style: italic;
+  }
+  .highlight-quote strong { color: var(--white); font-style: normal; }
+
+  @media print {
+    body { width: 100%; }
+    @page { size: landscape; margin: 0.5in; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════ HEADER ═══════════════════════ -->
+<header class="header">
+  <div class="header-left">
+    <div class="compass-badge">◈</div>
+    <div>
+      <div class="header-title">COMPASS</div>
+      <div class="header-subtitle">
+        Clinical OUD Map &amp; <span>Policy Assistance Support System</span>
+        &nbsp;·&nbsp; University of Tennessee &nbsp;·&nbsp; Summer 2026
+      </div>
+    </div>
+  </div>
+
+  <div class="header-stats">
+    <div class="stat">
+      <div class="stat-num" style="color:#a855f7">150+</div>
+      <div class="stat-label">Source Documents</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="color:#14b8a6">9</div>
+      <div class="stat-label">Research Topics</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="color:#d97316">95</div>
+      <div class="stat-label">TN Counties Mapped</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="color:#f43f5e">336</div>
+      <div class="stat-label">Knox Co. DRD Cases</div>
+    </div>
+  </div>
+
+  <div class="header-meta">
+    <p>University of Tennessee · Knoxville<br>
+       Axiom Systems Lab &amp; College of Social Work<br>
+       Open-access · No login required</p>
+    <div class="url">compass.axiomsystemslab.com</div>
+  </div>
+</header>
+
+<!-- ═══════════════════════ MAIN GRID ═══════════════════════ -->
+<div class="main-grid">
+
+  <!-- ══════════ COL 1 ══════════ -->
+  <div class="col">
+
+    <!-- Problem -->
+    <div>
+      <div class="section-label">The Problem</div>
+      <div class="problem-card">
+        <h3>Tennessee's Opioid Crisis</h3>
+        <div class="stat-row">
+          <div class="mini-stat">
+            <div class="n">#1</div>
+            <div class="l">Drug OD deaths<br>nationally</div>
+          </div>
+          <div class="mini-stat">
+            <div class="n">3,616</div>
+            <div class="l">TN overdose deaths<br>in 2022</div>
+          </div>
+          <div class="mini-stat">
+            <div class="n">18+</div>
+            <div class="l">% OUD patients go<br>untreated</div>
+          </div>
+        </div>
+        <p>
+          Critical information about OUD treatment — <strong>clinical guidelines, state policy, local surveillance data</strong> — is scattered across dozens of agencies, databases, and PDF reports.
+          Clinicians, researchers, and policymakers can't easily access or synthesize it in time to act.
+        </p>
+      </div>
+    </div>
+
+    <!-- What is COMPASS -->
+    <div>
+      <div class="section-label">What is COMPASS</div>
+      <div class="card what-card">
+        <h3>An AI Research Assistant for OUD</h3>
+        <p>
+          COMPASS is a <strong>Retrieval-Augmented Generation (RAG) chatbot</strong> that puts 150+ clinical guidelines, peer-reviewed papers, and Tennessee policy documents at your fingertips. Ask questions in plain language and get evidence-based answers with citations — in seconds.
+        </p>
+        <div style="margin-top:12px; display:flex; gap:6px; flex-wrap:wrap;">
+          <span class="tag tag-violet">RAG-Powered AI</span>
+          <span class="tag tag-teal">Tennessee-Specific</span>
+          <span class="tag tag-amber">Evidence-Grounded</span>
+          <span class="tag tag-rose">Free to Access</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Who can use it -->
+    <div>
+      <div class="section-label">Who Can Use COMPASS</div>
+      <div class="audience-grid">
+        <div class="audience-item">
+          <div class="icon">🩺</div>
+          <div class="title">Clinicians &amp; Prescribers</div>
+          <div class="desc">Find dosing protocols, induction guides, ASAM/SAMHSA standards, and COWS scoring tools at the point of care.</div>
+        </div>
+        <div class="audience-item">
+          <div class="icon">📊</div>
+          <div class="title">Public Health Workers</div>
+          <div class="desc">Explore county-level overdose trends, treatment facility locations, and wastewater surveillance data across TN.</div>
+        </div>
+        <div class="audience-item">
+          <div class="icon">🔬</div>
+          <div class="title">Researchers</div>
+          <div class="desc">Rapidly search 150+ indexed documents for evidence on MOUD efficacy, behavioral interventions, and health equity.</div>
+        </div>
+        <div class="audience-item">
+          <div class="icon">⚖️</div>
+          <div class="title">Policy Makers</div>
+          <div class="desc">Access TN abatement reports, federal prescribing regulations, correctional MOUD policy, and settlement data.</div>
+        </div>
+        <div class="audience-item">
+          <div class="icon">🤝</div>
+          <div class="title">Social Workers</div>
+          <div class="desc">Find harm reduction strategies, co-occurring mental health resources, and housing/access gap data by county.</div>
+        </div>
+        <div class="audience-item">
+          <div class="icon">🎓</div>
+          <div class="title">Students &amp; Trainees</div>
+          <div class="desc">Learn OUD neuroscience, treatment evidence, and Tennessee policy — with sources you can verify and cite.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /col 1 -->
+
+
+  <!-- ══════════ COL 2 ══════════ -->
+  <div class="col" style="background: linear-gradient(180deg, rgba(124,58,237,.03) 0%, transparent 100%);">
+
+    <!-- How it works -->
+    <div>
+      <div class="section-label">How It Works — RAG Pipeline</div>
+
+      <div class="rag-flow">
+
+        <div class="rag-step">
+          <div class="rag-num" style="background:rgba(168,85,247,.15);border:1px solid rgba(168,85,247,.4);color:var(--violet);">1</div>
+          <div>
+            <h4>User Asks a Question</h4>
+            <p>Type any OUD-related question in plain English — clinical, policy, or data. No special syntax needed.</p>
+            <span class="tag tag-violet" style="font-size:7px;">e.g. "What's the recommended buprenorphine dose for fentanyl-dependent patients?"</span>
+          </div>
+        </div>
+
+        <div class="rag-connector"></div>
+
+        <div class="rag-step">
+          <div class="rag-num" style="background:rgba(20,184,166,.15);border:1px solid rgba(20,184,166,.4);color:var(--teal);">2</div>
+          <div>
+            <h4>Vector Similarity Search</h4>
+            <p>The question is encoded as a vector. FAISS searches 150+ indexed documents and retrieves the most semantically relevant passages.</p>
+            <span class="tag tag-teal" style="font-size:7px;">FAISS · fastembed · semantic search</span>
+          </div>
+        </div>
+
+        <div class="rag-connector"></div>
+
+        <div class="rag-step">
+          <div class="rag-num" style="background:rgba(217,115,22,.15);border:1px solid rgba(217,115,22,.4);color:var(--amber);">3</div>
+          <div>
+            <h4>Context Passed to LLM</h4>
+            <p>Retrieved passages are bundled with the question and sent to the AI model — Claude (Anthropic), Ollama (local), or HuggingFace.</p>
+            <span class="tag tag-amber" style="font-size:7px;">Claude AI · Ollama · HuggingFace</span>
+          </div>
+        </div>
+
+        <div class="rag-connector"></div>
+
+        <div class="rag-step">
+          <div class="rag-num" style="background:rgba(244,63,94,.15);border:1px solid rgba(244,63,94,.4);color:var(--rose);">4</div>
+          <div>
+            <h4>Grounded Answer Returned</h4>
+            <p>The model generates a cited answer based only on retrieved evidence — not hallucination. Every response links to source documents you can verify.</p>
+            <span class="tag tag-rose" style="font-size:7px;">Citations included · Source-verified</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Architecture diagram -->
+    <div>
+      <div class="section-label">Technical Architecture</div>
+      <div class="arch-diagram">
+        <div class="arch-box">
+          <div class="arch-icon" style="background:rgba(168,85,247,.12);border-color:rgba(168,85,247,.35);">⌨️</div>
+          <div class="arch-name">React UI</div>
+          <div class="arch-sub">Vite · TypeScript<br>Tailwind CSS</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box">
+          <div class="arch-icon" style="background:rgba(20,184,166,.12);border-color:rgba(20,184,166,.35);">⚡</div>
+          <div class="arch-name">FastAPI</div>
+          <div class="arch-sub">Python backend<br>REST endpoints</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box">
+          <div class="arch-icon" style="background:rgba(217,115,22,.12);border-color:rgba(217,115,22,.35);">🔍</div>
+          <div class="arch-name">FAISS Index</div>
+          <div class="arch-sub">Vector search<br>150+ docs</div>
+        </div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box">
+          <div class="arch-icon" style="background:rgba(244,63,94,.12);border-color:rgba(244,63,94,.35);">🤖</div>
+          <div class="arch-name">LLM</div>
+          <div class="arch-sub">Claude · Ollama<br>HuggingFace</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sample questions -->
+    <div>
+      <div class="section-label">Example Queries</div>
+      <div style="display:flex; flex-direction:column; gap:7px;">
+        <div class="highlight-quote">"What are the <strong>recommended first-line medications</strong> for OUD in Tennessee?"</div>
+        <div class="highlight-quote">"What does research say about <strong>OUD treatment during pregnancy</strong>?"</div>
+        <div class="highlight-quote">"How do <strong>Tennessee's buprenorphine guidelines</strong> compare to ASAM standards?"</div>
+        <div class="highlight-quote">"Which TN counties have the <strong>highest overdose death rates</strong> in 2025?"</div>
+        <div class="highlight-quote">"What are the <strong>CDC 2022 opioid prescribing recommendations</strong>?"</div>
+      </div>
+    </div>
+
+  </div><!-- /col 2 -->
+
+
+  <!-- ══════════ COL 3 ══════════ -->
+  <div class="col">
+
+    <!-- Research library -->
+    <div>
+      <div class="section-label">Research Library — 9 Topic Areas</div>
+      <div class="topic-list">
+        <div class="topic-item">
+          <div class="topic-icon">💊</div>
+          <div class="topic-name">OUD Medications &amp; Treatment</div>
+          <div class="topic-count" style="color:var(--violet);">buprenorphine · methadone · naltrexone</div>
+        </div>
+        <div class="topic-item">
+          <div class="topic-icon">📋</div>
+          <div class="topic-name">Clinical Practice Guidelines</div>
+          <div class="topic-count" style="color:var(--violet);">ASAM · SAMHSA · CDC · WHO · VA/DoD</div>
+        </div>
+        <div class="topic-item">
+          <div class="topic-icon">📊</div>
+          <div class="topic-name">TN OUD Data &amp; Surveillance</div>
+          <div class="topic-count" style="color:var(--teal);">SUDORS · NSDUH · CSMD · Knox Co.</div>
+        </div>
+        <div class="topic-item">
+          <div class="topic-icon">🧠</div>
+          <div class="topic-name">Behavioral &amp; Counseling Treatment</div>
+          <div class="topic-count" style="color:var(--violet);">CBT · motivational interviewing · CM</div>
+        </div>
+        <div class="topic-item">
+          <div class="topic-icon">🔬</div>
+          <div class="topic-name">Neuroscience of Opioid Dependence</div>
+          <div class="topic-count" style="color:var(--violet);">receptor pharmacology · neuroadaptation</div>
+        </div>
+        <div class="topic-item">
+          <div class="topic-icon">🤝</div>
+          <div class="topic-name">Co-occurring Mental Health</div>
+          <div class="topic-count" style="color:var(--violet);">dual-diagnosis · integrated treatment</div>
+        </div>
+        <div class="topic-item">
+          <div class="topic-icon">⚖️</div>
+          <div class="topic-name">Health Equity &amp; Access Gaps in TN</div>
+          <div class="topic-count" style="color:var(--amber);">racial disparities · rural barriers</div>
+        </div>
+        <div class="topic-item">
+          <div class="topic-icon">🛡️</div>
+          <div class="topic-name">Harm Reduction</div>
+          <div class="topic-count" style="color:var(--teal);">naloxone · fentanyl strips · SSPs</div>
+        </div>
+        <div class="topic-item">
+          <div class="topic-icon">🏛️</div>
+          <div class="topic-name">Policy &amp; Law</div>
+          <div class="topic-count" style="color:var(--amber);">TN abatement · Purdue settlement · MOUD law</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data visualizations -->
+    <div>
+      <div class="section-label">Live Data &amp; Visualizations</div>
+      <div class="data-feature-list">
+        <div class="data-feature">
+          <div class="data-dot" style="background:var(--teal);"></div>
+          <div>
+            <h4>Treatment Facility Finder</h4>
+            <p>SAMHSA-certified opioid treatment programs across all US states — filterable with contact info and certification dates.</p>
+          </div>
+        </div>
+        <div class="data-feature">
+          <div class="data-dot" style="background:var(--rose);"></div>
+          <div>
+            <h4>Knox County DRD Dashboard</h4>
+            <p>336 individual medical examiner records (Jan–May 2025) with full toxicology panels and demographic breakdowns.</p>
+          </div>
+        </div>
+        <div class="data-feature">
+          <div class="data-dot" style="background:var(--amber);"></div>
+          <div>
+            <h4>TN County Overdose Map</h4>
+            <p>Interactive choropleth of all 95 TN counties — overdose deaths, treatment gaps, and prescription rates by geography.</p>
+          </div>
+        </div>
+        <div class="data-feature">
+          <div class="data-dot" style="background:var(--violet);"></div>
+          <div>
+            <h4>National NSDUH Estimates</h4>
+            <p>OUD prevalence, treatment access, and unmet need across all 50 states from the 2023–2024 SAMHSA small-area estimates.</p>
+          </div>
+        </div>
+        <div class="data-feature">
+          <div class="data-dot" style="background:#3b82f6;"></div>
+          <div>
+            <h4>Wastewater Surveillance</h4>
+            <p>TN municipal wastewater opioid biomarker data — an early warning signal for community-level use patterns.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key benefits -->
+    <div>
+      <div class="section-label">Key Benefits</div>
+      <div class="benefit-list">
+        <div class="benefit">
+          <div class="benefit-check">✓</div>
+          <div><strong>Cited answers, not hallucination.</strong> Every response is grounded in retrieved source documents with direct links you can verify.</div>
+        </div>
+        <div class="benefit">
+          <div class="benefit-check">✓</div>
+          <div><strong>Tennessee-first lens.</strong> Local Knox County data, TN policy documents, and state surveillance are prioritized alongside national standards.</div>
+        </div>
+        <div class="benefit">
+          <div class="benefit-check">✓</div>
+          <div><strong>No login — fully open access.</strong> Available to any clinician, researcher, or student at compass.axiomsystemslab.com.</div>
+        </div>
+        <div class="benefit">
+          <div class="benefit-check">✓</div>
+          <div><strong>One tool for everything.</strong> Chat, live data dashboards, clinical calculators (COWS, DAST), concept maps, and prescriber guides in a single interface.</div>
+        </div>
+        <div class="benefit">
+          <div class="benefit-check">✓</div>
+          <div><strong>Equity-aware.</strong> Includes dedicated topic areas for racial/ethnic disparities, rural access barriers, and structural inequities in OUD care.</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /col 3 -->
+
+</div><!-- /main-grid -->
+
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<footer class="footer">
+  <div class="footer-left">
+    <div class="footer-logo">◈ COMPASS</div>
+    <div>
+      <p>University of Tennessee · Knoxville &nbsp;|&nbsp; Axiom Systems Lab &nbsp;|&nbsp; College of Social Work</p>
+      <p style="margin-top:2px; font-size:8px; opacity:.6;">Built with React · FastAPI · FAISS · Claude AI &nbsp;·&nbsp; Docker-deployed &nbsp;·&nbsp; Summer 2026</p>
+    </div>
+  </div>
+  <p style="font-size:9px; color:var(--muted); max-width:340px; text-align:center; line-height:1.6;">
+    COMPASS is a research and decision-support tool.<br>
+    It does not constitute medical advice. Clinical decisions should involve a licensed provider.
+  </p>
+  <div class="url">compass.axiomsystemslab.com</div>
+</footer>
+
+</body>
+</html>

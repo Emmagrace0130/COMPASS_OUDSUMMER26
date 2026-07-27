@@ -1,0 +1,21 @@
+id,topic,difficulty,question,answered,n_sources,latency_s,kw_score,faithfulness,answer_relevance,completeness,reasoning,backend
+T1-01,OUD Medications & Treatment,basic,What are the recommended first-line medications for opioid use disorder (MOUD) and how do they work?,True,5,3.87,0.8,,,,,ollama
+T1-02,OUD Medications & Treatment,clinical,What is the recommended starting dose of buprenorphine for OUD and how should induction be managed?,True,6,5.39,0.286,,,,,ollama
+T1-03,OUD Medications & Treatment,advanced,What is low-dose buprenorphine induction (Bernese method) and when is it indicated in the fentanyl era?,True,5,6.02,0.8,,,,,ollama
+T1-04,OUD Medications & Treatment,clinical,How does extended-release naltrexone (Vivitrol) compare to buprenorphine for OUD treatment outcomes?,True,6,3.6,0.667,,,,,ollama
+T2-01,Clinical Practice Guidelines,basic,What does the ASAM National Practice Guideline recommend for the treatment of opioid use disorder?,True,6,4.27,0.833,,,,,ollama
+T2-02,Clinical Practice Guidelines,basic,What are the CDC 2022 Clinical Practice Guideline recommendations for prescribing opioids for pain?,True,6,6.2,0.833,,,,,ollama
+T2-03,Clinical Practice Guidelines,clinical,What are Tennessee's specific buprenorphine treatment guidelines and how do they differ from national standards?,True,5,3.91,0.6,,,,,ollama
+T2-04,Clinical Practice Guidelines,clinical,What are the SAMHSA guidelines for opioid treatment programs (OTPs) and methadone dispensing?,True,6,3.21,0.667,,,,,ollama
+T3-01,TN OUD Data & Surveillance,data,What do Tennessee's overdose death surveillance data show about fentanyl involvement in recent years?,True,6,2.41,0.667,,,,,ollama
+T3-02,TN OUD Data & Surveillance,data,What is the prevalence of opioid use disorder in Tennessee compared to the national average?,True,5,2.73,0.667,,,,,ollama
+T4-01,Behavioral & Counseling Treatment,clinical,What does the evidence say about contingency management for opioid use disorder?,True,6,5.02,0.4,,,,,ollama
+T4-02,Behavioral & Counseling Treatment,clinical,How effective is cognitive behavioral therapy (CBT) combined with MOUD for OUD?,True,4,3.65,1.0,,,,,ollama
+T5-01,Neuroscience of Opioid Dependence,basic,How do opioids affect the brain's reward system and contribute to the development of physical dependence?,True,5,6.68,0.667,,,,,ollama
+T6-01,Co-occurring Mental Health Conditions,clinical,What is the prevalence and treatment approach for co-occurring OUD and PTSD?,True,6,8.06,0.8,,,,,ollama
+T6-02,Co-occurring Mental Health Conditions,clinical,How should depression be managed in patients receiving buprenorphine for OUD?,True,6,5.56,1.0,,,,,ollama
+T7-01,Health Equity & Access Gaps in TN,policy,What are the main structural barriers to OUD treatment access in rural Tennessee?,True,6,2.93,0.571,,,,,ollama
+T8-01,Harm Reduction,basic,What does the evidence show about the effectiveness of naloxone distribution programs in reducing overdose deaths?,True,4,4.11,0.833,,,,,ollama
+T8-02,Harm Reduction,advanced,"What is xylazine, how does it complicate opioid overdoses, and what are the current recommendations for responding to xylazine-involved overdoses?",True,6,4.63,0.714,,,,,ollama
+T9-01,Policy & Law,policy,What policy changes has Tennessee made regarding buprenorphine prescribing since the removal of the DATA waiver requirement?,True,5,4.16,0.571,,,,,ollama
+T9-02,Policy & Law,policy,What are the key provisions of Tennessee's opioid abatement fund and how are those resources being allocated?,True,6,4.26,0.714,,,,,ollama

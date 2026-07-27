@@ -1,26 +1,30 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
-        void:  "#0a0a18",
-        dark:  "#12122a",
-        panel: "#1a1a35",
-        rim:   "#252550",
+        void:  "rgb(var(--tw-c-void)  / <alpha-value>)",
+        dark:  "rgb(var(--tw-c-dark)  / <alpha-value>)",
+        panel: "rgb(var(--tw-c-panel) / <alpha-value>)",
+        rim:   "rgb(var(--tw-c-rim)   / <alpha-value>)",
         compass: {
-          purple: "#7c3aed",
-          violet: "#a855f7",
-          pink:   "#ec4899",
-          cyan:   "#06b6d4",
-          white:  "#f0f0ff",
-          muted:  "#6b6b9a",
+          purple: "rgb(var(--tw-c-purple) / <alpha-value>)",
+          violet: "rgb(var(--tw-c-violet) / <alpha-value>)",
+          pink:   "rgb(var(--tw-c-pink)   / <alpha-value>)",
+          cyan:   "rgb(var(--tw-c-cyan)   / <alpha-value>)",
+          white:  "rgb(var(--tw-c-white)  / <alpha-value>)",
+          muted:  "rgb(var(--tw-c-muted)  / <alpha-value>)",
+          // Aliases for components that reference amber/teal directly
+          amber:  "#f59e0b",
+          teal:   "rgb(var(--tw-c-cyan)   / <alpha-value>)",
         },
       },
       boxShadow: {
-        purple: "0 0 20px rgba(124,58,237,0.4)",
-        pink:   "0 0 20px rgba(236,72,153,0.35)",
-        cyan:   "0 0 20px rgba(6,182,212,0.35)",
+        purple: "0 2px 12px rgba(79,70,229,0.18)",
+        pink:   "0 2px 12px rgba(220,38,38,0.18)",
+        cyan:   "0 2px 12px rgba(5,150,105,0.18)",
       },
       keyframes: {
         pulse_purple: {

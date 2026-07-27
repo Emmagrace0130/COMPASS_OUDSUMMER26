@@ -1,0 +1,142 @@
+[
+  {
+    "id": "T1-01",
+    "topic": "OUD Medications & Treatment",
+    "question": "What are the recommended first-line medications for opioid use disorder (MOUD) and how do they work?",
+    "expected_themes": ["buprenorphine", "methadone", "naltrexone", "partial agonist", "opioid receptor"],
+    "difficulty": "basic"
+  },
+  {
+    "id": "T1-02",
+    "topic": "OUD Medications & Treatment",
+    "question": "What is the recommended starting dose of buprenorphine for OUD and how should induction be managed?",
+    "expected_themes": ["induction", "COWS", "withdrawal", "sublingual", "2mg", "4mg", "8mg"],
+    "difficulty": "clinical"
+  },
+  {
+    "id": "T1-03",
+    "topic": "OUD Medications & Treatment",
+    "question": "What is low-dose buprenorphine induction (Bernese method) and when is it indicated in the fentanyl era?",
+    "expected_themes": ["low-dose", "Bernese", "fentanyl", "precipitated withdrawal", "micro-induction"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "T1-04",
+    "topic": "OUD Medications & Treatment",
+    "question": "How does extended-release naltrexone (Vivitrol) compare to buprenorphine for OUD treatment outcomes?",
+    "expected_themes": ["naltrexone", "XR-NTX", "buprenorphine", "retention", "relapse", "randomized"],
+    "difficulty": "clinical"
+  },
+  {
+    "id": "T2-01",
+    "topic": "Clinical Practice Guidelines",
+    "question": "What does the ASAM National Practice Guideline recommend for the treatment of opioid use disorder?",
+    "expected_themes": ["ASAM", "buprenorphine", "methadone", "naltrexone", "psychosocial", "long-term"],
+    "difficulty": "basic"
+  },
+  {
+    "id": "T2-02",
+    "topic": "Clinical Practice Guidelines",
+    "question": "What are the CDC 2022 Clinical Practice Guideline recommendations for prescribing opioids for pain?",
+    "expected_themes": ["CDC", "2022", "chronic pain", "lowest effective dose", "non-opioid", "risk assessment"],
+    "difficulty": "basic"
+  },
+  {
+    "id": "T2-03",
+    "topic": "Clinical Practice Guidelines",
+    "question": "What are Tennessee's specific buprenorphine treatment guidelines and how do they differ from national standards?",
+    "expected_themes": ["Tennessee", "TennCare", "prior authorization", "prescribing", "guidelines"],
+    "difficulty": "clinical"
+  },
+  {
+    "id": "T2-04",
+    "topic": "Clinical Practice Guidelines",
+    "question": "What are the SAMHSA guidelines for opioid treatment programs (OTPs) and methadone dispensing?",
+    "expected_themes": ["OTP", "methadone", "dosing", "take-home", "SAMHSA", "federal"],
+    "difficulty": "clinical"
+  },
+  {
+    "id": "T3-01",
+    "topic": "TN OUD Data & Surveillance",
+    "question": "What do Tennessee's overdose death surveillance data show about fentanyl involvement in recent years?",
+    "expected_themes": ["fentanyl", "synthetic opioid", "Tennessee", "overdose deaths", "trend", "increase"],
+    "difficulty": "data"
+  },
+  {
+    "id": "T3-02",
+    "topic": "TN OUD Data & Surveillance",
+    "question": "What is the prevalence of opioid use disorder in Tennessee compared to the national average?",
+    "expected_themes": ["prevalence", "Tennessee", "national", "percent", "estimate", "NSDUH"],
+    "difficulty": "data"
+  },
+  {
+    "id": "T4-01",
+    "topic": "Behavioral & Counseling Treatment",
+    "question": "What does the evidence say about contingency management for opioid use disorder?",
+    "expected_themes": ["contingency management", "incentive", "abstinence", "voucher", "reinforcement"],
+    "difficulty": "clinical"
+  },
+  {
+    "id": "T4-02",
+    "topic": "Behavioral & Counseling Treatment",
+    "question": "How effective is cognitive behavioral therapy (CBT) combined with MOUD for OUD?",
+    "expected_themes": ["CBT", "cognitive behavioral", "MOUD", "combined", "psychosocial"],
+    "difficulty": "clinical"
+  },
+  {
+    "id": "T5-01",
+    "topic": "Neuroscience of Opioid Dependence",
+    "question": "How do opioids affect the brain's reward system and contribute to the development of physical dependence?",
+    "expected_themes": ["dopamine", "reward", "nucleus accumbens", "neuroadaptation", "tolerance", "mu receptor"],
+    "difficulty": "basic"
+  },
+  {
+    "id": "T6-01",
+    "topic": "Co-occurring Mental Health Conditions",
+    "question": "What is the prevalence and treatment approach for co-occurring OUD and PTSD?",
+    "expected_themes": ["PTSD", "co-occurring", "trauma", "integrated treatment", "comorbidity"],
+    "difficulty": "clinical"
+  },
+  {
+    "id": "T6-02",
+    "topic": "Co-occurring Mental Health Conditions",
+    "question": "How should depression be managed in patients receiving buprenorphine for OUD?",
+    "expected_themes": ["depression", "buprenorphine", "antidepressant", "co-occurring", "mental health"],
+    "difficulty": "clinical"
+  },
+  {
+    "id": "T7-01",
+    "topic": "Health Equity & Access Gaps in TN",
+    "question": "What are the main structural barriers to OUD treatment access in rural Tennessee?",
+    "expected_themes": ["rural", "access", "barrier", "provider", "telehealth", "stigma", "Tennessee"],
+    "difficulty": "policy"
+  },
+  {
+    "id": "T8-01",
+    "topic": "Harm Reduction",
+    "question": "What does the evidence show about the effectiveness of naloxone distribution programs in reducing overdose deaths?",
+    "expected_themes": ["naloxone", "distribution", "overdose", "reversal", "community", "effectiveness"],
+    "difficulty": "basic"
+  },
+  {
+    "id": "T8-02",
+    "topic": "Harm Reduction",
+    "question": "What is xylazine, how does it complicate opioid overdoses, and what are the current recommendations for responding to xylazine-involved overdoses?",
+    "expected_themes": ["xylazine", "tranq", "veterinary", "naloxone", "wound", "sedative", "fentanyl"],
+    "difficulty": "advanced"
+  },
+  {
+    "id": "T9-01",
+    "topic": "Policy & Law",
+    "question": "What policy changes has Tennessee made regarding buprenorphine prescribing since the removal of the DATA waiver requirement?",
+    "expected_themes": ["DATA waiver", "X-waiver", "buprenorphine", "prescribing", "Tennessee", "DEA", "2023"],
+    "difficulty": "policy"
+  },
+  {
+    "id": "T9-02",
+    "topic": "Policy & Law",
+    "question": "What are the key provisions of Tennessee's opioid abatement fund and how are those resources being allocated?",
+    "expected_themes": ["abatement", "settlement", "Purdue", "Sackler", "fund", "Tennessee", "grants"],
+    "difficulty": "policy"
+  }
+]

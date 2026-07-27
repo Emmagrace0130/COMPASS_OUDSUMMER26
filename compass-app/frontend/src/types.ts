@@ -13,8 +13,15 @@ export interface Message {
   error?: boolean;
 }
 
+export interface BackendOption {
+  id: string;
+  label: string;
+}
+
 export interface HealthStatus {
   index_ready: boolean;
   ollama_reachable: boolean;
   chain_loaded: boolean;
+  llm_backend: string;
+  available_backends: BackendOption[];
 }

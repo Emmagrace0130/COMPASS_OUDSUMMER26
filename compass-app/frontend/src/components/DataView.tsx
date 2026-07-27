@@ -3,6 +3,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, Cell, AreaChart, Area,
 } from "recharts";
+import { TOOLTIP_STYLE } from "../lib/chartTheme";
 
 interface Facility {
   name: string;
@@ -60,13 +61,14 @@ export function DataView() {
 
   const tnCount = facilities.filter((f) => f.state === "TN").length;
 
-  const tooltipStyle = {
-    fontSize: 12,
-    borderRadius: 8,
-    background: "#1a1a35",
-    border: "1px solid rgba(124,58,237,0.3)",
-    color: "#f0f0ff",
-  };
+  const tnCityData = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const f of facilities.filter(f => f.state === "TN"))
+      counts[f.city] = (counts[f.city] ?? 0) + 1;
+    return Object.entries(counts)
+      .map(([city, count]) => ({ city, count }))
+      .sort((a, b) => b.count - a.count);
+  }, [facilities]);
 
   if (loading)
     return <div className="flex items-center justify-center h-64 text-compass-muted tracking-wide">Loading facilities data…</div>;
@@ -84,7 +86,7 @@ export function DataView() {
           { label: "Tennessee Facilities", value: tnCount, color: "text-compass-cyan", shadow: "shadow-cyan" },
         ].map((s) => (
           <div key={s.label} className={`glass rounded-xl p-5 text-center ${s.shadow}`}>
-            <p className={`text-3xl font-bold ${s.color}`} style={{ textShadow: "0 0 20px currentColor" }}>
+            <p className={`text-3xl font-bold ${s.color}`}>
               {s.value}
             </p>
             <p className="text-xs text-compass-muted mt-1 tracking-wide uppercase">{s.label}</p>
@@ -93,25 +95,26 @@ export function DataView() {
       </div>
 
       {/* Charts row */}
-      <div className="grid grid-cols-2 gap-4">
-        {/* Bar chart */}
+      <div className="space-y-4">
+        {/* Bar chart — full width */}
         <div className="glass rounded-xl p-5">
           <h2 className="text-xs font-semibold text-compass-violet/70 mb-4 tracking-widest uppercase">Facilities by State</h2>
-          <ResponsiveContainer width="100%" height={240}>
-            <BarChart data={stateCounts} margin={{ top: 0, right: 8, left: 0, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(124,58,237,0.08)" />
-              <XAxis dataKey="state" tick={{ fontSize: 9, fill: "#6b6b9a" }} interval={0} angle={-45} textAnchor="end" height={44} />
-              <YAxis tick={{ fontSize: 10, fill: "#6b6b9a" }} />
-              <Tooltip contentStyle={tooltipStyle} formatter={(v) => [v, "Facilities"]} />
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={stateCounts} margin={{ top: 0, right: 8, left: 0, bottom: 55 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(217,115,22,0.1)" />
+              <XAxis dataKey="state" tick={{ fontSize: 9, fill: "#7a7060" }} interval={0} angle={-45} textAnchor="end" height={60} />
+              <YAxis tick={{ fontSize: 10, fill: "#7a7060" }} />
+              <Tooltip contentStyle={TOOLTIP_STYLE} formatter={(v) => [v, "Facilities"]} />
               <Bar dataKey="count" radius={[3, 3, 0, 0]}>
                 {stateCounts.map((entry) => (
-                  <Cell key={entry.state} fill={entry.state === "TN" ? "#ec4899" : "#7c3aed"} fillOpacity={entry.state === "TN" ? 1 : 0.6} />
+                  <Cell key={entry.state} fill={entry.state === "TN" ? "#f43f5e" : "#d97316"} fillOpacity={entry.state === "TN" ? 1 : 0.75} />
                 ))}
               </Bar>
             </BarChart>
           </ResponsiveContainer>
           <p className="text-[10px] text-compass-muted/40 mt-1 text-center tracking-wide">Tennessee in pink</p>
         </div>
+        <div className="grid grid-cols-2 gap-4">
 
         {/* Area chart — certifications over time */}
         <div className="glass rounded-xl p-5">
@@ -120,18 +123,34 @@ export function DataView() {
             <AreaChart data={certsByYear} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
               <defs>
                 <linearGradient id="cyanGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#06b6d4" stopOpacity={0.4} />
-                  <stop offset="95%" stopColor="#06b6d4" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#0d9488" stopOpacity={0.4} />
+                  <stop offset="95%" stopColor="#0d9488" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(6,182,212,0.08)" />
-              <XAxis dataKey="year" tick={{ fontSize: 10, fill: "#6b6b9a" }} />
-              <YAxis tick={{ fontSize: 10, fill: "#6b6b9a" }} />
-              <Tooltip contentStyle={tooltipStyle} formatter={(v) => [v, "New certifications"]} />
-              <Area type="monotone" dataKey="count" stroke="#06b6d4" strokeWidth={2} fill="url(#cyanGrad)" dot={{ fill: "#06b6d4", r: 3 }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(13,148,136,0.1)" />
+              <XAxis dataKey="year" tick={{ fontSize: 10, fill: "#7a7060" }} />
+              <YAxis tick={{ fontSize: 10, fill: "#7a7060" }} />
+              <Tooltip contentStyle={TOOLTIP_STYLE} formatter={(v) => [v, "New certifications"]} />
+              <Area type="monotone" dataKey="count" stroke="#0d9488" strokeWidth={2} fill="url(#cyanGrad)" dot={{ fill: "#0d9488", r: 3 }} />
             </AreaChart>
           </ResponsiveContainer>
           <p className="text-[10px] text-compass-muted/40 mt-1 text-center tracking-wide">New OTP certifications per year</p>
+        </div>
+
+        {/* TN facilities by city */}
+        <div className="glass rounded-xl p-5">
+          <h2 className="text-xs font-semibold text-compass-pink/70 mb-4 tracking-widest uppercase">Tennessee Facilities by City</h2>
+          <ResponsiveContainer width="100%" height={240}>
+            <BarChart data={tnCityData} margin={{ top: 4, right: 8, left: 0, bottom: 40 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(190,24,93,0.1)" />
+              <XAxis dataKey="city" tick={{ fontSize: 9, fill: "#7a7060" }} angle={-35} textAnchor="end" height={55} interval={0} />
+              <YAxis tick={{ fontSize: 10, fill: "#7a7060" }} allowDecimals={false} />
+              <Tooltip contentStyle={TOOLTIP_STYLE} formatter={(v) => [v, "Facilities"]} />
+              <Bar dataKey="count" radius={[3, 3, 0, 0]} fill="#be185d" fillOpacity={0.85} />
+            </BarChart>
+          </ResponsiveContainer>
+          <p className="text-[10px] text-compass-muted/40 mt-1 text-center tracking-wide">{tnCount} certified OTPs across Tennessee</p>
+        </div>
         </div>
       </div>
 

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <!-- Outer ring -->
+  <circle cx="40" cy="40" r="37" stroke="#d97316" stroke-width="1.5"/>
+
+  <!-- Inner dashed ring -->
+  <circle cx="40" cy="40" r="29" stroke="#d97316" stroke-width="0.6" stroke-opacity="0.35" stroke-dasharray="2 4"/>
+
+  <!-- Cardinal ticks (N S E W) -->
+  <line x1="40" y1="2"  x2="40" y2="11" stroke="#d97316" stroke-width="2"   stroke-linecap="round"/>
+  <line x1="40" y1="69" x2="40" y2="78" stroke="#d97316" stroke-width="2"   stroke-linecap="round"/>
+  <line x1="2"  y1="40" x2="11" y2="40" stroke="#d97316" stroke-width="2"   stroke-linecap="round"/>
+  <line x1="69" y1="40" x2="78" y2="40" stroke="#d97316" stroke-width="2"   stroke-linecap="round"/>
+
+  <!-- Diagonal ticks -->
+  <line x1="65.2" y1="14.8" x2="60.5" y2="19.5" stroke="#d97316" stroke-width="1" stroke-linecap="round" stroke-opacity="0.6"/>
+  <line x1="65.2" y1="65.2" x2="60.5" y2="60.5" stroke="#d97316" stroke-width="1" stroke-linecap="round" stroke-opacity="0.6"/>
+  <line x1="14.8" y1="65.2" x2="19.5" y2="60.5" stroke="#d97316" stroke-width="1" stroke-linecap="round" stroke-opacity="0.6"/>
+  <line x1="14.8" y1="14.8" x2="19.5" y2="19.5" stroke="#d97316" stroke-width="1" stroke-linecap="round" stroke-opacity="0.6"/>
+
+  <!-- North needle (amber) -->
+  <path d="M40 13 L44 40 L40 47 L36 40 Z" fill="#fb923c"/>
+  <!-- South needle (dark) -->
+  <path d="M40 67 L44 40 L40 47 L36 40 Z" fill="#92400e"/>
+
+  <!-- Center pivot -->
+  <circle cx="40" cy="40" r="5"   fill="#1a1816"/>
+  <circle cx="40" cy="40" r="2.5" fill="#d97316"/>
+</svg>

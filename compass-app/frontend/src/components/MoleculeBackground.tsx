@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
 const R = 11;
-const G = R * Math.sqrt(3); // center-to-center for adjacent hexagons
+const G = R * Math.sqrt(3);
 
 function hexPath(ctx: CanvasRenderingContext2D, cx: number, cy: number, r: number) {
   ctx.beginPath();
@@ -16,38 +16,28 @@ function hexPath(ctx: CanvasRenderingContext2D, cx: number, cy: number, r: numbe
 type MolKind = 0 | 1 | 2 | 3;
 
 function drawMol(ctx: CanvasRenderingContext2D, kind: MolKind, alpha: number) {
-  const s = `rgba(140,90,255,${alpha})`;
-  const a = `rgba(190,150,255,${(alpha * 1.3).toFixed(3)})`;
+  const s = `rgba(251,146,60,${alpha})`;
   ctx.strokeStyle = s;
-  ctx.lineWidth = 0.9;
+  ctx.lineWidth = 1.1;
+  ctx.shadowColor = `rgba(251,146,60,${alpha * 2.5})`;
+  ctx.shadowBlur = 6;
 
   if (kind === 0 || kind === 2) {
     // morphine / naloxone — 3-ring tricyclic
     hexPath(ctx, -G, 0, R); ctx.stroke();
     hexPath(ctx,  0, 0, R); ctx.stroke();
     hexPath(ctx,  G, 0, R); ctx.stroke();
-    // lower bridge
     ctx.beginPath();
     ctx.moveTo(-G * 0.5, R * 0.87);
     ctx.lineTo(-G * 0.5, R * 0.87 + 8);
     ctx.lineTo( G * 0.5, R * 0.87 + 8);
     ctx.lineTo( G * 0.5, R * 0.87);
     ctx.stroke();
-    // OH stub left
     ctx.beginPath();
     ctx.moveTo(-G - R * 0.87, -R * 0.5);
     ctx.lineTo(-G - R * 1.6,  -R * 0.9);
     ctx.stroke();
-    // N label right
-    ctx.fillStyle = a;
-    ctx.font = `${R * 0.85}px monospace`;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText("O", -G - R * 1.9, -R * 0.9);
-    ctx.fillText("N",  G + R * 1.7,  0);
     if (kind === 2) {
-      // allyl branch for naloxone
-      ctx.strokeStyle = s;
       ctx.beginPath();
       ctx.moveTo(G + R * 1.2,  -R * 0.5);
       ctx.lineTo(G + R * 1.8,  -R * 1.4);
@@ -59,7 +49,7 @@ function drawMol(ctx: CanvasRenderingContext2D, kind: MolKind, alpha: number) {
       ctx.stroke();
     }
   } else if (kind === 1) {
-    // fentanyl — left phenyl — chain — piperidine — chain — right phenyl
+    // fentanyl
     hexPath(ctx, -G * 2.3, 0, R); ctx.stroke();
     hexPath(ctx,  0,       0, R); ctx.stroke();
     hexPath(ctx,  G * 2.3, -7, R); ctx.stroke();
@@ -69,45 +59,31 @@ function drawMol(ctx: CanvasRenderingContext2D, kind: MolKind, alpha: number) {
     ctx.beginPath();
     ctx.moveTo(G * 0.9, 0); ctx.lineTo(G * 1.8, -4);
     ctx.stroke();
-    // C=O pendant
     ctx.beginPath();
     ctx.moveTo(G * 0.9, 4); ctx.lineTo(G * 0.9 + 7, 14);
     ctx.stroke();
-    ctx.fillStyle = a;
-    ctx.font = `${R * 0.85}px monospace`;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText("O", G * 0.9 + 7, 22);
-    ctx.fillText("N", 0, R + 9);
-    ctx.fillText("N", G * 2.3 + R * 1.3, -7);
   } else {
-    // oxycodone — 3 rings + epoxide arc
+    // oxycodone
     hexPath(ctx, -G, 0, R); ctx.stroke();
     hexPath(ctx,  0, 0, R); ctx.stroke();
     hexPath(ctx,  G, 0, R); ctx.stroke();
     ctx.beginPath();
     ctx.arc(-G * 0.5, 0, R * 1.4, Math.PI * 1.12, Math.PI * 1.88);
     ctx.stroke();
-    ctx.fillStyle = a;
-    ctx.font = `${R * 0.85}px monospace`;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText("O", -G * 0.5, -R * 1.6);
-    // ketone stub
-    ctx.strokeStyle = s;
     ctx.beginPath();
     ctx.moveTo(-G * 0.5, R * 0.87);
     ctx.lineTo(-G * 0.5, R * 0.87 + 10);
     ctx.stroke();
-    ctx.fillText("O", -G * 0.5, R * 0.87 + 19);
-    ctx.fillText("N",  G + R * 1.7, 0);
   }
+
+  ctx.shadowBlur = 0;
 }
 
 type MolInst = {
-  x: number; y: number;
-  vx: number; vy: number;
-  rot: number; rotV: number;
+  x: number; baseY: number;
+  vx: number;
+  phase: number; bobAmp: number; bobSpeed: number;
+  rot: number;
   kind: MolKind;
   alpha: number;
   scale: number;
@@ -133,33 +109,33 @@ export function MoleculeBackground() {
 
     const COUNT = 14;
     const mols: MolInst[] = Array.from({ length: COUNT }, (_, i) => ({
-      x:     Math.random() * canvas.width,
-      y:     Math.random() * canvas.height,
-      vx:    (Math.random() - 0.5) * 0.18,
-      vy:    (Math.random() - 0.5) * 0.18,
-      rot:   Math.random() * Math.PI * 2,
-      rotV:  (Math.random() - 0.5) * 0.003,
-      kind:  KINDS[i % 4],
-      alpha: 0.07 + Math.random() * 0.08,
-      scale: 0.7 + Math.random() * 0.6,
+      x:        Math.random() * canvas.width,
+      baseY:    Math.random() * canvas.height,
+      vx:       (Math.random() < 0.5 ? 1 : -1) * (0.1 + Math.random() * 0.15),
+      phase:    Math.random() * Math.PI * 2,
+      bobAmp:   16 + Math.random() * 20,
+      bobSpeed: 0.0003 + Math.random() * 0.0003,
+      rot:      Math.random() * Math.PI * 2,
+      kind:     KINDS[i % 4],
+      alpha:    0.05 + Math.random() * 0.07,
+      scale:    0.7 + Math.random() * 0.6,
     }));
 
     let raf: number;
+    let t = 0;
     const tick = () => {
+      t++;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       for (const m of mols) {
-        m.x   += m.vx;
-        m.y   += m.vy;
-        m.rot += m.rotV;
-        // wrap at screen edges with padding
+        m.x += m.vx;
         const pad = 80;
-        if (m.x < -pad)  m.x = canvas.width  + pad;
-        if (m.x >  canvas.width  + pad) m.x = -pad;
-        if (m.y < -pad)  m.y = canvas.height + pad;
-        if (m.y >  canvas.height + pad) m.y = -pad;
+        if (m.x < -pad)               m.x = canvas.width + pad;
+        if (m.x > canvas.width + pad) m.x = -pad;
+
+        const y = m.baseY + Math.sin(t * m.bobSpeed + m.phase) * m.bobAmp;
 
         ctx.save();
-        ctx.translate(m.x, m.y);
+        ctx.translate(m.x, y);
         ctx.rotate(m.rot);
         ctx.scale(m.scale, m.scale);
         drawMol(ctx, m.kind, m.alpha);
