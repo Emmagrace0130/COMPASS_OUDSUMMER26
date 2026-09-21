@@ -27,3 +27,14 @@ node_modules/
 
 # Claude memory
 .claude/
+
+# 50 GB archive of Vector_Library — far over GitHub's 100 MB file limit. Keep locally only.
+/Vector_Library.zip
+
+# LaTeX build artifacts (the .tex source and final .pdf are tracked)
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.toc
+paper/*.bbl
+paper/*.blg

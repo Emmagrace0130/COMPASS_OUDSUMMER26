@@ -4,6 +4,7 @@ import {
   ResponsiveContainer, Cell, AreaChart, Area,
 } from "recharts";
 import { TOOLTIP_STYLE } from "../lib/chartTheme";
+import { TN_REGION_ABBREVS } from "../lib/region";
 
 interface Facility {
   name: string;
@@ -21,7 +22,7 @@ export function DataView() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
-  const [stateFilter, setStateFilter] = useState("ALL");
+  const [stateFilter, setStateFilter] = useState("TN");
 
   useEffect(() => {
     fetch("/data/facilities")
@@ -48,18 +49,30 @@ export function DataView() {
     return Object.entries(years).sort((a, b) => a[0].localeCompare(b[0])).map(([year, count]) => ({ year, count }));
   }, [facilities]);
 
-  const states = useMemo(() => ["ALL", ...stateCounts.map((s) => s.state)], [stateCounts]);
+  // Chart shows Tennessee and its neighbors only — the full 50-state + territory
+  // list buried the regional signal.
+  const regionCounts = useMemo(
+    () => stateCounts.filter((s) => TN_REGION_ABBREVS.has(s.state)),
+    [stateCounts]
+  );
+
+  const states = useMemo(() => ["TN", "REGION", "ALL", ...stateCounts.map((s) => s.state).filter((s) => s !== "TN")], [stateCounts]);
+
+  const stateLabel = (s: string) =>
+    s === "ALL" ? "All states & territories" : s === "REGION" ? "TN + neighboring states" : s === "TN" ? "Tennessee" : s;
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
-    return facilities.filter(
-      (f) =>
-        (stateFilter === "ALL" || f.state === stateFilter) &&
-        (f.name.toLowerCase().includes(q) || f.city.toLowerCase().includes(q) || f.zip.includes(q))
-    );
+    return facilities.filter((f) => {
+      const inScope =
+        stateFilter === "ALL" ||
+        (stateFilter === "REGION" ? TN_REGION_ABBREVS.has(f.state) : f.state === stateFilter);
+      return inScope && (f.name.toLowerCase().includes(q) || f.city.toLowerCase().includes(q) || f.zip.includes(q));
+    });
   }, [facilities, search, stateFilter]);
 
   const tnCount = facilities.filter((f) => f.state === "TN").length;
+  const regionCount = facilities.filter((f) => TN_REGION_ABBREVS.has(f.state)).length;
 
   const tnCityData = useMemo(() => {
     const counts: Record<string, number> = {};
@@ -78,12 +91,28 @@ export function DataView() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-6 space-y-6">
 
+      {/* TN REDLINE callout */}
+      <div className="glass rounded-xl p-4 flex items-center justify-between gap-4 border border-compass-pink/20 bg-compass-pink/5">
+        <div>
+          <p className="text-sm font-semibold text-compass-white">Need help finding treatment right now?</p>
+          <p className="text-xs text-compass-muted mt-0.5">
+            Tennessee REDLINE — 24/7 confidential referral for substance use and problem gambling treatment. Operated by TAADAS for TDMHSAS.
+          </p>
+        </div>
+        <a
+          href="tel:8008899789"
+          className="shrink-0 bg-compass-pink/15 hover:bg-compass-pink/25 border border-compass-pink/40 text-compass-pink rounded-lg px-4 py-2 text-sm font-semibold tracking-wide transition-all whitespace-nowrap"
+        >
+          Call/Text 800-889-9789
+        </a>
+      </div>
+
       {/* Stat cards */}
       <div className="grid grid-cols-3 gap-4">
         {[
-          { label: "Total Facilities", value: facilities.length.toLocaleString(), color: "text-compass-violet", shadow: "shadow-purple" },
-          { label: "States & Territories", value: stateCounts.length, color: "text-compass-pink", shadow: "shadow-pink" },
-          { label: "Tennessee Facilities", value: tnCount, color: "text-compass-cyan", shadow: "shadow-cyan" },
+          { label: "Tennessee Facilities", value: tnCount, color: "text-compass-pink", shadow: "shadow-pink" },
+          { label: "TN + Neighboring States", value: regionCount.toLocaleString(), color: "text-compass-cyan", shadow: "shadow-cyan" },
+          { label: "Nationwide", value: facilities.length.toLocaleString(), color: "text-compass-violet", shadow: "shadow-purple" },
         ].map((s) => (
           <div key={s.label} className={`glass rounded-xl p-5 text-center ${s.shadow}`}>
             <p className={`text-3xl font-bold ${s.color}`}>
@@ -98,21 +127,23 @@ export function DataView() {
       <div className="space-y-4">
         {/* Bar chart — full width */}
         <div className="glass rounded-xl p-5">
-          <h2 className="text-xs font-semibold text-compass-violet/70 mb-4 tracking-widest uppercase">Facilities by State</h2>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={stateCounts} margin={{ top: 0, right: 8, left: 0, bottom: 55 }}>
+          <h2 className="text-xs font-semibold text-compass-violet/70 mb-4 tracking-widest uppercase">Facilities — Tennessee &amp; Neighboring States</h2>
+          <ResponsiveContainer width="100%" height={280}>
+            <BarChart data={regionCounts} margin={{ top: 0, right: 8, left: 0, bottom: 20 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(217,115,22,0.1)" />
-              <XAxis dataKey="state" tick={{ fontSize: 9, fill: "#7a7060" }} interval={0} angle={-45} textAnchor="end" height={60} />
+              <XAxis dataKey="state" tick={{ fontSize: 11, fill: "#7a7060" }} interval={0} height={30} />
               <YAxis tick={{ fontSize: 10, fill: "#7a7060" }} />
               <Tooltip contentStyle={TOOLTIP_STYLE} formatter={(v) => [v, "Facilities"]} />
               <Bar dataKey="count" radius={[3, 3, 0, 0]}>
-                {stateCounts.map((entry) => (
+                {regionCounts.map((entry) => (
                   <Cell key={entry.state} fill={entry.state === "TN" ? "#f43f5e" : "#d97316"} fillOpacity={entry.state === "TN" ? 1 : 0.75} />
                 ))}
               </Bar>
             </BarChart>
           </ResponsiveContainer>
-          <p className="text-[10px] text-compass-muted/40 mt-1 text-center tracking-wide">Tennessee in pink</p>
+          <p className="text-[10px] text-compass-muted/40 mt-1 text-center tracking-wide">
+            Tennessee in pink · switch the filter below to “All states &amp; territories” for the nationwide list
+          </p>
         </div>
         <div className="grid grid-cols-2 gap-4">
 
@@ -170,7 +201,7 @@ export function DataView() {
             className="rounded-lg border border-rim bg-panel px-3 py-2 text-sm text-compass-white focus:outline-none focus:ring-1 focus:ring-compass-purple/50"
           >
             {states.map((s) => (
-              <option key={s} value={s} className="bg-panel">{s === "ALL" ? "All states" : s}</option>
+              <option key={s} value={s} className="bg-panel">{stateLabel(s)}</option>
             ))}
           </select>
           <span className="self-center text-[10px] text-compass-muted shrink-0 tracking-wide">

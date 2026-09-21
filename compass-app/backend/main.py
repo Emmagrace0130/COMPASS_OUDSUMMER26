@@ -6,7 +6,7 @@ from pydantic import BaseModel
 import httpx
 
 from config import FAISS_INDEX_PATH, OLLAMA_BASE_URL, OLLAMA_MODEL, LLM_BACKEND, ANTHROPIC_API_KEY, CLAUDE_MODEL, HF_API_TOKEN, HF_MODEL, OLLAMA_USERNAME, OLLAMA_PASSWORD
-from rag import load_retriever, build_ollama_chain, retrieve_docs, run_huggingface_with_tools, run_claude_with_tools, format_sources
+from rag import load_vectorstore, load_retriever, build_ollama_chain, retrieve_docs, run_huggingface_with_tools, run_claude_with_tools, run_ollama_graph_augmented, run_ollama_structured_rank, run_ollama_structured_rank_v2, format_sources
 
 app = FastAPI(title="COMPASS OUD Research Assistant")
 
@@ -19,19 +19,21 @@ app.add_middleware(
 )
 
 retriever     = None
+vectorstore   = None  # raw FAISS store, needed for the structured-rank path's larger candidate pool
 ollama_chain  = None
 active_backend = LLM_BACKEND  # mutable at runtime
 
 
 @app.on_event("startup")
 async def startup():
-    global retriever, ollama_chain, active_backend
+    global retriever, vectorstore, ollama_chain, active_backend
     if not FAISS_INDEX_PATH.exists():
         print("WARNING: FAISS index not found. Run `python ingest.py` first.", flush=True)
         return
 
     print("Loading FAISS index ...", flush=True)
-    retriever = load_retriever()
+    vectorstore = load_vectorstore()
+    retriever = load_retriever(vectorstore)
 
     if active_backend == "ollama":
         print("Building Ollama QA chain ...", flush=True)
@@ -48,6 +50,20 @@ async def startup():
 
 class ChatRequest(BaseModel):
     question: str
+    # Opt-in only — default (False) leaves the deployed /chat behavior exactly
+    # as before. Used to run the graph-augmented vs. plain-RAG evaluation
+    # comparison (Ollama backend only; ignored by other backends).
+    graph_augment: bool = False
+    # Opt-in only — ClinicBot-inspired structured-evidence re-ranking (Ollama
+    # backend only). If both this and graph_augment are true, structured_rank
+    # takes precedence; the two haven't been tested combined.
+    structured_rank: bool = False
+    # Opt-in only — corrected structured-rank (real similarity scores, capped
+    # type nudge, per-source diversity cap, 5th "statistic" category).
+    # Precedence over structured_rank if both are set.
+    structured_rank_v2: bool = False
+    # Opt-in only — v2 plus near-duplicate-content skipping ("v3").
+    structured_rank_v3: bool = False
 
 
 class Source(BaseModel):
@@ -143,6 +159,18 @@ async def chat(req: ChatRequest):
     if ollama_chain is None:
         raise HTTPException(status_code=503, detail="Ollama chain not loaded. Check OLLAMA_BASE_URL.")
     try:
+        if req.structured_rank_v3:
+            result = run_ollama_structured_rank_v2(vectorstore, req.question, dedupe_content=True)
+            return ChatResponse(answer=result["answer"], sources=format_sources(result["docs"]), backend="ollama+structured-v3")
+        if req.structured_rank_v2:
+            result = run_ollama_structured_rank_v2(vectorstore, req.question)
+            return ChatResponse(answer=result["answer"], sources=format_sources(result["docs"]), backend="ollama+structured-v2")
+        if req.structured_rank:
+            result = run_ollama_structured_rank(vectorstore, req.question)
+            return ChatResponse(answer=result["answer"], sources=format_sources(result["docs"]), backend="ollama+structured")
+        if req.graph_augment:
+            result = run_ollama_graph_augmented(retriever, req.question)
+            return ChatResponse(answer=result["answer"], sources=format_sources(result["docs"]), backend="ollama+graph")
         result = ollama_chain.invoke({"query": req.question})
     except Exception as e:
         raise HTTPException(status_code=502, detail=f"Ollama error: {e}")

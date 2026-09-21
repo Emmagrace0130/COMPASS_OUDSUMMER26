@@ -7,8 +7,10 @@ interface SubTab {
   overflow?: string;
 }
 
-export function SubTabLayout({ tabs }: { tabs: SubTab[] }) {
-  const [active, setActive] = useState(tabs[0].id);
+export function SubTabLayout({ tabs, initial }: { tabs: SubTab[]; initial?: string }) {
+  const [active, setActive] = useState(
+    initial && tabs.some(t => t.id === initial) ? initial : tabs[0].id
+  );
   const current = tabs.find(t => t.id === active) ?? tabs[0];
 
   return (

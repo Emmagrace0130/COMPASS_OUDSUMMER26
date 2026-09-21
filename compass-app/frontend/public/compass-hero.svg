@@ -1,0 +1,46 @@
+<svg viewBox="0 0 200 200" role="img" aria-label="Compass" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="needleN" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFA333"/>
+      <stop offset="100%" stop-color="#FF8200"/>
+    </linearGradient>
+    <filter id="dropShadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#58595B" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Outer smokey ring -->
+  <circle cx="100" cy="100" r="94" fill="#FFFFFF" stroke="#D9D2C8" stroke-width="2" filter="url(#dropShadow)"/>
+
+  <!-- Orange face ring -->
+  <circle cx="100" cy="100" r="80" fill="none" stroke="#FF8200" stroke-width="5"/>
+  <circle cx="100" cy="100" r="80" fill="none" stroke="#FF8200" stroke-width="1" opacity="0.3"/>
+
+  <!-- Minor ticks (smokey) -->
+  <g stroke="#58595B" stroke-width="2" stroke-linecap="round" opacity="0.55">
+    <line x1="100" y1="24" x2="100" y2="32" transform="rotate(30 100 100)"/>
+    <line x1="100" y1="24" x2="100" y2="32" transform="rotate(60 100 100)"/>
+    <line x1="100" y1="24" x2="100" y2="32" transform="rotate(120 100 100)"/>
+    <line x1="100" y1="24" x2="100" y2="32" transform="rotate(150 100 100)"/>
+    <line x1="100" y1="24" x2="100" y2="32" transform="rotate(210 100 100)"/>
+    <line x1="100" y1="24" x2="100" y2="32" transform="rotate(240 100 100)"/>
+    <line x1="100" y1="24" x2="100" y2="32" transform="rotate(300 100 100)"/>
+    <line x1="100" y1="24" x2="100" y2="32" transform="rotate(330 100 100)"/>
+  </g>
+
+  <!-- Major cardinal ticks (orange) -->
+  <g stroke="#FF8200" stroke-width="4" stroke-linecap="round">
+    <line x1="100" y1="18" x2="100" y2="34"/>
+    <line x1="100" y1="18" x2="100" y2="34" transform="rotate(90 100 100)"/>
+    <line x1="100" y1="18" x2="100" y2="34" transform="rotate(180 100 100)"/>
+    <line x1="100" y1="18" x2="100" y2="34" transform="rotate(270 100 100)"/>
+  </g>
+
+  <!-- Needle -->
+  <polygon points="100,40 88,100 100,88 112,100" fill="url(#needleN)"/>
+  <polygon points="100,160 88,100 100,112 112,100" fill="#58595B"/>
+
+  <!-- Center hub -->
+  <circle cx="100" cy="100" r="10" fill="#FFFFFF" stroke="#FF8200" stroke-width="3"/>
+  <circle cx="100" cy="100" r="3" fill="#58595B"/>
+</svg>

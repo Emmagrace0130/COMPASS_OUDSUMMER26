@@ -18,8 +18,26 @@ JUDGE_MODEL      = os.getenv("OLLAMA_JUDGE_MODEL", "qwen3:32b")
 RESULTS_DIR      = Path("results")
 RESULTS_DIR.mkdir(exist_ok=True)
 
+# Opt-in evaluation conditions, for the RAG-vs-RAG+graph and RAG-vs-structured-rank
+# comparisons. Default (no flag) is unchanged from the original script — plain RAG.
+GRAPH_AUGMENT      = "--graph" in sys.argv or os.getenv("GRAPH_AUGMENT", "").lower() in ("1", "true", "yes")
+STRUCTURED_RANK    = "--structured" in sys.argv or os.getenv("STRUCTURED_RANK", "").lower() in ("1", "true", "yes")
+STRUCTURED_RANK_V2 = "--structured-v2" in sys.argv or os.getenv("STRUCTURED_RANK_V2", "").lower() in ("1", "true", "yes")
+STRUCTURED_RANK_V3 = "--structured-v3" in sys.argv or os.getenv("STRUCTURED_RANK_V3", "").lower() in ("1", "true", "yes")
+if sum([GRAPH_AUGMENT, STRUCTURED_RANK, STRUCTURED_RANK_V2, STRUCTURED_RANK_V3]) > 1:
+    print("❌ --graph, --structured, --structured-v2, and --structured-v3 are mutually exclusive conditions in this script.")
+    sys.exit(1)
+CONDITION_LABEL = (" — GRAPH-AUGMENTED" if GRAPH_AUGMENT else
+                   " — STRUCTURED-RANK" if STRUCTURED_RANK else
+                   " — STRUCTURED-RANK-V2" if STRUCTURED_RANK_V2 else
+                   " — STRUCTURED-RANK-V3" if STRUCTURED_RANK_V3 else "")
+RESULT_SUFFIX   = ("_graph" if GRAPH_AUGMENT else
+                   "_structured" if STRUCTURED_RANK else
+                   "_structured_v2" if STRUCTURED_RANK_V2 else
+                   "_structured_v3" if STRUCTURED_RANK_V3 else "")
+
 print("=" * 60)
-print("COMPASS RAG EVALUATION")
+print("COMPASS RAG EVALUATION" + CONDITION_LABEL)
 print(f"Endpoint   : {COMPASS_URL}")
 print(f"Judge model: {JUDGE_MODEL} (Ollama @ {OLLAMA_JUDGE_URL})")
 print("=" * 60)
@@ -52,7 +70,12 @@ print(f"Loaded {len(test_set)} questions across {len({q['topic'] for q in test_s
 def query_compass(question: str, timeout: int = 120) -> dict:
     t0 = time.time()
     try:
-        r = requests.post(f"{COMPASS_URL}/chat", json={"question": question}, timeout=timeout)
+        r = requests.post(f"{COMPASS_URL}/chat",
+                           json={"question": question, "graph_augment": GRAPH_AUGMENT,
+                                 "structured_rank": STRUCTURED_RANK,
+                                 "structured_rank_v2": STRUCTURED_RANK_V2,
+                                 "structured_rank_v3": STRUCTURED_RANK_V3},
+                           timeout=timeout)
         r.raise_for_status()
         d = r.json()
         return {"answer": d.get("answer",""), "sources": d.get("sources",[]),
@@ -176,7 +199,8 @@ for r in sorted(results, key=lambda x: x["kw_score"])[:5]:
 
 # Save
 stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-csv_path = RESULTS_DIR / f"eval_{stamp}.csv"
+suffix = RESULT_SUFFIX
+csv_path = RESULTS_DIR / f"eval_{stamp}{suffix}.csv"
 
 import csv
 fields = ["id","topic","difficulty","question","answered","n_sources","latency_s",
@@ -186,7 +210,7 @@ with open(csv_path, "w", newline="") as f:
     w.writeheader()
     w.writerows(results)
 
-json_path = RESULTS_DIR / f"raw_{stamp}.json"
+json_path = RESULTS_DIR / f"raw_{stamp}{suffix}.json"
 with open(json_path, "w") as f:
     json.dump([{k:v for k,v in r.items() if k != "sources"} for r in results], f, indent=2)
 

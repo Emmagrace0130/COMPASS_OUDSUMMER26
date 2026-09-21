@@ -7,6 +7,7 @@ import {
   ResponsiveContainer, Cell,
 } from "recharts";
 import { TOOLTIP_STYLE } from "../lib/chartTheme";
+import { TN_REGION_NAMES } from "../lib/region";
 
 interface StateData {
   name: string;
@@ -20,7 +21,6 @@ interface StateData {
   fac_per_100k: number;
 }
 
-const TN_NEIGHBORS = new Set(["Tennessee","Kentucky","Virginia","North Carolina","Georgia","Alabama","Mississippi","Arkansas","Missouri"]);
 const MUTED = "#8a8278";
 
 type MapMetric = "unmet_pct" | "gap_pct" | "fac_per_100k" | "oud_pct";
@@ -73,7 +73,7 @@ export function TreatmentGapView() {
 
   // Neighbor comparison data
   const neighborData = useMemo(() =>
-    data.filter(s => TN_NEIGHBORS.has(s.name))
+    data.filter(s => TN_REGION_NAMES.has(s.name))
       .sort((a, b) => (b[metric] ?? 0) - (a[metric] ?? 0)),
     [data, metric]);
 

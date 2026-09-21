@@ -22,9 +22,9 @@ export default {
         },
       },
       boxShadow: {
-        purple: "0 2px 12px rgba(79,70,229,0.18)",
-        pink:   "0 2px 12px rgba(220,38,38,0.18)",
-        cyan:   "0 2px 12px rgba(5,150,105,0.18)",
+        purple: "0 2px 12px rgba(255,130,0,0.22)",
+        pink:   "0 2px 12px rgba(194,30,30,0.18)",
+        cyan:   "0 2px 12px rgba(21,128,61,0.18)",
       },
       keyframes: {
         pulse_purple: {

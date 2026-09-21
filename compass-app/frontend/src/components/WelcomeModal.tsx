@@ -8,7 +8,7 @@ const USE_CASES = [
     color: "text-compass-purple",
     border: "border-compass-purple/20 bg-compass-purple/5",
     title: "Ask Clinical Questions",
-    desc: "Get evidence-based answers about OUD medications, dosing protocols, ASAM/SAMHSA guidelines, and Tennessee-specific policy — grounded in 150+ source documents.",
+    desc: "Get evidence-based answers about OUD medications, dosing protocols, ASAM/SAMHSA guidelines, and Tennessee-specific policy — grounded in 740+ source documents.",
     example: "What is the recommended starting dose of buprenorphine for a fentanyl-dependent patient?",
   },
   {
@@ -21,8 +21,8 @@ const USE_CASES = [
   },
   {
     icon: "◆",
-    color: "text-amber-500",
-    border: "border-amber-500/20 bg-amber-500/5",
+    color: "text-stone-500",
+    border: "border-stone-400/30 bg-stone-400/10",
     title: "Use Clinical Reference Tools",
     desc: "Access the All4Knox buprenorphine induction guide, MOUD prescriber reference, COWS/DAST screening tools, and the OUD concept map — all in one place.",
     example: "Score a patient on the COWS withdrawal scale during induction.",

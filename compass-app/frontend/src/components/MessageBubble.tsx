@@ -2,15 +2,15 @@ import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { SourcesPanel } from "./SourcesPanel";
 import type { Message } from "../types";
-import type { Tab } from "../lib/tabMeta";
+import type { NavTarget } from "../lib/tabMeta";
 import { suggestTabs } from "../lib/tabMeta";
 
 interface Props {
   message: Message;
-  onTabChange?: (tab: Tab) => void;
+  onNavigate?: (target: NavTarget) => void;
 }
 
-export function MessageBubble({ message, onTabChange }: Props) {
+export function MessageBubble({ message, onNavigate }: Props) {
   const isUser = message.role === "user";
   const [copied, setCopied] = useState(false);
   const suggestions = !isUser && !message.error && message.content
@@ -101,13 +101,13 @@ export function MessageBubble({ message, onTabChange }: Props) {
           </div>
         )}
 
-        {!isUser && suggestions.length > 0 && onTabChange && (
+        {!isUser && suggestions.length > 0 && onNavigate && (
           <div className="mt-2 px-1 flex flex-wrap gap-2 items-center">
             <span className="text-[10px] text-compass-muted uppercase tracking-wide">Explore →</span>
-            {suggestions.map(({ tab, label }) => (
+            {suggestions.map(({ tab, sub, label }) => (
               <button
-                key={tab}
-                onClick={() => onTabChange(tab)}
+                key={`${tab}:${sub ?? ""}`}
+                onClick={() => onNavigate({ tab, sub })}
                 className="text-[10px] font-medium tracking-wide px-2.5 py-1 rounded-lg border border-compass-purple/30 bg-compass-purple/10 text-compass-purple hover:bg-compass-purple/20 hover:border-compass-purple/50 transition-all"
               >
                 {label} ↗

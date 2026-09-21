@@ -3,44 +3,53 @@
 @tailwind utilities;
 
 /* ── Theme tokens ─────────────────────────────────────────────────────────── */
+/* UT Knoxville palette: Tennessee Orange primary, Smokey Gray neutrals, warm
+   off-white surfaces. Token names are historical (purple/violet/pink/cyan) —
+   left as-is so every component that already references them re-themes for
+   free. What each one now means:
+     purple → brand primary   (Tennessee Orange)
+     violet → brand hover/dark (deeper orange)
+     pink   → alerts / TN-highlight accent (warm red — stays red, doesn't
+              compete with orange for "what's clickable")
+     cyan   → positive status  (green — "ready", "healthy", success)        */
 :root {
-  /* Light — QuakeCity palette: slate-50 bg, white cards, indigo accent */
-  --tw-c-void:   248 250 252;   /* slate-50                        */
+  /* Light — warm off-white, UT Orange accent */
+  --tw-c-void:   250 247 242;   /* warm off-white page bg          */
   --tw-c-dark:   255 255 255;   /* white header / nav              */
   --tw-c-panel:  255 255 255;   /* white card                      */
-  --tw-c-rim:    226 232 240;   /* slate-200                       */
-  --tw-c-white:  15  23  42;    /* slate-900 text                  */
-  --tw-c-muted:  100 116 139;   /* slate-500                       */
-  --tw-c-purple: 79  70  229;   /* indigo-600 primary              */
-  --tw-c-violet: 67  56  202;   /* indigo-700 accent               */
-  --tw-c-pink:   220 38  38;    /* red-600                         */
-  --tw-c-cyan:   5   150 105;   /* emerald-600 status              */
+  --tw-c-rim:    231 223 212;   /* warm light-gray border           */
+  --tw-c-white:  41  37  34;    /* near-black warm ink              */
+  --tw-c-muted:  88  89  91;    /* UT Smokey Gray                   */
+  --tw-c-purple: 255 130 0;     /* UT Tennessee Orange (#FF8200)    */
+  --tw-c-violet: 204 87  0;     /* deeper orange — hover/pressed    */
+  --tw-c-pink:   194 30  30;    /* warm red — alerts / TN highlight */
+  --tw-c-cyan:   21  128 61;    /* grounded green — positive status */
 
   /* Bubble surfaces */
-  --c-user-bg:     224 231 255;
-  --c-user-text:   55  48  163;
-  --c-user-border: 165 180 252;
+  --c-user-bg:     255 235 214;
+  --c-user-text:   153 66  0;
+  --c-user-border: 255 190 130;
   --c-err-bg:      254 226 226;
   --c-err-text:    153 27  27;
   --c-err-border:  252 165 165;
 }
 
 .dark {
-  /* Dark — slate-900/800/700 stack, indigo-400 accent */
-  --tw-c-void:   15  23  42;    /* slate-900 page bg               */
-  --tw-c-dark:   30  41  59;    /* slate-800 header / nav          */
-  --tw-c-panel:  51  65  85;    /* slate-700 card                  */
-  --tw-c-rim:    71  85  105;   /* slate-600 border                */
-  --tw-c-white:  241 245 249;   /* slate-100 text                  */
-  --tw-c-muted:  148 163 184;   /* slate-400                       */
-  --tw-c-purple: 129 140 248;   /* indigo-400 primary              */
-  --tw-c-violet: 165 180 252;   /* indigo-300 accent               */
-  --tw-c-pink:   248 113 113;   /* red-400                         */
-  --tw-c-cyan:   52  211 153;   /* emerald-400                     */
+  /* Dark — warm charcoal stack, brighter orange for contrast */
+  --tw-c-void:   26  23  21;    /* warm near-black page bg          */
+  --tw-c-dark:   38  34  31;    /* warm charcoal header / nav       */
+  --tw-c-panel:  51  46  42;    /* warm charcoal card                */
+  --tw-c-rim:    74  67  61;    /* warm border                       */
+  --tw-c-white:  245 240 235;   /* warm off-white text               */
+  --tw-c-muted:  168 158 148;   /* warm gray                         */
+  --tw-c-purple: 255 154 61;    /* brighter Tennessee Orange         */
+  --tw-c-violet: 255 179 102;   /* lighter orange — hover            */
+  --tw-c-pink:   248 113 113;   /* red-400                           */
+  --tw-c-cyan:   74  191 122;   /* light green — positive status     */
 
-  --c-user-bg:     49  46  129;
-  --c-user-text:   224 231 255;
-  --c-user-border: 99  102 241;
+  --c-user-bg:     84  51  20;
+  --c-user-text:   255 200 150;
+  --c-user-border: 191 110 40;
   --c-err-bg:      69  10  10;
   --c-err-text:    252 165 165;
   --c-err-border:  127 29  29;

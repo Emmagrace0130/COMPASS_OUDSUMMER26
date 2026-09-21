@@ -76,24 +76,33 @@ export function HomeView({ onAsk }: HomeViewProps) {
 
         {/* ── HERO ─────────────────────────────────────────────────────── */}
         <section className="text-center space-y-5">
+          <img
+            src="/compass-hero.svg"
+            alt=""
+            aria-hidden="true"
+            className="w-28 h-28 md:w-36 md:h-36 mx-auto animate-spin_slow drop-shadow-sm"
+          />
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-compass-purple/30 text-compass-purple text-[11px] font-semibold tracking-widest uppercase mb-2">
             Clinical &amp; Policy Decision Support · Tennessee
           </div>
-          <h1 className="text-4xl font-extrabold tracking-tight text-compass-white leading-tight">
-            Clinical and policy intelligence for<br />
-            <span className="text-compass-purple">opioid use disorder</span>
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-compass-white leading-tight">
+            Find your way through<br />
+            <span className="text-compass-purple">opioid use disorder care</span>
           </h1>
           <p className="text-compass-muted text-base max-w-2xl mx-auto leading-relaxed">
             COMPASS helps Tennessee clinicians and policymakers get grounded answers — from dosing
             protocols to county-level treatment gaps — searched across 740+ clinical guidelines,
             research papers, and state surveillance data, with citations.
           </p>
+          <p className="text-compass-muted/70 text-xs font-medium uppercase tracking-widest pt-1">
+            Not sure where to start? Try a question below.
+          </p>
           <div className="flex flex-wrap gap-3 justify-center pt-2">
             {EXAMPLE_QUESTIONS.map(q => (
               <button
                 key={q}
                 onClick={() => onAsk(q)}
-                className="text-[12px] px-4 py-2 rounded-lg border border-rim bg-panel text-compass-muted hover:text-compass-purple hover:border-compass-purple/40 transition-all shadow-sm"
+                className="text-[12px] px-4 py-2.5 rounded-full border border-rim bg-panel text-compass-muted hover:text-white hover:bg-compass-purple hover:border-compass-purple transition-all shadow-sm hover:shadow-purple hover:-translate-y-0.5"
               >
                 {q}
               </button>
@@ -128,7 +137,7 @@ export function HomeView({ onAsk }: HomeViewProps) {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {POLICY_FEATURES.map(f => (
                 <div key={f.title} className="glass rounded-xl p-5 space-y-3">
-                  <div className="w-9 h-9 rounded-lg bg-compass-purple/10 flex items-center justify-center text-compass-purple">
+                  <div className="w-9 h-9 rounded-lg bg-compass-cyan/10 flex items-center justify-center text-compass-cyan">
                     {f.icon}
                   </div>
                   <h3 className="font-semibold text-compass-white text-sm">{f.title}</h3>
