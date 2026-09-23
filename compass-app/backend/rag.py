@@ -128,6 +128,41 @@ def run_ollama_graph_augmented(retriever, question: str) -> dict:
     return {"answer": answer, "docs": docs, "graph_context": graph_context}
 
 
+# ── Clinical-query retrieval (equity mitigation) ────────────────────────────
+# The demographic-equity pilot found that clinically irrelevant patient wording
+# (race, gender, insurance, county, justice involvement) changes which documents
+# are retrieved. This path retrieves on a rewritten, descriptor-free clinical
+# query instead, while still showing the model the full original question when
+# it generates, so legitimately relevant context can still shape the answer.
+
+REWRITE_PROMPT = """Rewrite the following question as a short, standalone clinical question suitable for searching medical guidelines and literature. Remove patient demographics (age, race, ethnicity, gender), insurance status, county or other location, and criminal justice status. Keep the clinical situation, conditions, medications, and what is being asked. Respond with ONLY the rewritten question.
+
+Question: {q}"""
+
+
+def run_ollama_clinical_query(retriever, question: str) -> dict:
+    """Retrieve on an LLM-rewritten, descriptor-free query; generate from the
+    original question. Falls back to the original question if the rewrite
+    fails or comes back empty. Same model/temperature/prompt as plain RAG for
+    generation, so retrieval is the only thing that differs."""
+    rewriter = Ollama(base_url=OLLAMA_BASE_URL, model=OLLAMA_MODEL, temperature=0, headers=_ollama_headers())
+    try:
+        search_query = rewriter.invoke(REWRITE_PROMPT.format(q=question)).strip().strip('"')
+        if len(search_query) < 15:
+            search_query = question
+    except Exception:
+        search_query = question
+
+    docs = retrieve_docs(retriever, search_query)
+    text_context = "\n\n---\n\n".join(
+        f"[{doc.metadata.get('source_file', 'unknown')} p.{doc.metadata.get('page', '?')}]\n{doc.page_content}"
+        for doc in docs
+    )
+    llm = Ollama(base_url=OLLAMA_BASE_URL, model=OLLAMA_MODEL, temperature=0.1, headers=_ollama_headers())
+    answer = llm.invoke(LANGCHAIN_PROMPT.format(context=text_context, question=question))
+    return {"answer": answer, "docs": docs, "search_query": search_query}
+
+
 # ── ClinicBot-inspired structured-evidence ranking ──────────────────────────
 # ClinicBot (Nananukul & Kejriwal, 2026, arXiv:2605.00846) extracts guideline
 # text into semantic units (recommendations, tables, definitions, narrative)

@@ -1,0 +1,159 @@
+{
+ "method": "exact SHA-256 of file bytes, plus match on normalized first-two-pages text (chars 800-1600); read-only analysis, no files were moved or deleted",
+ "pdf_files": 1046,
+ "duplicate_clusters": 36,
+ "redundant_copies": 41,
+ "estimated_distinct_pdfs": 1005,
+ "note": "99 PDFs have too little extractable text for the content match and were checked by exact hash only, so the redundant-copy count is a lower bound",
+ "clusters": [
+  [
+   "T1:OUD_med&treat/10-1055-a-2250-6419 (1).pdf",
+   "T1:OUD_med&treat/10-1055-a-2250-6419.pdf"
+  ],
+  [
+   "T1:OUD_med&treat/41398_2019_Article_625.pdf",
+   "T5:How_Opioid_Dependance_Works_in_Brain/41398_2019_Article_625.pdf",
+   "T8:Harm_reduction/PMC6848196_The_rising_crisis_of_illicit_fentanyl_use_overdose_and_potential_therapeutic_s.pdf"
+  ],
+  [
+   "T1:OUD_med&treat/PMC11934755_naloxone-distribution-meta-analysis.pdf",
+   "T8:Harm_reduction/12889_2025_Article_22210.pdf"
+  ],
+  [
+   "T1:OUD_med&treat/PMC12167081_ED-MOUD-5year-experience.pdf",
+   "T1:OUD_med&treat/main (1).pdf"
+  ],
+  [
+   "T1:OUD_med&treat/PMC8348786_Retention_in_opioid_agonist_treatment_a_rapid_review_and_meta-analysis_comparin.pdf",
+   "T2:Clinical_pract_guide/OAT-Retention-RapidReview-MetaAnalysis-2021.pdf"
+  ],
+  [
+   "T1:OUD_med&treat/PMC8568308_prolonged-release-bup-stigma-QoL.pdf",
+   "T1:OUD_med&treat/cureus-0013-00000018513.pdf"
+  ],
+  [
+   "T1:OUD_med&treat/SS35b954f57ab5_High-dose naloxone formulations are not as essential as we thought.pdf",
+   "T8:Harm_reduction/SS35b954f57ab5_High-dose naloxone formulations are not as essential as we thought.pdf"
+  ],
+  [
+   "T1:OUD_med&treat/federal-guidelines-opioid-treatment-pep24-02-011-1.pdf",
+   "T2:Clinical_pract_guide/SAMHSA-Federal-OTP-Guidelines-2024.pdf"
+  ],
+  [
+   "T1:OUD_med&treat/fpsyt-15-1383695.pdf",
+   "T1:OUD_med&treat/fpsyt-2024-1383695_MOUD2-algorithm-buprenorphine.pdf"
+  ],
+  [
+   "T1:OUD_med&treat/fpsyt-17-1770262_OUD-pregnancy-interventions.pdf",
+   "T3:TN_OUD_data&surv/PMC13079710_Interventions_for_opioid_use_disorder_during_pregnancy_a_scoping_review.pdf"
+  ],
+  [
+   "T1:OUD_med&treat/fpubh-11-1274719.pdf",
+   "T1:OUD_med&treat/fpubh-2023-1274719_OUD-current-trends-treatments.pdf"
+  ],
+  [
+   "T1:OUD_med&treat/fpubh-12-1377193.pdf",
+   "T1:OUD_med&treat/fpubh-2024-1377193_bup-access-workforce.pdf"
+  ],
+  [
+   "T1:OUD_med&treat/rr7103a1-H.pdf",
+   "T2:Clinical_pract_guide/CDC-2022-OpioidPrescribing-CPG.pdf",
+   "T6:Co-occuring_mental_health_conditions/PMC9639433_CDC_Clinical_Practice_Guideline_for_Prescribing_Opioids_for_Pain_-_United_States.pdf"
+  ],
+  [
+   "T1:OUD_med&treat/wjem-25-869_bupnalox-mortality-remission.pdf",
+   "T2:Clinical_pract_guide/BuprenorphineNaloxone-OUD-MortalityRemission-2024.pdf"
+  ],
+  [
+   "T2:Clinical_pract_guide/11606_2009_Article_981.pdf",
+   "T4:Behavioral&couns_treat/11606_2009_Article_981.pdf"
+  ],
+  [
+   "T2:Clinical_pract_guide/11606_2010_Article_1452.pdf",
+   "T4:Behavioral&couns_treat/11606_2010_Article_1452.pdf"
+  ],
+  [
+   "T2:Clinical_pract_guide/ASAM-2015-NPG-OUD.pdf",
+   "T2:Clinical_pract_guide/PMC4605275_American_Society_of_Addiction_Medicine_ASAM_National_Practice_Guideline_for_th.pdf"
+  ],
+  [
+   "T2:Clinical_pract_guide/CMS-Medicare-Chapter17-OTP.pdf",
+   "T9:Policy_&_Law/bp102c17.pdf"
+  ],
+  [
+   "T2:Clinical_pract_guide/ChronicPainGuidelines.pdf",
+   "T4:Behavioral&couns_treat/ChronicPainGuidelines.pdf"
+  ],
+  [
+   "T2:Clinical_pract_guide/SAMHSA-2023-OverdosePrevention-ResponseToolkit.pdf",
+   "T8:Harm_reduction/SAMHSA-overdose-prevention-response-toolkit.pdf"
+  ],
+  [
+   "T2:Clinical_pract_guide/TN Together Outpatient Opioid Prescribing Flow Chart.pdf",
+   "T4:Behavioral&couns_treat/TN Together Outpatient Opioid Prescribing Flow Chart.pdf"
+  ],
+  [
+   "T2:Clinical_pract_guide/TN-Together-FAQs-2019.pdf",
+   "T4:Behavioral&couns_treat/TN-Together-FAQs-2019.pdf"
+  ],
+  [
+   "T2:Clinical_pract_guide/nihms-774547.pdf",
+   "T4:Behavioral&couns_treat/nihms-774547.pdf"
+  ],
+  [
+   "T2:Clinical_pract_guide/nihms912909.pdf",
+   "T4:Behavioral&couns_treat/nihms912909.pdf"
+  ],
+  [
+   "T3:TN_OUD_data&surv/OUD_data/raw/samhsa/collection/NSDUH/1994/NHSDA-1994-DS0001-bndl-data-tsv/NHSDA-1994-DS0001-info/NHSDA-1994-info-description.pdf",
+   "T3:TN_OUD_data&surv/OUD_data/raw/samhsa/collection/NSDUH/1994/NHSDA-1994-DS0002-bndl-data-tsv/NHSDA-1994-DS0002-info/NHSDA-1994-info-description.pdf"
+  ],
+  [
+   "T3:TN_OUD_data&surv/SS28b8869b39d3_Illicitly Manufactured Fentanyl\u2013Involved Overdose Deaths with Detected Xylazine \u2014 United States, January 2019\u2013June 2022.pdf",
+   "T8:Harm_reduction/PMC10328484_Illicitly_Manufactured_Fentanyl-Involved_Overdose_Deaths_with_Detected_Xylazine.pdf"
+  ],
+  [
+   "T4:Behavioral&couns_treat/11606_2016_Article_3703.pdf",
+   "T6:Co-occuring_mental_health_conditions/11606_2016_Article_3703.pdf"
+  ],
+  [
+   "T4:Behavioral&couns_treat/nihms-1561241.pdf",
+   "T5:How_Opioid_Dependance_Works_in_Brain/nihms-1561241.pdf"
+  ],
+  [
+   "T4:Behavioral&couns_treat/nihms-1761361.pdf",
+   "T6:Co-occuring_mental_health_conditions/nihms-1761361.pdf"
+  ],
+  [
+   "T7:Health_equity_&_access_gaps_in_TN/PMC6804319_Opioid_Epidemic_in_the_United_States_Empirical_Trends_and_A_Literature_Review.pdf",
+   "T7:Health_equity_&_access_gaps_in_TN/T8:Harm_reduction/IJMA-8-89.pdf",
+   "T9:Policy_&_Law/IJMA-8-89.pdf"
+  ],
+  [
+   "T8:Harm_reduction/PMC11334402_Syringe_Services_Programs_Role_in_Ending_the_HIV_Epidemic_in_the_US_Why_We_C.pdf",
+   "T8:Harm_reduction/cdc_160351_DS1.pdf"
+  ],
+  [
+   "T3:TN_OUD_data&surv/OUD_data/raw/samhsa/TEDS_PUF/TEDS-d/TEDS-D-2006-DS0001-bndl-data-tsv/TEDS-D-2006-DS0001-info/TEDS-D-2006-info-description.pdf",
+   "T3:TN_OUD_data&surv/OUD_data/raw/samhsa/TEDS_PUF/TEDS-d/TEDS-D-2007-DS0001-bndl-data-tsv/TEDS-D-2007-DS0001-info/TEDS-D-2007-info-description.pdf",
+   "T3:TN_OUD_data&surv/OUD_data/raw/samhsa/TEDS_PUF/TEDS-d/TEDS-D-2008-DS0001-bndl-data-tsv/TEDS-D-2008-DS0001-info/TEDS-D-2008-info-description.pdf"
+  ],
+  [
+   "T3:TN_OUD_data&surv/OUD_data/raw/samhsa/TEDS_PUF/TEDS-d/TEDS-D-2009-DS0001-bndl-data-tsv/TEDS-D-2009-DS0001-info/TEDS-D-2009-info-description.pdf",
+   "T3:TN_OUD_data&surv/OUD_data/raw/samhsa/TEDS_PUF/TEDS-d/TEDS-D-2010-DS0001-bndl-data-tsv/TEDS-D-2010-DS0001-info/TEDS-D-2010-info-description.pdf",
+   "T3:TN_OUD_data&surv/OUD_data/raw/samhsa/TEDS_PUF/TEDS-d/TEDS-D-2011-DS0001-bndl-data-tsv/TEDS-D-2011-DS0001-info/TEDS-D-2011-info-description.pdf"
+  ],
+  [
+   "T3:TN_OUD_data&surv/OUD_data/raw/samhsa/collection/NSDUH/1992/NHSDA-1992-DS0001-bndl-data-tsv/NHSDA-1992-DS0001-info/NHSDA-1992-info-description.pdf",
+   "T3:TN_OUD_data&surv/OUD_data/raw/samhsa/collection/NSDUH/1993/NHSDA-1993-DS0001-bndl-data-tsv/NHSDA-1993-DS0001-info/NHSDA-1993-info-description.pdf"
+  ],
+  [
+   "T3:TN_OUD_data&surv/OUD_data/raw/samhsa/collection/NSDUH/1996/NHSDA-1996-DS0001-bndl-data-tsv/NHSDA-1996-DS0001-info/NHSDA-1996-info-description.pdf",
+   "T3:TN_OUD_data&surv/OUD_data/raw/samhsa/collection/NSDUH/1997/NHSDA-1997-DS0001-bndl-data-tsv/NHSDA-1997-DS0001-info/NHSDA-1997-info-description.pdf"
+  ],
+  [
+   "T3:TN_OUD_data&surv/OUD_data/raw/samhsa/collection/NSDUH/2000/NHSDA-2000-DS0001-bndl-data-stata/NHSDA-2000-DS0001-info/NHSDA-2000-info-description.pdf",
+   "T3:TN_OUD_data&surv/OUD_data/raw/samhsa/collection/NSDUH/2001/NHSDA-2001-DS0001-bndl-data-stata/NHSDA-2001-DS0001-info/NHSDA-2001-info-description.pdf"
+  ]
+ ]
+}

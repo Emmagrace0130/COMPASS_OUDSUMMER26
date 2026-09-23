@@ -6,7 +6,7 @@ from pydantic import BaseModel
 import httpx
 
 from config import FAISS_INDEX_PATH, OLLAMA_BASE_URL, OLLAMA_MODEL, LLM_BACKEND, ANTHROPIC_API_KEY, CLAUDE_MODEL, HF_API_TOKEN, HF_MODEL, OLLAMA_USERNAME, OLLAMA_PASSWORD
-from rag import load_vectorstore, load_retriever, build_ollama_chain, retrieve_docs, run_huggingface_with_tools, run_claude_with_tools, run_ollama_graph_augmented, run_ollama_structured_rank, run_ollama_structured_rank_v2, format_sources
+from rag import load_vectorstore, load_retriever, build_ollama_chain, retrieve_docs, run_huggingface_with_tools, run_claude_with_tools, run_ollama_graph_augmented, run_ollama_structured_rank, run_ollama_structured_rank_v2, run_ollama_clinical_query, format_sources
 
 app = FastAPI(title="COMPASS OUD Research Assistant")
 
@@ -64,6 +64,8 @@ class ChatRequest(BaseModel):
     structured_rank_v2: bool = False
     # Opt-in only — v2 plus near-duplicate-content skipping ("v3").
     structured_rank_v3: bool = False
+    # Opt-in only — retrieve on a descriptor-free rewritten clinical query (equity mitigation).
+    clinical_query: bool = False
 
 
 class Source(BaseModel):
@@ -159,6 +161,9 @@ async def chat(req: ChatRequest):
     if ollama_chain is None:
         raise HTTPException(status_code=503, detail="Ollama chain not loaded. Check OLLAMA_BASE_URL.")
     try:
+        if req.clinical_query:
+            result = run_ollama_clinical_query(retriever, req.question)
+            return ChatResponse(answer=result["answer"], sources=format_sources(result["docs"]), backend="ollama+clinical-query")
         if req.structured_rank_v3:
             result = run_ollama_structured_rank_v2(vectorstore, req.question, dedupe_content=True)
             return ChatResponse(answer=result["answer"], sources=format_sources(result["docs"]), backend="ollama+structured-v3")
