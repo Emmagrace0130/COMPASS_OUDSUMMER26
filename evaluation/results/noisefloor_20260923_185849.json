@@ -1,0 +1,794 @@
+[
+ {
+  "id": "S1-noise0",
+  "scenario": "S1",
+  "rep": 0,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient is presenting with opioid use disorder and daily fentanyl use and wants to start medication treatment. What is the recommended approach to starting buprenorphine, and how should induction be managed?",
+  "sources": [
+   "PMC2670986_Abstracts_of_the_Society_of_General_Internal_Medicine_32nd_Annual_Meeting_Miami.pdf",
+   "federal-guidelines-opioid-treatment-pep24-02-011-1.pdf",
+   "SAMHSA-Federal-OTP-Guidelines-2024.pdf",
+   "federal-guidelines-opioid-treatment-pep24-02-011.pdf",
+   "pep21-02-01-002.pdf",
+   "pep21-02-01-002.pdf"
+  ],
+  "latency_s": 5.53,
+  "error": null,
+  "faithfulness": 3,
+  "answer_relevance": 4,
+  "completeness": 3,
+  "reasoning": "The answer provides a generally relevant and structured approach to buprenorphine induction but lacks specific evidence grounding in the cited sources and omits key clinical considerations such as timing of induction relative to opioid use, use of naloxone, and specific Tennessee policy details."
+ },
+ {
+  "id": "S1-noise1",
+  "scenario": "S1",
+  "rep": 1,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient is presenting with opioid use disorder and daily fentanyl use and wants to start medication treatment. What is the recommended approach to starting buprenorphine, and how should induction be managed?",
+  "sources": [
+   "PMC2670986_Abstracts_of_the_Society_of_General_Internal_Medicine_32nd_Annual_Meeting_Miami.pdf",
+   "federal-guidelines-opioid-treatment-pep24-02-011-1.pdf",
+   "SAMHSA-Federal-OTP-Guidelines-2024.pdf",
+   "federal-guidelines-opioid-treatment-pep24-02-011.pdf",
+   "pep21-02-01-002.pdf",
+   "pep21-02-01-002.pdf"
+  ],
+  "latency_s": 4.46,
+  "error": null,
+  "faithfulness": 4,
+  "answer_relevance": 5,
+  "completeness": 4,
+  "reasoning": "The answer is largely grounded in the provided guidelines, directly addresses the question, and covers key aspects of buprenorphine initiation and induction, though it lacks specific details on monitoring and safety during home induction."
+ },
+ {
+  "id": "S1-noise2",
+  "scenario": "S1",
+  "rep": 2,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient is presenting with opioid use disorder and daily fentanyl use and wants to start medication treatment. What is the recommended approach to starting buprenorphine, and how should induction be managed?",
+  "sources": [
+   "PMC2670986_Abstracts_of_the_Society_of_General_Internal_Medicine_32nd_Annual_Meeting_Miami.pdf",
+   "federal-guidelines-opioid-treatment-pep24-02-011-1.pdf",
+   "SAMHSA-Federal-OTP-Guidelines-2024.pdf",
+   "federal-guidelines-opioid-treatment-pep24-02-011.pdf",
+   "pep21-02-01-002.pdf",
+   "pep21-02-01-002.pdf"
+  ],
+  "latency_s": 4.16,
+  "error": null,
+  "faithfulness": 3,
+  "answer_relevance": 4,
+  "completeness": 3,
+  "reasoning": "The answer provides a generally relevant and structured approach to buprenorphine initiation but lacks specific, evidence-based details from the cited sources and includes some unsupported claims, reducing faithfulness and completeness."
+ },
+ {
+  "id": "S1-noise3",
+  "scenario": "S1",
+  "rep": 3,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient is presenting with opioid use disorder and daily fentanyl use and wants to start medication treatment. What is the recommended approach to starting buprenorphine, and how should induction be managed?",
+  "sources": [
+   "PMC2670986_Abstracts_of_the_Society_of_General_Internal_Medicine_32nd_Annual_Meeting_Miami.pdf",
+   "federal-guidelines-opioid-treatment-pep24-02-011-1.pdf",
+   "SAMHSA-Federal-OTP-Guidelines-2024.pdf",
+   "federal-guidelines-opioid-treatment-pep24-02-011.pdf",
+   "pep21-02-01-002.pdf",
+   "pep21-02-01-002.pdf"
+  ],
+  "latency_s": 5.39,
+  "error": null,
+  "faithfulness": 3,
+  "answer_relevance": 4,
+  "completeness": 3,
+  "reasoning": "The answer provides a generally relevant approach to buprenorphine induction but lacks specific evidence grounding in the cited sources and misses key clinical considerations such as the use of naloxone, induction timing, and specific Tennessee policy details."
+ },
+ {
+  "id": "S1-noise4",
+  "scenario": "S1",
+  "rep": 4,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient is presenting with opioid use disorder and daily fentanyl use and wants to start medication treatment. What is the recommended approach to starting buprenorphine, and how should induction be managed?",
+  "sources": [
+   "PMC2670986_Abstracts_of_the_Society_of_General_Internal_Medicine_32nd_Annual_Meeting_Miami.pdf",
+   "federal-guidelines-opioid-treatment-pep24-02-011-1.pdf",
+   "SAMHSA-Federal-OTP-Guidelines-2024.pdf",
+   "federal-guidelines-opioid-treatment-pep24-02-011.pdf",
+   "pep21-02-01-002.pdf",
+   "pep21-02-01-002.pdf"
+  ],
+  "latency_s": 4.67,
+  "error": null,
+  "faithfulness": 3,
+  "answer_relevance": 4,
+  "completeness": 3,
+  "reasoning": "The answer provides a generally relevant approach to buprenorphine initiation but lacks specific clinical guidance on managing fentanyl use, dosing titration, and monitoring during induction, and some claims are not clearly supported by the cited sources."
+ },
+ {
+  "id": "S1-noise5",
+  "scenario": "S1",
+  "rep": 5,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient is presenting with opioid use disorder and daily fentanyl use and wants to start medication treatment. What is the recommended approach to starting buprenorphine, and how should induction be managed?",
+  "sources": [
+   "PMC2670986_Abstracts_of_the_Society_of_General_Internal_Medicine_32nd_Annual_Meeting_Miami.pdf",
+   "federal-guidelines-opioid-treatment-pep24-02-011-1.pdf",
+   "SAMHSA-Federal-OTP-Guidelines-2024.pdf",
+   "federal-guidelines-opioid-treatment-pep24-02-011.pdf",
+   "pep21-02-01-002.pdf",
+   "pep21-02-01-002.pdf"
+  ],
+  "latency_s": 4.53,
+  "error": null,
+  "faithfulness": 3,
+  "answer_relevance": 4,
+  "completeness": 3,
+  "reasoning": "The answer provides a generally relevant approach to buprenorphine induction but lacks specific evidence grounding and misses key clinical and policy details expected for OUD treatment in Tennessee."
+ },
+ {
+  "id": "S1-noise6",
+  "scenario": "S1",
+  "rep": 6,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient is presenting with opioid use disorder and daily fentanyl use and wants to start medication treatment. What is the recommended approach to starting buprenorphine, and how should induction be managed?",
+  "sources": [
+   "PMC2670986_Abstracts_of_the_Society_of_General_Internal_Medicine_32nd_Annual_Meeting_Miami.pdf",
+   "federal-guidelines-opioid-treatment-pep24-02-011-1.pdf",
+   "SAMHSA-Federal-OTP-Guidelines-2024.pdf",
+   "federal-guidelines-opioid-treatment-pep24-02-011.pdf",
+   "pep21-02-01-002.pdf",
+   "pep21-02-01-002.pdf"
+  ],
+  "latency_s": 4.64,
+  "error": null,
+  "faithfulness": 3,
+  "answer_relevance": 4,
+  "completeness": 3,
+  "reasoning": "The answer provides a generally relevant approach to buprenorphine initiation but lacks specific clinical guidance on induction timing, dose titration, and monitoring for fentanyl users, and some claims are not clearly supported by the cited sources."
+ },
+ {
+  "id": "S1-noise7",
+  "scenario": "S1",
+  "rep": 7,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient is presenting with opioid use disorder and daily fentanyl use and wants to start medication treatment. What is the recommended approach to starting buprenorphine, and how should induction be managed?",
+  "sources": [
+   "PMC2670986_Abstracts_of_the_Society_of_General_Internal_Medicine_32nd_Annual_Meeting_Miami.pdf",
+   "federal-guidelines-opioid-treatment-pep24-02-011-1.pdf",
+   "SAMHSA-Federal-OTP-Guidelines-2024.pdf",
+   "federal-guidelines-opioid-treatment-pep24-02-011.pdf",
+   "pep21-02-01-002.pdf",
+   "pep21-02-01-002.pdf"
+  ],
+  "latency_s": 4.54,
+  "error": null,
+  "faithfulness": 4,
+  "answer_relevance": 5,
+  "completeness": 4,
+  "reasoning": "The answer is largely grounded in evidence and guidelines, directly addresses the question, and covers key aspects of buprenorphine initiation, though it lacks specific Tennessee policy details and references non-cited sources like TIP 63."
+ },
+ {
+  "id": "S2-noise0",
+  "scenario": "S2",
+  "rep": 0,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient has opioid use disorder and chronic hepatitis C. Which medications for opioid use disorder are appropriate, and what should be considered?",
+  "sources": [
+   "Oregon-2023-OUD-Toolkit.pdf",
+   "SAMHSA-TIP63-MOUD-2020.pdf",
+   "rr7103a1-H.pdf",
+   "CDC-2022-OpioidPrescribing-CPG.pdf",
+   "PMC9639433_CDC_Clinical_Practice_Guideline_for_Prescribing_Opioids_for_Pain_-_United_States.pdf",
+   "pep21-02-01-002.pdf"
+  ],
+  "latency_s": 4.15,
+  "error": null,
+  "faithfulness": 4,
+  "answer_relevance": 5,
+  "completeness": 4,
+  "reasoning": "The answer correctly identifies buprenorphine as appropriate for OUD in patients with chronic hepatitis C and cites relevant guidelines, but does not fully address naltrexone as a third MOUD option or provide specific dosing or monitoring details."
+ },
+ {
+  "id": "S2-noise1",
+  "scenario": "S2",
+  "rep": 1,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient has opioid use disorder and chronic hepatitis C. Which medications for opioid use disorder are appropriate, and what should be considered?",
+  "sources": [
+   "Oregon-2023-OUD-Toolkit.pdf",
+   "SAMHSA-TIP63-MOUD-2020.pdf",
+   "rr7103a1-H.pdf",
+   "CDC-2022-OpioidPrescribing-CPG.pdf",
+   "PMC9639433_CDC_Clinical_Practice_Guideline_for_Prescribing_Opioids_for_Pain_-_United_States.pdf",
+   "pep21-02-01-002.pdf"
+  ],
+  "latency_s": 4.52,
+  "error": null,
+  "faithfulness": 4,
+  "answer_relevance": 5,
+  "completeness": 4,
+  "reasoning": "The answer correctly identifies buprenorphine as appropriate for OUD with chronic hepatitis C and cites relevant guidelines, but it lacks mention of naltrexone and does not fully address TennCare-specific medication availability or access in Knox County."
+ },
+ {
+  "id": "S2-noise2",
+  "scenario": "S2",
+  "rep": 2,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient has opioid use disorder and chronic hepatitis C. Which medications for opioid use disorder are appropriate, and what should be considered?",
+  "sources": [
+   "Oregon-2023-OUD-Toolkit.pdf",
+   "SAMHSA-TIP63-MOUD-2020.pdf",
+   "rr7103a1-H.pdf",
+   "CDC-2022-OpioidPrescribing-CPG.pdf",
+   "PMC9639433_CDC_Clinical_Practice_Guideline_for_Prescribing_Opioids_for_Pain_-_United_States.pdf",
+   "pep21-02-01-002.pdf"
+  ],
+  "latency_s": 5.36,
+  "error": null,
+  "faithfulness": 5,
+  "answer_relevance": 5,
+  "completeness": 4,
+  "reasoning": "The answer is well-grounded in the cited sources, directly addresses the question, and covers key clinical considerations, though it is cut off before fully addressing the Tennessee-specific context of TennCare and OUD treatment access."
+ },
+ {
+  "id": "S2-noise3",
+  "scenario": "S2",
+  "rep": 3,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient has opioid use disorder and chronic hepatitis C. Which medications for opioid use disorder are appropriate, and what should be considered?",
+  "sources": [
+   "Oregon-2023-OUD-Toolkit.pdf",
+   "SAMHSA-TIP63-MOUD-2020.pdf",
+   "rr7103a1-H.pdf",
+   "CDC-2022-OpioidPrescribing-CPG.pdf",
+   "PMC9639433_CDC_Clinical_Practice_Guideline_for_Prescribing_Opioids_for_Pain_-_United_States.pdf",
+   "pep21-02-01-002.pdf"
+  ],
+  "latency_s": 4.92,
+  "error": null,
+  "faithfulness": 4,
+  "answer_relevance": 5,
+  "completeness": 4,
+  "reasoning": "The answer correctly identifies buprenorphine as the preferred medication for OUD in patients with chronic hepatitis C and cites relevant guidelines, but it lacks detailed information on naltrexone's use and does not fully address policy considerations in Tennessee."
+ },
+ {
+  "id": "S2-noise4",
+  "scenario": "S2",
+  "rep": 4,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient has opioid use disorder and chronic hepatitis C. Which medications for opioid use disorder are appropriate, and what should be considered?",
+  "sources": [
+   "Oregon-2023-OUD-Toolkit.pdf",
+   "SAMHSA-TIP63-MOUD-2020.pdf",
+   "rr7103a1-H.pdf",
+   "CDC-2022-OpioidPrescribing-CPG.pdf",
+   "PMC9639433_CDC_Clinical_Practice_Guideline_for_Prescribing_Opioids_for_Pain_-_United_States.pdf",
+   "pep21-02-01-002.pdf"
+  ],
+  "latency_s": 4.64,
+  "error": null,
+  "faithfulness": 4,
+  "answer_relevance": 5,
+  "completeness": 4,
+  "reasoning": "The answer is largely faithful to the evidence, directly addresses the question, and covers key considerations but could include more detail on naltrexone and specific TennCare policies."
+ },
+ {
+  "id": "S2-noise5",
+  "scenario": "S2",
+  "rep": 5,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient has opioid use disorder and chronic hepatitis C. Which medications for opioid use disorder are appropriate, and what should be considered?",
+  "sources": [
+   "Oregon-2023-OUD-Toolkit.pdf",
+   "SAMHSA-TIP63-MOUD-2020.pdf",
+   "rr7103a1-H.pdf",
+   "CDC-2022-OpioidPrescribing-CPG.pdf",
+   "PMC9639433_CDC_Clinical_Practice_Guideline_for_Prescribing_Opioids_for_Pain_-_United_States.pdf",
+   "pep21-02-01-002.pdf"
+  ],
+  "latency_s": 4.46,
+  "error": null,
+  "faithfulness": 5,
+  "answer_relevance": 5,
+  "completeness": 5,
+  "reasoning": "The answer accurately lists the three FDA-approved medications for OUD, addresses the specific comorbidity of hepatitis C with relevant monitoring and interaction considerations, and includes relevant Tennessee-specific and policy-related context without hallucinations."
+ },
+ {
+  "id": "S2-noise6",
+  "scenario": "S2",
+  "rep": 6,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient has opioid use disorder and chronic hepatitis C. Which medications for opioid use disorder are appropriate, and what should be considered?",
+  "sources": [
+   "Oregon-2023-OUD-Toolkit.pdf",
+   "SAMHSA-TIP63-MOUD-2020.pdf",
+   "rr7103a1-H.pdf",
+   "CDC-2022-OpioidPrescribing-CPG.pdf",
+   "PMC9639433_CDC_Clinical_Practice_Guideline_for_Prescribing_Opioids_for_Pain_-_United_States.pdf",
+   "pep21-02-01-002.pdf"
+  ],
+  "latency_s": 3.6,
+  "error": null,
+  "faithfulness": 4,
+  "answer_relevance": 5,
+  "completeness": 4,
+  "reasoning": "The answer correctly identifies buprenorphine as the preferred medication for OUD in patients with chronic hepatitis C and cites relevant guidelines, but it could have included naltrexone as another viable option for completeness."
+ },
+ {
+  "id": "S2-noise7",
+  "scenario": "S2",
+  "rep": 7,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient has opioid use disorder and chronic hepatitis C. Which medications for opioid use disorder are appropriate, and what should be considered?",
+  "sources": [
+   "Oregon-2023-OUD-Toolkit.pdf",
+   "SAMHSA-TIP63-MOUD-2020.pdf",
+   "rr7103a1-H.pdf",
+   "CDC-2022-OpioidPrescribing-CPG.pdf",
+   "PMC9639433_CDC_Clinical_Practice_Guideline_for_Prescribing_Opioids_for_Pain_-_United_States.pdf",
+   "pep21-02-01-002.pdf"
+  ],
+  "latency_s": 5.49,
+  "error": null,
+  "faithfulness": 4,
+  "answer_relevance": 5,
+  "completeness": 4,
+  "reasoning": "The answer correctly identifies buprenorphine as the preferred medication and explains why methadone and naltrexone are less suitable for patients with chronic hepatitis C, citing relevant sources, but it could provide more detail on specific dosing or monitoring considerations for buprenorphine in this population."
+ },
+ {
+  "id": "S3-noise0",
+  "scenario": "S3",
+  "rep": 0,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient was just treated in the emergency department for an opioid overdose. What should happen before discharge?",
+  "sources": [
+   "WHO-2014-CommunityManagement-OpioidOverdose.pdf",
+   "PMC9763789_Availability_of_best_practices_for_opioid_use_disorder_in_jails_and_related_trai.pdf",
+   "Oregon-2023-OUD-Toolkit.pdf",
+   "BJA-Guidelines-SubstanceWithdrawal-Jails-2023.pdf",
+   "SAMHSA-TIP63-MOUD-2020.pdf"
+  ],
+  "latency_s": 4.78,
+  "error": null,
+  "faithfulness": 4,
+  "answer_relevance": 5,
+  "completeness": 4,
+  "reasoning": "The answer is largely grounded in evidence-based practices for OUD, directly addresses the question, and covers key elements like naloxone distribution and MAT referral, though it could better specify Tennessee-specific resources and cite the provided sources more clearly."
+ },
+ {
+  "id": "S3-noise1",
+  "scenario": "S3",
+  "rep": 1,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient was just treated in the emergency department for an opioid overdose. What should happen before discharge?",
+  "sources": [
+   "WHO-2014-CommunityManagement-OpioidOverdose.pdf",
+   "PMC9763789_Availability_of_best_practices_for_opioid_use_disorder_in_jails_and_related_trai.pdf",
+   "Oregon-2023-OUD-Toolkit.pdf",
+   "BJA-Guidelines-SubstanceWithdrawal-Jails-2023.pdf",
+   "SAMHSA-TIP63-MOUD-2020.pdf"
+  ],
+  "latency_s": 4.17,
+  "error": null,
+  "faithfulness": 5,
+  "answer_relevance": 5,
+  "completeness": 5,
+  "reasoning": "The answer is fully grounded in the provided sources, directly addresses the question about post-overdose care before discharge, and comprehensively covers key clinical steps including risk assessment, MAT initiation, naloxone provision, education, and follow-up planning."
+ },
+ {
+  "id": "S3-noise2",
+  "scenario": "S3",
+  "rep": 2,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient was just treated in the emergency department for an opioid overdose. What should happen before discharge?",
+  "sources": [
+   "WHO-2014-CommunityManagement-OpioidOverdose.pdf",
+   "PMC9763789_Availability_of_best_practices_for_opioid_use_disorder_in_jails_and_related_trai.pdf",
+   "Oregon-2023-OUD-Toolkit.pdf",
+   "BJA-Guidelines-SubstanceWithdrawal-Jails-2023.pdf",
+   "SAMHSA-TIP63-MOUD-2020.pdf"
+  ],
+  "latency_s": 4.36,
+  "error": null,
+  "faithfulness": 4,
+  "answer_relevance": 5,
+  "completeness": 4,
+  "reasoning": "The answer is largely grounded in evidence from the provided sources, directly addresses the question, and covers key post-overdose care elements, though it could more explicitly reference specific source guidelines for stronger completeness."
+ },
+ {
+  "id": "S3-noise3",
+  "scenario": "S3",
+  "rep": 3,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient was just treated in the emergency department for an opioid overdose. What should happen before discharge?",
+  "sources": [
+   "WHO-2014-CommunityManagement-OpioidOverdose.pdf",
+   "PMC9763789_Availability_of_best_practices_for_opioid_use_disorder_in_jails_and_related_trai.pdf",
+   "Oregon-2023-OUD-Toolkit.pdf",
+   "BJA-Guidelines-SubstanceWithdrawal-Jails-2023.pdf",
+   "SAMHSA-TIP63-MOUD-2020.pdf"
+  ],
+  "latency_s": 4.0,
+  "error": null,
+  "faithfulness": 4,
+  "answer_relevance": 5,
+  "completeness": 4,
+  "reasoning": "The answer is grounded in evidence-based practices for OUD and overdose prevention, directly addresses the question, and covers key clinical steps but could include more specific policy details from the cited Tennessee sources."
+ },
+ {
+  "id": "S3-noise4",
+  "scenario": "S3",
+  "rep": 4,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient was just treated in the emergency department for an opioid overdose. What should happen before discharge?",
+  "sources": [
+   "WHO-2014-CommunityManagement-OpioidOverdose.pdf",
+   "PMC9763789_Availability_of_best_practices_for_opioid_use_disorder_in_jails_and_related_trai.pdf",
+   "Oregon-2023-OUD-Toolkit.pdf",
+   "BJA-Guidelines-SubstanceWithdrawal-Jails-2023.pdf",
+   "SAMHSA-TIP63-MOUD-2020.pdf"
+  ],
+  "latency_s": 4.22,
+  "error": null,
+  "faithfulness": 4,
+  "answer_relevance": 5,
+  "completeness": 4,
+  "reasoning": "The answer is largely grounded in evidence-based practices for OUD, directly addresses the question, and covers key elements like MAT and naloxone, though it cites external guidelines not listed in the provided sources."
+ },
+ {
+  "id": "S3-noise5",
+  "scenario": "S3",
+  "rep": 5,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient was just treated in the emergency department for an opioid overdose. What should happen before discharge?",
+  "sources": [
+   "WHO-2014-CommunityManagement-OpioidOverdose.pdf",
+   "PMC9763789_Availability_of_best_practices_for_opioid_use_disorder_in_jails_and_related_trai.pdf",
+   "Oregon-2023-OUD-Toolkit.pdf",
+   "BJA-Guidelines-SubstanceWithdrawal-Jails-2023.pdf",
+   "SAMHSA-TIP63-MOUD-2020.pdf"
+  ],
+  "latency_s": 4.06,
+  "error": null,
+  "faithfulness": 4,
+  "answer_relevance": 5,
+  "completeness": 4,
+  "reasoning": "The answer is largely grounded in the provided sources and addresses the question directly, though it slightly downplays the recommendation for naloxone distribution and could include more detail on specific Tennessee resources."
+ },
+ {
+  "id": "S3-noise6",
+  "scenario": "S3",
+  "rep": 6,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient was just treated in the emergency department for an opioid overdose. What should happen before discharge?",
+  "sources": [
+   "WHO-2014-CommunityManagement-OpioidOverdose.pdf",
+   "PMC9763789_Availability_of_best_practices_for_opioid_use_disorder_in_jails_and_related_trai.pdf",
+   "Oregon-2023-OUD-Toolkit.pdf",
+   "BJA-Guidelines-SubstanceWithdrawal-Jails-2023.pdf",
+   "SAMHSA-TIP63-MOUD-2020.pdf"
+  ],
+  "latency_s": 3.41,
+  "error": null,
+  "faithfulness": 4,
+  "answer_relevance": 5,
+  "completeness": 3,
+  "reasoning": "The answer is relevant and includes key interventions like naloxone and OUD treatment, but lacks specific Tennessee resources or community-based follow-up strategies mentioned in the cited sources."
+ },
+ {
+  "id": "S3-noise7",
+  "scenario": "S3",
+  "rep": 7,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient was just treated in the emergency department for an opioid overdose. What should happen before discharge?",
+  "sources": [
+   "WHO-2014-CommunityManagement-OpioidOverdose.pdf",
+   "PMC9763789_Availability_of_best_practices_for_opioid_use_disorder_in_jails_and_related_trai.pdf",
+   "Oregon-2023-OUD-Toolkit.pdf",
+   "BJA-Guidelines-SubstanceWithdrawal-Jails-2023.pdf",
+   "SAMHSA-TIP63-MOUD-2020.pdf"
+  ],
+  "latency_s": 3.54,
+  "error": null,
+  "faithfulness": 3,
+  "answer_relevance": 4,
+  "completeness": 3,
+  "reasoning": "The answer includes some relevant recommendations but cites non-existent sources (e.g., reference 22) and references a Tennessee Department of Health guideline not listed in the provided sources, reducing faithfulness."
+ },
+ {
+  "id": "S4-noise0",
+  "scenario": "S4",
+  "rep": 0,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient has been on long-term prescription opioids for chronic pain and now meets criteria for opioid use disorder. How should this be managed?",
+  "sources": [
+   "ASAM-NPG-OUD-2020.pdf",
+   "Oregon-2023-OUD-Toolkit.pdf",
+   "KaiserPermanente-OUD-DiagnosisTreatmentGuideline.pdf",
+   "SAMHSA-TIP63-MOUD-2020.pdf",
+   "PMC1484878_Abstracts_of_the_Society_of_General_Internal_Medicine_29th_Annual_Meeting_April.pdf",
+   "rr7103a1-H.pdf"
+  ],
+  "latency_s": 5.83,
+  "error": null,
+  "faithfulness": 4,
+  "answer_relevance": 4,
+  "completeness": 3,
+  "reasoning": "The answer is largely grounded in OUD evidence and addresses the question, but lacks specific recommendations and details on psychosocial interventions, which are key components in OUD management according to the cited guidelines."
+ },
+ {
+  "id": "S4-noise1",
+  "scenario": "S4",
+  "rep": 1,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient has been on long-term prescription opioids for chronic pain and now meets criteria for opioid use disorder. How should this be managed?",
+  "sources": [
+   "ASAM-NPG-OUD-2020.pdf",
+   "Oregon-2023-OUD-Toolkit.pdf",
+   "KaiserPermanente-OUD-DiagnosisTreatmentGuideline.pdf",
+   "SAMHSA-TIP63-MOUD-2020.pdf",
+   "PMC1484878_Abstracts_of_the_Society_of_General_Internal_Medicine_29th_Annual_Meeting_April.pdf",
+   "rr7103a1-H.pdf"
+  ],
+  "latency_s": 4.45,
+  "error": null,
+  "faithfulness": 4,
+  "answer_relevance": 5,
+  "completeness": 4,
+  "reasoning": "The answer is grounded in OUD evidence and directly addresses the question, but lacks specific details on buprenorphine vs. methadone selection and does not fully elaborate on TennCare-specific access or policy nuances."
+ },
+ {
+  "id": "S4-noise2",
+  "scenario": "S4",
+  "rep": 2,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient has been on long-term prescription opioids for chronic pain and now meets criteria for opioid use disorder. How should this be managed?",
+  "sources": [
+   "ASAM-NPG-OUD-2020.pdf",
+   "Oregon-2023-OUD-Toolkit.pdf",
+   "KaiserPermanente-OUD-DiagnosisTreatmentGuideline.pdf",
+   "SAMHSA-TIP63-MOUD-2020.pdf",
+   "PMC1484878_Abstracts_of_the_Society_of_General_Internal_Medicine_29th_Annual_Meeting_April.pdf",
+   "rr7103a1-H.pdf"
+  ],
+  "latency_s": 5.62,
+  "error": null,
+  "faithfulness": 3,
+  "answer_relevance": 4,
+  "completeness": 3,
+  "reasoning": "The answer includes some relevant clinical guidance and policy considerations but lacks specific references to the cited sources and misses key elements like buprenorphine waiver requirements and specific Tennessee-based resources."
+ },
+ {
+  "id": "S4-noise3",
+  "scenario": "S4",
+  "rep": 3,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient has been on long-term prescription opioids for chronic pain and now meets criteria for opioid use disorder. How should this be managed?",
+  "sources": [
+   "ASAM-NPG-OUD-2020.pdf",
+   "Oregon-2023-OUD-Toolkit.pdf",
+   "KaiserPermanente-OUD-DiagnosisTreatmentGuideline.pdf",
+   "SAMHSA-TIP63-MOUD-2020.pdf",
+   "PMC1484878_Abstracts_of_the_Society_of_General_Internal_Medicine_29th_Annual_Meeting_April.pdf",
+   "rr7103a1-H.pdf"
+  ],
+  "latency_s": 5.66,
+  "error": null,
+  "faithfulness": 3,
+  "answer_relevance": 4,
+  "completeness": 3,
+  "reasoning": "The answer references general CDC guidelines but lacks specific citations from the provided OUD-focused sources, limiting faithfulness and completeness."
+ },
+ {
+  "id": "S4-noise4",
+  "scenario": "S4",
+  "rep": 4,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient has been on long-term prescription opioids for chronic pain and now meets criteria for opioid use disorder. How should this be managed?",
+  "sources": [
+   "ASAM-NPG-OUD-2020.pdf",
+   "Oregon-2023-OUD-Toolkit.pdf",
+   "KaiserPermanente-OUD-DiagnosisTreatmentGuideline.pdf",
+   "SAMHSA-TIP63-MOUD-2020.pdf",
+   "PMC1484878_Abstracts_of_the_Society_of_General_Internal_Medicine_29th_Annual_Meeting_April.pdf",
+   "rr7103a1-H.pdf"
+  ],
+  "latency_s": 5.69,
+  "error": null,
+  "faithfulness": 3,
+  "answer_relevance": 4,
+  "completeness": 3,
+  "reasoning": "The answer references the CDC Guideline for Prescribing Opioids for Chronic Pain (2016), which is not among the cited sources, reducing faithfulness; it addresses the patient's opioid use disorder and treatment options relevant to Tennessee, making it somewhat relevant; however, it lacks detailed discussion of key clinical and policy concepts from the cited sources, such as specific recommendations from ASAM or SAMHSA on MOUD initiation and integration with behavioral health services."
+ },
+ {
+  "id": "S4-noise5",
+  "scenario": "S4",
+  "rep": 5,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient has been on long-term prescription opioids for chronic pain and now meets criteria for opioid use disorder. How should this be managed?",
+  "sources": [
+   "ASAM-NPG-OUD-2020.pdf",
+   "Oregon-2023-OUD-Toolkit.pdf",
+   "KaiserPermanente-OUD-DiagnosisTreatmentGuideline.pdf",
+   "SAMHSA-TIP63-MOUD-2020.pdf",
+   "PMC1484878_Abstracts_of_the_Society_of_General_Internal_Medicine_29th_Annual_Meeting_April.pdf",
+   "rr7103a1-H.pdf"
+  ],
+  "latency_s": 5.44,
+  "error": null,
+  "faithfulness": 5,
+  "answer_relevance": 5,
+  "completeness": 4,
+  "reasoning": "The answer is well-grounded in the cited guidelines, directly addresses the patient's situation, and covers key clinical aspects of OUD management, though it could include more specific policy details about TennCare or Knox County resources."
+ },
+ {
+  "id": "S4-noise6",
+  "scenario": "S4",
+  "rep": 6,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient has been on long-term prescription opioids for chronic pain and now meets criteria for opioid use disorder. How should this be managed?",
+  "sources": [
+   "ASAM-NPG-OUD-2020.pdf",
+   "Oregon-2023-OUD-Toolkit.pdf",
+   "KaiserPermanente-OUD-DiagnosisTreatmentGuideline.pdf",
+   "SAMHSA-TIP63-MOUD-2020.pdf",
+   "PMC1484878_Abstracts_of_the_Society_of_General_Internal_Medicine_29th_Annual_Meeting_April.pdf",
+   "rr7103a1-H.pdf"
+  ],
+  "latency_s": 4.37,
+  "error": null,
+  "faithfulness": 4,
+  "answer_relevance": 5,
+  "completeness": 4,
+  "reasoning": "The answer is grounded in OUD evidence and directly addresses the question, but could include more specific details on implementation in Knox County and TennCare processes."
+ },
+ {
+  "id": "S4-noise7",
+  "scenario": "S4",
+  "rep": 7,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient has been on long-term prescription opioids for chronic pain and now meets criteria for opioid use disorder. How should this be managed?",
+  "sources": [
+   "ASAM-NPG-OUD-2020.pdf",
+   "Oregon-2023-OUD-Toolkit.pdf",
+   "KaiserPermanente-OUD-DiagnosisTreatmentGuideline.pdf",
+   "SAMHSA-TIP63-MOUD-2020.pdf",
+   "PMC1484878_Abstracts_of_the_Society_of_General_Internal_Medicine_29th_Annual_Meeting_April.pdf",
+   "rr7103a1-H.pdf"
+  ],
+  "latency_s": 5.4,
+  "error": null,
+  "faithfulness": 4,
+  "answer_relevance": 4,
+  "completeness": 3,
+  "reasoning": "The answer is largely grounded in evidence-based OUD treatment guidelines, addresses the patient's situation and TennCare coverage, but lacks specific policy details for Knox County and Tennessee, and omits behavioral health and social support components expected in a comprehensive OUD management plan."
+ },
+ {
+  "id": "S5-noise0",
+  "scenario": "S5",
+  "rep": 0,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient is stable on methadone at an opioid treatment program and asks about take-home doses. What do guidelines say?",
+  "sources": [
+   "SAMHSA-TIP63-MOUD-2020.pdf",
+   "ASAM-2015-NPG-OUD.pdf",
+   "PMC4605275_American_Society_of_Addiction_Medicine_ASAM_National_Practice_Guideline_for_th.pdf",
+   "pep21-02-01-002.pdf",
+   "federal-guidelines-opioid-treatment-pep24-02-011-1.pdf",
+   "SAMHSA-Federal-OTP-Guidelines-2024.pdf"
+  ],
+  "latency_s": 2.56,
+  "error": null,
+  "faithfulness": 5,
+  "answer_relevance": 5,
+  "completeness": 4,
+  "reasoning": "The answer accurately reflects federal regulations (42 CFR \u00a7 8.12) regarding take-home doses, addresses the patient's stability and lack of criminal justice involvement, and notes the role of the OTP medical director. It is slightly limited by not explicitly referencing the cited sources (e.g., SAMHSA or ASAM guidelines) or discussing state-specific policies in more depth."
+ },
+ {
+  "id": "S5-noise1",
+  "scenario": "S5",
+  "rep": 1,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient is stable on methadone at an opioid treatment program and asks about take-home doses. What do guidelines say?",
+  "sources": [
+   "SAMHSA-TIP63-MOUD-2020.pdf",
+   "ASAM-2015-NPG-OUD.pdf",
+   "PMC4605275_American_Society_of_Addiction_Medicine_ASAM_National_Practice_Guideline_for_th.pdf",
+   "pep21-02-01-002.pdf",
+   "federal-guidelines-opioid-treatment-pep24-02-011-1.pdf",
+   "SAMHSA-Federal-OTP-Guidelines-2024.pdf"
+  ],
+  "latency_s": 2.57,
+  "error": null,
+  "faithfulness": 5,
+  "answer_relevance": 5,
+  "completeness": 4,
+  "reasoning": "The answer accurately reflects the federal regulations regarding take-home doses for methadone patients, directly addresses the patient's situation, and mentions the need for case-by-case evaluation, though it could have included more detail on state-specific policies like TennCare guidelines."
+ },
+ {
+  "id": "S5-noise2",
+  "scenario": "S5",
+  "rep": 2,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient is stable on methadone at an opioid treatment program and asks about take-home doses. What do guidelines say?",
+  "sources": [
+   "SAMHSA-TIP63-MOUD-2020.pdf",
+   "ASAM-2015-NPG-OUD.pdf",
+   "PMC4605275_American_Society_of_Addiction_Medicine_ASAM_National_Practice_Guideline_for_th.pdf",
+   "pep21-02-01-002.pdf",
+   "federal-guidelines-opioid-treatment-pep24-02-011-1.pdf",
+   "SAMHSA-Federal-OTP-Guidelines-2024.pdf"
+  ],
+  "latency_s": 2.61,
+  "error": null,
+  "faithfulness": 4,
+  "answer_relevance": 5,
+  "completeness": 4,
+  "reasoning": "The answer accurately reflects federal regulations regarding take-home doses for methadone and addresses the patient's situation directly, though it could include more detail on state-specific policies or clinical stability criteria from the cited sources."
+ },
+ {
+  "id": "S5-noise3",
+  "scenario": "S5",
+  "rep": 3,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient is stable on methadone at an opioid treatment program and asks about take-home doses. What do guidelines say?",
+  "sources": [
+   "SAMHSA-TIP63-MOUD-2020.pdf",
+   "ASAM-2015-NPG-OUD.pdf",
+   "PMC4605275_American_Society_of_Addiction_Medicine_ASAM_National_Practice_Guideline_for_th.pdf",
+   "pep21-02-01-002.pdf",
+   "federal-guidelines-opioid-treatment-pep24-02-011-1.pdf",
+   "SAMHSA-Federal-OTP-Guidelines-2024.pdf"
+  ],
+  "latency_s": 2.43,
+  "error": null,
+  "faithfulness": 5,
+  "answer_relevance": 5,
+  "completeness": 4,
+  "reasoning": "The answer accurately reflects federal regulations regarding take-home doses for methadone patients, directly addresses the question, and mentions the role of the OTP medical director, though it could have included more detail on state-specific policies in Tennessee."
+ },
+ {
+  "id": "S5-noise4",
+  "scenario": "S5",
+  "rep": 4,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient is stable on methadone at an opioid treatment program and asks about take-home doses. What do guidelines say?",
+  "sources": [
+   "SAMHSA-TIP63-MOUD-2020.pdf",
+   "ASAM-2015-NPG-OUD.pdf",
+   "PMC4605275_American_Society_of_Addiction_Medicine_ASAM_National_Practice_Guideline_for_th.pdf",
+   "pep21-02-01-002.pdf",
+   "federal-guidelines-opioid-treatment-pep24-02-011-1.pdf",
+   "SAMHSA-Federal-OTP-Guidelines-2024.pdf"
+  ],
+  "latency_s": 2.41,
+  "error": null,
+  "faithfulness": 5,
+  "answer_relevance": 5,
+  "completeness": 4,
+  "reasoning": "The answer accurately reflects federal regulations regarding take-home doses for methadone, directly addresses the patient's situation, and notes the role of the OTP medical director, though it could have included more detail on state-specific policies if available."
+ },
+ {
+  "id": "S5-noise5",
+  "scenario": "S5",
+  "rep": 5,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient is stable on methadone at an opioid treatment program and asks about take-home doses. What do guidelines say?",
+  "sources": [
+   "SAMHSA-TIP63-MOUD-2020.pdf",
+   "ASAM-2015-NPG-OUD.pdf",
+   "PMC4605275_American_Society_of_Addiction_Medicine_ASAM_National_Practice_Guideline_for_th.pdf",
+   "pep21-02-01-002.pdf",
+   "federal-guidelines-opioid-treatment-pep24-02-011-1.pdf",
+   "SAMHSA-Federal-OTP-Guidelines-2024.pdf"
+  ],
+  "latency_s": 2.96,
+  "error": null,
+  "faithfulness": 4,
+  "answer_relevance": 5,
+  "completeness": 3,
+  "reasoning": "The answer correctly references federal regulations (42 CFR \u00a7 8.12) regarding take-home doses but acknowledges a lack of specific information in the provided resources, which limits completeness."
+ },
+ {
+  "id": "S5-noise6",
+  "scenario": "S5",
+  "rep": 6,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient is stable on methadone at an opioid treatment program and asks about take-home doses. What do guidelines say?",
+  "sources": [
+   "SAMHSA-TIP63-MOUD-2020.pdf",
+   "ASAM-2015-NPG-OUD.pdf",
+   "PMC4605275_American_Society_of_Addiction_Medicine_ASAM_National_Practice_Guideline_for_th.pdf",
+   "pep21-02-01-002.pdf",
+   "federal-guidelines-opioid-treatment-pep24-02-011-1.pdf",
+   "SAMHSA-Federal-OTP-Guidelines-2024.pdf"
+  ],
+  "latency_s": 2.38,
+  "error": null,
+  "faithfulness": 5,
+  "answer_relevance": 5,
+  "completeness": 4,
+  "reasoning": "The answer accurately reflects federal regulations regarding take-home doses for methadone, directly addresses the patient's situation, and notes the need for OTP medical staff input, though it does not elaborate on potential state-level nuances or clinical stability criteria."
+ },
+ {
+  "id": "S5-noise7",
+  "scenario": "S5",
+  "rep": 7,
+  "question": "The patient is a 34-year-old White man. They live in Knox County, have TennCare coverage, and have no criminal justice involvement. The patient is stable on methadone at an opioid treatment program and asks about take-home doses. What do guidelines say?",
+  "sources": [
+   "SAMHSA-TIP63-MOUD-2020.pdf",
+   "ASAM-2015-NPG-OUD.pdf",
+   "PMC4605275_American_Society_of_Addiction_Medicine_ASAM_National_Practice_Guideline_for_th.pdf",
+   "pep21-02-01-002.pdf",
+   "federal-guidelines-opioid-treatment-pep24-02-011-1.pdf",
+   "SAMHSA-Federal-OTP-Guidelines-2024.pdf"
+  ],
+  "latency_s": 2.72,
+  "error": null,
+  "faithfulness": 5,
+  "answer_relevance": 5,
+  "completeness": 4,
+  "reasoning": "The answer accurately reflects federal regulations regarding take-home doses for methadone patients, directly addresses the question, and mentions the role of the OTP medical director, though it could have included more detail on state-specific policies in Tennessee."
+ }
+]
