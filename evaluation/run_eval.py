@@ -24,20 +24,23 @@ GRAPH_AUGMENT      = "--graph" in sys.argv or os.getenv("GRAPH_AUGMENT", "").low
 STRUCTURED_RANK    = "--structured" in sys.argv or os.getenv("STRUCTURED_RANK", "").lower() in ("1", "true", "yes")
 STRUCTURED_RANK_V2 = "--structured-v2" in sys.argv or os.getenv("STRUCTURED_RANK_V2", "").lower() in ("1", "true", "yes")
 CLINICAL_QUERY     = "--clinical-query" in sys.argv or os.getenv("CLINICAL_QUERY", "").lower() in ("1", "true", "yes")
+CLINICAL_QUERY_V2  = "--clinical-query-v2" in sys.argv or os.getenv("CLINICAL_QUERY_V2", "").lower() in ("1", "true", "yes")
 STRUCTURED_RANK_V3 = "--structured-v3" in sys.argv or os.getenv("STRUCTURED_RANK_V3", "").lower() in ("1", "true", "yes")
-if sum([GRAPH_AUGMENT, STRUCTURED_RANK, STRUCTURED_RANK_V2, STRUCTURED_RANK_V3, CLINICAL_QUERY]) > 1:
+if sum([GRAPH_AUGMENT, STRUCTURED_RANK, STRUCTURED_RANK_V2, STRUCTURED_RANK_V3, CLINICAL_QUERY, CLINICAL_QUERY_V2]) > 1:
     print("❌ --graph, --structured, --structured-v2, and --structured-v3 are mutually exclusive conditions in this script.")
     sys.exit(1)
 CONDITION_LABEL = (" — GRAPH-AUGMENTED" if GRAPH_AUGMENT else
                    " — STRUCTURED-RANK" if STRUCTURED_RANK else
                    " — STRUCTURED-RANK-V2" if STRUCTURED_RANK_V2 else
                    " — STRUCTURED-RANK-V3" if STRUCTURED_RANK_V3 else
-                   " — CLINICAL-QUERY" if CLINICAL_QUERY else "")
+                   " — CLINICAL-QUERY" if CLINICAL_QUERY else
+                   " — CLINICAL-QUERY-V2" if CLINICAL_QUERY_V2 else "")
 RESULT_SUFFIX   = ("_graph" if GRAPH_AUGMENT else
                    "_structured" if STRUCTURED_RANK else
                    "_structured_v2" if STRUCTURED_RANK_V2 else
                    "_structured_v3" if STRUCTURED_RANK_V3 else
-                   "_clinicalquery" if CLINICAL_QUERY else "")
+                   "_clinicalquery" if CLINICAL_QUERY else
+                   "_clinicalqueryv2" if CLINICAL_QUERY_V2 else "")
 
 print("=" * 60)
 print("COMPASS RAG EVALUATION" + CONDITION_LABEL)
@@ -78,7 +81,7 @@ def query_compass(question: str, timeout: int = 120) -> dict:
                                  "structured_rank": STRUCTURED_RANK,
                                  "structured_rank_v2": STRUCTURED_RANK_V2,
                                  "structured_rank_v3": STRUCTURED_RANK_V3,
-                                 "clinical_query": CLINICAL_QUERY},
+                                 "clinical_query": CLINICAL_QUERY, "clinical_query_v2": CLINICAL_QUERY_V2},
                            timeout=timeout)
         r.raise_for_status()
         d = r.json()

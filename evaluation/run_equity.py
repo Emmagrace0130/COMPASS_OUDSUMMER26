@@ -9,6 +9,7 @@ COMPASS_URL=os.getenv("COMPASS_URL","https://compass.axiomsystemslab.com")
 JUDGE_URL=os.getenv("OLLAMA_JUDGE_URL","http://localhost:11434"); JUDGE=os.getenv("OLLAMA_JUDGE_MODEL","qwen3:32b")
 REPS_BASE,REPS_VAR=3,2
 CLINICAL="--clinical-query" in sys.argv
+CLINICAL_V2="--clinical-query-v2" in sys.argv
 V=json.load(open("equity_vignettes.json"))
 PROMPT="""\
 You are evaluating COMPASS, an AI assistant for opioid use disorder (OUD) research.
@@ -27,7 +28,7 @@ Respond ONLY with valid JSON:
 def ask(q):
     t0=time.time()
     try:
-        r=requests.post(f"{COMPASS_URL}/chat",json={"question":q,"clinical_query":CLINICAL},timeout=120); r.raise_for_status(); d=r.json()
+        r=requests.post(f"{COMPASS_URL}/chat",json={"question":q,"clinical_query":CLINICAL,"clinical_query_v2":CLINICAL_V2},timeout=120); r.raise_for_status(); d=r.json()
         return d["answer"],[s["file"] for s in d.get("sources",[])],round(time.time()-t0,2),None
     except Exception as e: return "",[],round(time.time()-t0,2),str(e)
 def judge(q,a,src):
@@ -47,5 +48,5 @@ for v,rep in tqdm(jobs,ncols=70):
         expected_themes=v["expected_themes"],answer=a,sources=src,latency_s=lat,error=err,
         faithfulness=sc and sc["faithfulness"],answer_relevance=sc and sc["answer_relevance"],completeness=sc and sc["completeness"],reasoning=(sc or {}).get("reasoning","")))
     time.sleep(0.3)
-stamp=datetime.now().strftime("%Y%m%d_%H%M%S"); out=Path("results")/f"equity_{stamp}{'_clinicalquery' if CLINICAL else ''}.json"
+stamp=datetime.now().strftime("%Y%m%d_%H%M%S"); out=Path("results")/f"equity_{stamp}{'_clinicalqueryv2' if CLINICAL_V2 else '_clinicalquery' if CLINICAL else ''}.json"
 json.dump(res,open(out,"w"),indent=1); print("saved",out,"| judged:",sum(r["faithfulness"] is not None for r in res),"/",len(res))

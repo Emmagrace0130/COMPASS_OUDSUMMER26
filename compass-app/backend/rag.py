@@ -163,6 +163,69 @@ def run_ollama_clinical_query(retriever, question: str) -> dict:
     return {"answer": answer, "docs": docs, "search_query": search_query}
 
 
+# ── Deterministic clinical-query retrieval (equity mitigation, v2) ─────────
+# run_ollama_clinical_query's LLM rewrite removed one source of retrieval
+# variance (demographic wording) but introduced another: the rewriter itself
+# paraphrases differently-worded variants differently, so it isn't
+# reproducible and the equity pilot showed it only partly reduced retrieval
+# sensitivity. This version uses a fixed regex-based rule to drop
+# demographic-carrying sentences instead of an LLM call — the same input
+# always produces the same search query, and there is no extra model call
+# (no added latency beyond a normal retrieval).
+#
+# It is a blunter instrument than the LLM rewrite: it can miss demographic
+# phrasing outside the patterns below, and a sentence that mixes a dropped
+# marker (e.g. "county") with genuinely clinical content would lose that
+# content too. It is tuned to how patient descriptors are typically
+# introduced (a leading "is a <age>-year-old ..." sentence, and a sentence
+# stating where the patient lives / their insurance / their justice status),
+# not to any specific question set.
+import re as _re_mod
+
+_AGE_SENTENCE_RE = _re_mod.compile(r"\b\d{1,3}[-\s]year[-\s]old\b", _re_mod.IGNORECASE)
+_PATIENT_STATUS_RE = _re_mod.compile(
+    r"\b(they|he|she|the patient)\s+(are|is|was|have|has|live[s]?|reside[s]?)\b", _re_mod.IGNORECASE
+)
+_LOCATION_INSURANCE_CJ_RE = _re_mod.compile(
+    r"\b(count(?:y|ies)|tenncare|uninsured|medicaid|medicare|private insurance|"
+    r"criminal justice|probation|(?:on|in) parole|(?:in|to) jail|incarcerat\w*|"
+    r"released from (?:jail|prison))\b",
+    _re_mod.IGNORECASE,
+)
+
+
+def strip_demographic_descriptors(text: str) -> str:
+    """Drop sentences that introduce age, race/gender, insurance, county, or
+    criminal-justice status, keeping clinical sentences intact. Falls back to
+    the original text if stripping would leave too little to search on."""
+    sentences = _re_mod.split(r"(?<=[.!?])\s+", text.strip())
+    kept = []
+    for s in sentences:
+        if _AGE_SENTENCE_RE.search(s):
+            continue
+        if _LOCATION_INSURANCE_CJ_RE.search(s) and _PATIENT_STATUS_RE.search(s):
+            continue
+        kept.append(s)
+    result = " ".join(kept).strip()
+    return result if len(result) >= 15 else text
+
+
+def run_ollama_clinical_query_v2(retriever, question: str) -> dict:
+    """Same idea as run_ollama_clinical_query, but the descriptor-free query
+    is produced by strip_demographic_descriptors (deterministic, no LLM call)
+    instead of an LLM rewrite. Generation is unchanged: the model still sees
+    the full original question."""
+    search_query = strip_demographic_descriptors(question)
+    docs = retrieve_docs(retriever, search_query)
+    text_context = "\n\n---\n\n".join(
+        f"[{doc.metadata.get('source_file', 'unknown')} p.{doc.metadata.get('page', '?')}]\n{doc.page_content}"
+        for doc in docs
+    )
+    llm = Ollama(base_url=OLLAMA_BASE_URL, model=OLLAMA_MODEL, temperature=0.1, headers=_ollama_headers())
+    answer = llm.invoke(LANGCHAIN_PROMPT.format(context=text_context, question=question))
+    return {"answer": answer, "docs": docs, "search_query": search_query}
+
+
 # ── ClinicBot-inspired structured-evidence ranking ──────────────────────────
 # ClinicBot (Nananukul & Kejriwal, 2026, arXiv:2605.00846) extracts guideline
 # text into semantic units (recommendations, tables, definitions, narrative)
