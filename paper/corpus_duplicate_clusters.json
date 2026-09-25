@@ -155,5 +155,6 @@
    "T3:TN_OUD_data&surv/OUD_data/raw/samhsa/collection/NSDUH/2000/NHSDA-2000-DS0001-bndl-data-stata/NHSDA-2000-DS0001-info/NHSDA-2000-info-description.pdf",
    "T3:TN_OUD_data&surv/OUD_data/raw/samhsa/collection/NSDUH/2001/NHSDA-2001-DS0001-bndl-data-stata/NHSDA-2001-DS0001-info/NHSDA-2001-info-description.pdf"
   ]
- ]
+ ],
+ "action_taken": "2026-09-25: the 41 redundant copies (one non-primary file per cluster) were moved to Vector_Library_duplicates/ (mirroring the original topic-folder paths), not deleted. The FAISS index has not been rebuilt, so the deployed system and all eval numbers in the paper still reflect the original, un-deduplicated corpus."
 }

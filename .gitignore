@@ -15,6 +15,7 @@ compass-app/backend/faiss_index/
 # Raw source dataset downloads (DEA ARCOS, SAMHSA NSDUH, TEDS, etc.) —
 # tens of GB of primary data, exceeds GitHub's file size limits. Keep locally only.
 Vector_Library/T3:TN_OUD_data&surv/OUD_data/raw/
+Vector_Library_duplicates/T3:TN_OUD_data&surv/OUD_data/raw/
 
 # Local symlink mirroring the docker-compose volume mount, for native (non-docker) dev
 compass-app/backend/Vector_Library
