@@ -4,7 +4,7 @@
 ¹ Applied Systems Laboratory, Department of Industrial & Systems Engineering, University of Tennessee, Knoxville
 In partnership with the UTK Institute for Public Service
 
-*Draft — [DATE]. First full-draft pass; see status notes throughout marked **[STATUS]**. This Markdown version is kept in sync with `COMPASS_paper_draft.tex` (the compiled PDF is the canonical rendered form).*
+*Draft — September 25, 2026. First full-draft pass; see status notes throughout. This Markdown version is kept in sync with `COMPASS_paper_draft.tex` (the compiled PDF is the canonical rendered form).*
 
 ---
 
@@ -16,7 +16,7 @@ Tennessee has consistently ranked among the states with the highest opioid overd
 
 ## 1. Introduction
 
-Tennessee's opioid overdose death rate has ranked among the highest in the United States in recent years, with thousands of fatal overdoses recorded annually by the Tennessee Department of Health [STATUS: verify current-year figure and citation against the latest TDH report before submission — the poster used 3,616 deaths in 2023]. Behind that statistic sits a familiar problem for anyone who has tried to act on it: the information needed to treat, prevent, or plan around OUD does not live in one place. Clinical practice guidelines are published by different professional societies with different scopes and update cycles. The evidence base for medications for opioid use disorder (MOUD) is distributed across a large and still-growing research literature. State-level surveillance — overdose death counts, prescription monitoring data, treatment admissions — is held by different Tennessee agencies in different formats. Policy — federal scheduling and reimbursement rules, state-level practice restrictions, drug court structures — is documented separately again. A clinician or public health planner who wants a grounded answer to a concrete question ("what is the recommended induction protocol for a fentanyl-dependent patient," "which Tennessee counties have the largest gap between OUD prevalence and treatment capacity") has to search all of these independently, with no way to know if they found everything relevant.
+Tennessee's opioid overdose death rate has ranked among the highest in the United States in recent years, with 3,616 Tennesseans dying of a drug overdose in 2023 alone — a 5.5% decrease from 2022, the first year-over-year decline since the state began overdose surveillance in 2013 (Tennessee Department of Health, 2025). Behind that statistic sits a familiar problem for anyone who has tried to act on it: the information needed to treat, prevent, or plan around OUD does not live in one place. Clinical practice guidelines are published by different professional societies with different scopes and update cycles. The evidence base for medications for opioid use disorder (MOUD) is distributed across a large and still-growing research literature. State-level surveillance — overdose death counts, prescription monitoring data, treatment admissions — is held by different Tennessee agencies in different formats. Policy — federal scheduling and reimbursement rules, state-level practice restrictions, drug court structures — is documented separately again. A clinician or public health planner who wants a grounded answer to a concrete question ("what is the recommended induction protocol for a fentanyl-dependent patient," "which Tennessee counties have the largest gap between OUD prevalence and treatment capacity") has to search all of these independently, with no way to know if they found everything relevant.
 
 Large language models (LLMs) can synthesize free-text answers to exactly these kinds of questions, but a model answering from parametric memory alone is a poor fit for clinical and policy use: it cannot cite sources, it can be confidently wrong, and it has no privileged knowledge of Tennessee-specific data. Retrieval-augmented generation (RAG) addresses the citation and hallucination problems by grounding generation in retrieved passages from a trusted corpus [Lewis et al., 2020]. It does not by itself address a second limitation: plain semantic retrieval over document chunks has no explicit model of how the underlying concepts relate to one another — which medications are contraindicated for which conditions, which guidelines apply to which populations, how a given policy instrument constrains a given treatment practice. A knowledge graph can encode exactly those relationships, and recent work on combining graph-structured and text retrieval (e.g., GraphRAG; Edge et al., 2024) suggests this composition can improve answer quality and interpretability on knowledge-intensive, relationally dense domains — of which OUD treatment and policy is a clear example.
 
@@ -317,7 +317,7 @@ COMPASS is a working, deployed retrieval-augmented generation system that ground
 
 ## References
 
-*[STATUS: References below combine sources already vetted for this project (from `SUD150_Citations_by_Category.docx`) with five technical citations added for this draft from live web research (Lewis et al. 2020; Gao et al. 2023; Edge et al. 2024; Nananukul & Kejriwal 2026; Nwobi et al. 2026) that were not in the existing bibliography — please double-check these five, and the exact TDH overdose figure in Section 1, before submission.]*
+*References above combine sources already vetted for this project (from `SUD150_Citations_by_Category.docx`) with six technical/data citations added for this draft from live web research (Lewis et al. 2020; Gao et al. 2023; Edge et al. 2024; Nananukul & Kejriwal 2026; Nwobi et al. 2026; Tennessee Department of Health 2025) — all six, and the Section 1 overdose figure, were verified directly against their primary sources (author lists cross-checked against arXiv/journal listings; the TDH figure quoted verbatim from the agency's own report) before this draft.*
 
 Afshar, M., et al. (2022). Development and validation of a substance misuse algorithm for referral to treatment using artificial intelligence (SMART-AI). *Lancet Digital Health, 4*(6), e426–e435. https://doi.org/10.1016/S2589-7500(22)00041-3
 
@@ -352,6 +352,8 @@ Nwobi, S. C., Loukil, Z., & Jawahar, A. (2026). Development of an AI-driven chat
 Sordo, L., et al. (2017). Mortality risk during and after opioid substitution treatment: systematic review and meta-analysis of cohort studies. *BMJ, 357*, j1550. https://doi.org/10.1136/bmj.j1550
 
 Srivastava, K., & Lam, C. (2024). Large language models in addiction medicine: opportunities and challenges. *Addiction, 119*(8). https://doi.org/10.1111/add.16470
+
+Tennessee Department of Health, Office of Informatics and Analytics. (2025). *2023 Tennessee drug overdose deaths*. https://www.tn.gov/content/dam/tn/health/documents/pdo/death-report/2023_Tennessee_Drug_Overdose_Death_Report.pdf
 
 Volkow, N. D., Koob, G. F., & McLellan, A. T. (2016). Neurobiologic advances from the brain disease model of addiction. *New England Journal of Medicine, 374*(4), 363–371. https://doi.org/10.1056/NEJMra1511480
 
