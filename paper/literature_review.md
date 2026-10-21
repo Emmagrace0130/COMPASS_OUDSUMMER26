@@ -47,9 +47,11 @@ prototype. What's new is adjacent work worth folding in:
   specifically is mixed, not uniformly positive for bias the way the general-medical-LLM
   systematic review (Section 8) might imply on its own.
 
-No edits have been made to `COMPASS_paper_draft.tex` for any of this yet — same as the
-original review, these are candidate citations, not yet folded into Related Work or the
-Limitations/equity discussion.
+**Update:** all four of these have since been folded into `COMPASS_paper_draft.tex` (and
+mirrored into the `.md`) — Bakshi et al. and Lyu et al. in Section 2 (Related Work), Wang et
+al. and Young et al. as the motivating citations for the demographic-equity pilot in
+Section 3. The Policy4OOD and Agentic AI for Substance Use Education candidates from the
+original 2026-09-18 pass are still not cited in the paper.
 
 ## Method
 
