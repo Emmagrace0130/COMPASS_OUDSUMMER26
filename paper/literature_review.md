@@ -1,10 +1,55 @@
 # Literature Review: Systems Comparable to COMPASS
 
-*Compiled 2026-09-18. Web research conducted via live search — see Sources at the end for
-every link. This is meant to (a) stand on its own as a survey, and (b) feed directly into
-the paper's thin Related Work section (Section 2 of `COMPASS_paper_draft.tex`), which
-currently cites general AI-in-addiction-medicine literature but no specific comparable
-*systems*.*
+*Compiled 2026-09-18, refreshed 2026-10-21. Web research conducted via live search — see
+Sources at the end for every link. This is meant to (a) stand on its own as a survey, and
+(b) feed directly into the paper's thin Related Work section (Section 2 of
+`COMPASS_paper_draft.tex`), which currently cites general AI-in-addiction-medicine
+literature but no specific comparable *systems*.*
+
+## Update (2026-10-21): what's new since the original pass
+
+Re-ran the searches a month later. Bottom line first: **nothing found here changes the
+original conclusion.** No new OUD-specific, guideline-grounded RAG chatbot has appeared —
+the Scotland MAT chatbot (Section 1) is still the closest comparator, and it's still a
+prototype. What's new is adjacent work worth folding in:
+
+- **[Responsible AI for safer opioid risk management in older adults](https://pmc.ncbi.nlm.nih.gov/articles/PMC13354216/)**
+  (Bakshi, Gopal, & Yaraghi, *npj Health Systems*, June 2026) — pairs an LSTM opioid-risk
+  classifier with a RAG module that generates guideline-grounded explanations (CDC opioid
+  guidance, AGS Beers Criteria) and flags when the model's prediction and the retrieved
+  guidance disagree. Architecturally relevant (RAG-as-explanation-layer bolted onto a
+  predictive model, not a standalone Q&A chatbot), but scoped to older-adult prescribing
+  safety, not OUD treatment, and not conversational. Macro-F1 0.72–0.84 across three
+  prediction tasks on 2016–2022 prescription-monitoring data.
+- **[A Rubric-Guided Large Language Model Solution for Opioid Use Disorder Computable
+  Phenotyping](https://arxiv.org/abs/2609.05682)** (Sept 2026) — uses an 18-item expert
+  rubric to prompt LLMs to extract OUD evidence from EHR notes, beating both a traditional
+  ML phenotyping pipeline and zero-shot LLM prompting (F1 0.774, AUROC 0.934 on 253
+  chart-reviewed patients). Same category as the already-cited SMART-AI/Dong et al.
+  structured-data risk-prediction work — predictive and EHR-driven, not conversational —
+  but notable as a newer LLM-based entry in that category.
+- **[Toward Fairness in Machine Learning Models for Predicting Treatment Retention and
+  Premature Discontinuation in Medication for Opioid Use Disorder](https://arxiv.org/abs/2609.22113)**
+  (Wang et al., Sept 2026) — not a chatbot, but directly strengthens the equity-testing
+  motivation already in Section 8: using TEDS-D discharge records (2015–2019), the authors
+  found real subgroup bias in MOUD retention-prediction models (early discontinuation
+  overestimated for Black patients, 180-day retention overestimated for older patients) that
+  bias mitigation reduced but did not eliminate. Worth citing alongside the existing
+  demographic-disparities systematic review as OUD-specific (not just general-medical-LLM)
+  evidence that this failure mode is real.
+- **[Racial, ethnic, and sex bias in large language model opioid recommendations for pain
+  management](https://pmc.ncbi.nlm.nih.gov/articles/PMC12042288/)** (Young, Enichen, Rao, &
+  Succi, *PAIN*, 2025) — missed in the original pass despite being squarely on-topic. Using
+  40 MIMIC-IV-derived cases varied across race/ethnicity and sex, GPT-4 and Gemini showed
+  **no** demographic effect on opioid-recommendation decisions (though Gemini differed from
+  GPT-4 on other axes — rating pain as "severe" and recommending opioids more and later).
+  Worth citing as a genuine counterpoint: the bias literature on LLM opioid recommendations
+  specifically is mixed, not uniformly positive for bias the way the general-medical-LLM
+  systematic review (Section 8) might imply on its own.
+
+No edits have been made to `COMPASS_paper_draft.tex` for any of this yet — same as the
+original review, these are candidate citations, not yet folded into Related Work or the
+Limitations/equity discussion.
 
 ## Method
 
@@ -259,3 +304,9 @@ those edits yet — say the word and I'll fold them into the `.tex` (and this ti
 - [Evaluating and addressing demographic disparities in medical large language models: a systematic review](https://pmc.ncbi.nlm.nih.gov/articles/PMC11866893/)
 - [Dr. Bias: Social Disparities in AI-Powered Medical Guidance](https://arxiv.org/pdf/2510.09162)
 - [EQUITRIAGE: A Fairness Audit of Gender Bias in LLM-Based Emergency Department Triage](https://arxiv.org/pdf/2605.03998)
+
+### Added in the 2026-10-21 refresh
+- [Responsible AI for safer opioid risk management in older adults (npj Health Systems, PMC)](https://pmc.ncbi.nlm.nih.gov/articles/PMC13354216/)
+- [A Rubric-Guided Large Language Model Solution for Opioid Use Disorder Computable Phenotyping](https://arxiv.org/abs/2609.05682)
+- [Toward Fairness in Machine Learning Models for Predicting Treatment Retention and Premature Discontinuation in Medication for Opioid Use Disorder](https://arxiv.org/abs/2609.22113)
+- [Racial, ethnic, and sex bias in large language model opioid recommendations for pain management (PAIN, PMC)](https://pmc.ncbi.nlm.nih.gov/articles/PMC12042288/)
