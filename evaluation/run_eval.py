@@ -144,7 +144,7 @@ def judge(row: dict) -> dict | None:
                   "messages": [{"role":"user","content":prompt}],
                   "stream": False, "think": False,
                   "options": {"temperature": 0}},
-            timeout=120,
+            timeout=240,
         )
         resp.raise_for_status()
         text = resp.json()["message"]["content"].strip()
