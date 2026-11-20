@@ -1,0 +1,236 @@
+\documentclass[letterpaper]{article}
+\usepackage[submission]{aaai2027}
+\makeatletter
+\gdef\showauthors@on{T} % W3PHIAI-27 is single-blind: reviewers see author names
+\makeatother
+\usepackage[hyphens]{url}
+\usepackage{graphicx}
+\urlstyle{rm}
+\def\UrlFont{\rm}
+\usepackage{natbib}
+\usepackage{caption}
+\frenchspacing
+\usepackage{booktabs}
+\setcounter{secnumdepth}{0}
+
+\pdfinfo{
+/TemplateVersion (2027.1)
+}
+
+\title{COMPASS: A Retrieval-Augmented Generation System for Evidence-Grounded Opioid Use Disorder Guidance in Tennessee}
+\author{
+    Emma Baumgartner\textsuperscript{\rm 1},
+    T. Berg\textsuperscript{\rm 1},
+    Gerald Jones Jr.\textsuperscript{\rm 1}
+}
+\affiliations{
+    \textsuperscript{\rm 1}Applied Systems Laboratory, Department of Industrial \& Systems Engineering,\\
+    University of Tennessee, Knoxville\\
+    In partnership with the UTK Institute for Public Service
+}
+\copyrighttext{Submitted to W3PHIAI-27 for review. Not yet published; copyright and publication details will appear in the final version if accepted.}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Tennessee has consistently ranked among the states with the highest opioid overdose death rates in the country, yet the information needed to act on it---clinical guidelines, treatment-outcome research, surveillance data, policy---is scattered with no single point of access. We present COMPASS, a retrieval-augmented generation (RAG) system that grounds natural-language answers about opioid use disorder (OUD) in a curated corpus of 1{,}046 documents, returning cited sources with every response. Alongside retrieval, we built a hand-authored Neo4j concept map encoding relationships among medications, conditions, guidelines, and Tennessee-specific policy. Our central question was whether injecting concept-map context into generation improves answer quality over retrieval alone. Using an independent LLM judge over 20 questions, we found no detectable improvement from the graph layer, nor from two further additions (ClinicBot-inspired evidence re-ranking and a corrected version of it). The most important finding is methodological: repeating the unchanged baseline four times produced a composite-score spread of 0.047, larger than every between-condition difference we measured; our initial single-run reading that two variants were worse than baseline did not survive this check. The experiments did expose concrete defects---a mis-modeled graph edge that caused one answer to falsely claim naltrexone is contraindicated for OUD, a flaw in the re-ranking formula, and duplicate documents in the corpus. A demographic-equity pilot (35 vignettes, 75 runs) found no large disparity in answer quality, but found that clinically irrelevant demographic wording changed which documents were retrieved (source overlap as low as 0.59). A deterministic mitigation that strips such wording before retrieval eliminated this (source overlap 1.00 across every variant) at no cost in latency or quality; a dedicated noise-floor measurement then showed the residual score variation is indistinguishable from ordinary generation stochasticity. We report both the positive engineering result (a real, fixable retrieval bias, found and fixed) and the negative one (no detectable benefit from graph augmentation or evidence re-ranking at this scale) as equally important outputs of a system built and evaluated under real deployment constraints.
+\end{abstract}
+
+\section{Introduction}
+
+Tennessee's opioid overdose death rate has ranked among the highest in the United States, with 3{,}616 residents dying of overdose in 2023 alone---a 5.5\% decrease from 2022, the first year-over-year decline since the state began overdose surveillance in 2013 \citep{tdh2025}. The information needed to treat, prevent, or plan around opioid use disorder (OUD) does not live in one place: clinical guidelines, MOUD evidence, state surveillance data, and policy documents are scattered across disconnected sources with no way for a clinician or planner to know if they found everything relevant.
+
+Large language models (LLMs) can synthesize free-text answers to exactly these questions, but a model answering from parametric memory alone cannot cite sources and can be confidently wrong. Retrieval-augmented generation (RAG) addresses this by grounding generation in retrieved passages \citep{lewis2020rag}, but plain semantic retrieval has no explicit model of how concepts relate---which medications are contraindicated for which conditions, which guidelines apply to which populations. A knowledge graph can encode exactly those relationships, and recent work combining graph-structured and text retrieval (GraphRAG; \citealp{edge2024graphrag}) suggests this composition can improve answer quality on relationally dense domains.
+
+COMPASS combines three layers: (1) a curated, screened document database spanning the clinical, behavioral, and policy dimensions of OUD with particular depth on Tennessee; (2) a RAG pipeline grounding every answer in retrieved passages with full source attribution; and (3) a Neo4j concept map intended to add structured relational context on top of plain retrieval. \textbf{The central question this project was designed to answer is whether that third layer actually improves answer quality relative to retrieval alone.} We answer it directly: we extended the pipeline to query the graph at generation time and ran the same evaluation against both conditions. We could not detect an improvement---and, importantly, a single such comparison cannot distinguish a real effect from noise, since repeating the unchanged baseline produced variation as large as any difference we measured. We report that plainly, along with a specific factual error the graph context produced and the defects we found in two additional retrieval-augmentation attempts.
+
+\textbf{Contributions:} (1) a screened, 1{,}046-document corpus across ten OUD-relevant topic areas built with a PRISMA-style process; (2) a deployed RAG system (\texttt{compass.axiomsystemslab.com}) with three interchangeable LLM backends and live Tennessee surveillance dashboards; (3) a 99-node, 77-relationship Neo4j concept map; (4) a direct empirical test showing graph augmentation is not distinguishable from plain retrieval once run-to-run noise is measured, with a traced, clinically consequential factual error; (5) three versions of a ClinicBot-inspired re-ranker and a demonstration that repeated-baseline noise (spread 0.047) exceeds every measured improvement; (6) a demographic-equity pilot that found and fixed a real retrieval-stage bias, then showed via a dedicated noise-floor measurement that the residual variation is ordinary stochasticity, not a demographic effect.
+
+\section{Related Work}
+
+RAG grounds LLM generation in retrieved passages, reducing hallucination and enabling source attribution \citep{lewis2020rag,gao2023ragsurvey}; COMPASS follows the standard retrieve-then-read pattern. Combining knowledge graphs with RAG has been explored to provide multi-hop reasoning and relationship context \citep{edge2024graphrag}; a near-identical architecture---RAG plus an LLM plus a Neo4j concept map---was independently built for Scotland's medication-assisted treatment standards \citep{scotlandmat2026}, on a smaller corpus (183 documents) but larger seed graph (227 nodes/136 relationships); that work lists the graph-vs-plain-RAG ablation as future work, which is precisely the comparison we run. Separately, \citet{clinicbot2026} argue RAG systems should rank evidence by clinical significance rather than text similarity alone, extracting guideline content into semantic units with provenance; we implement and test a lighter-weight version of this idea. A related pattern pairs a risk-prediction model with a RAG module that explains its output against guidelines \citep{bakshi2026}---architecturally adjacent but structurally different from COMPASS's open-ended Q\&A.
+
+A substantial literature applies machine learning to OUD risk prediction from structured data \citep{lociganic2019,lociganic2022,dong2021,dong2023,carrell2020,afshar2022}, with recent work replacing structured classifiers with rubric-prompted LLMs for the same phenotyping task \citep{lyu2026}; these systems are predictive rather than conversational and do not ground free-text questions in cited documents. Recent reviews frame both the opportunity and risk of LLMs in addiction medicine \citep{srivastava2024,zitu2026}; COMPASS is positioned in the gap these reviews identify. To our knowledge no existing public system unifies Tennessee surveillance data with clinical guideline retrieval and policy documents in one cited, conversational interface. On demographic effects in LLM-based opioid care, evidence is mixed: a fairness audit of MOUD retention-prediction models found real subgroup bias \citep{wang2026fairness}, while a study of GPT-4 and Gemini found no race or sex effect on opioid-recommendation decisions \citep{young2024}---motivating direct measurement on COMPASS rather than assuming either result generalizes.
+
+\section{Methods}
+
+\textbf{Corpus.} The document database was assembled across ten planned topic areas via a PRISMA-style screening process (current, full-text, relevant, unencumbered by license restrictions). The corpus contains 1{,}046 PDF documents across nine populated topic areas (Table~\ref{tab:corpus}), substantially exceeding the project's original 600--850 target. A read-only de-duplication scan found 36 clusters of duplicate files (41 redundant copies, $\sim$4\% of the corpus); these were quarantined out of the ingestion path but the index has not yet been rebuilt, so results below reflect the original corpus.
+
+\begin{table}[t]
+\centering\small
+\caption{Document corpus by topic area.}
+\label{tab:corpus}
+\begin{tabular}{lr}
+\toprule
+Topic & PDFs \\
+\midrule
+OUD Medications \& Treatment & 217 \\
+Clinical Practice Guidelines & 108 \\
+TN OUD Data \& Surveillance & 132 \\
+Behavioral \& Counseling Treatment & 88 \\
+Neuroscience of Opioid Dependence & 46 \\
+Co-occurring Mental Health & 77 \\
+Health Equity \& Access Gaps in TN & 115 \\
+Harm Reduction & 116 \\
+Policy \& Law & 80 \\
+AI in Addiction Medicine & 0 \\
+TN Judicial \& Drug Courts & 67 \\
+\midrule
+\textbf{Total} & \textbf{1{,}046} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Pipeline.} PDFs are split into overlapping chunks (800 characters, 150 overlap) and embedded with \texttt{BAAI/bge-small-en-v1.5} via \texttt{fastembed}, stored in a FAISS index. At query time, the system retrieves the top-6 chunks by cosine similarity and inserts them into a prompt instructing the model to answer only from retrieved context, cite sources, and say when evidence is insufficient. Three interchangeable LLM backends are supported (self-hosted Llama 3.1 8B via Ollama, Claude, HuggingFace).
+
+\textbf{Concept map.} A hand-authored Neo4j graph defines eight entity types (Medication, Condition, Guideline, Population, Location, Policy, Organization, Treatment) and sixteen relationship types, currently at 99 nodes and 77 relationships---seed scale relative to the plan's 200-node target. By default it is not queried during generation; an opt-in path (1) retrieves top-6 chunks as usual, (2) matches graph entity names as substrings in the question and retrieved text, (3) fetches each matched entity's 1-hop neighborhood (capped at 15 triples), and (4) inserts both text and triples into one prompt. Relationship \emph{properties} (e.g., a qualifying note on an edge) are not included in the triple text---a simplification that matters (Section~4).
+
+\textbf{Structured evidence ranking.} Following \citet{clinicbot2026}, a second opt-in path re-ranks retrieved chunks by content type rather than similarity alone: retrieve 12 candidates, classify each (recommendation/dosage\_table/definition/narrative) via one LLM call, re-rank by a combined score, keep the top 6. In v1, the type-priority term (0--2) can outweigh the similarity-rank penalty (capped at 1). A corrected v2 normalizes similarity to [0,1], caps the type term at 0.15, limits any source file to 2 of the final 6 chunks, and adds a \texttt{statistic} category; v3 adds a content-based near-duplicate filter (Jaccard similarity over 5-gram shingles, threshold 0.6).
+
+\textbf{Evaluation.} A 20-question test set spans 9 topic areas and 5 difficulty tiers. Each answer is scored by keyword overlap against annotated themes and, via an independent LLM judge (\texttt{qwen3:32b}), faithfulness, answer relevance, and completeness (0--5 each). The plain baseline was run four times and structured-rank v2 three times to estimate run-to-run variation; other conditions once.
+
+\textbf{Demographic-equity pilot.} Motivated by the mixed bias literature above, we ran 35 vignettes: five clinical scenarios, each a base patient (34-year-old White man, TennCare, Knox County, no criminal-justice involvement) plus five single-factor variants (race, gender, insurance, county, criminal-justice involvement) and one two-factor variant, with the clinical question held identical. Each base was run 3$\times$ and each variant 2$\times$ (75 runs total), scoring composite gap from base, medication-set overlap, and cited-source overlap. We then tested an LLM-rewrite mitigation that retrieves on a demographics-stripped query, followed by a deterministic regex-based version (dropping sentences matching age/race/gender/insurance/location/justice-status patterns, with no model call). Finally, to isolate whether residual score gaps reflect a demographic effect or ordinary noise, each scenario's unmodified base question was run 8 times (40 runs) with zero retrieval variance by construction.
+
+\section{Results}
+
+\textbf{Baseline and run-to-run noise.} The baseline scored composite 0.850 (faithfulness 4.35, relevance 4.60, completeness 3.80; $n=20$). Repeating this identical configuration three more times gave composites of 0.807, 0.803, 0.830---mean 0.823, SD 0.022, range 0.047. This range exceeds every between-condition difference reported below. By difficulty tier, completeness was weakest on ``clinical'' questions ($n=8$, specific dosing/protocol detail): 3.2/5, against 4.0--4.7 for every other tier (Table~\ref{tab:difficulty})---but the repeated plain-RAG runs show tier scores alone vary by a full point or more across repeats, so tier-level differences between single runs should be read as indicative only.
+
+\begin{table}[t]
+\centering\small
+\caption{Baseline evaluation by difficulty tier (single run).}
+\label{tab:difficulty}
+\begin{tabular}{lrrrr}
+\toprule
+Tier & $n$ & Faith. & Relev. & Compl. \\
+\midrule
+Basic & 5 & 4.6 & 4.8 & 4.2 \\
+Clinical & 8 & 4.0 & 4.2 & \textbf{3.2} \\
+Advanced & 2 & 4.5 & 5.0 & 4.0 \\
+Data & 2 & 4.5 & 4.5 & 4.0 \\
+Policy & 3 & 4.7 & 5.0 & 4.3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Graph augmentation.} The graph-augmented run scored composite 0.827 vs.\ the baseline's 0.850 ($\Delta=-0.023$), inside the baseline's own run-to-run range. One answer, however, contained a specific, traceable error: asked to compare extended-release naltrexone to buprenorphine, it stated naltrexone ``is contraindicated for Opioid Use Disorder''---false, since it is a first-line MOUD medication. The cause: the graph's \texttt{CONTRAINDICATED\_FOR} edge encodes a narrow, correct caveat (naltrexone requires a 7--10 day opioid-free window before induction) attached to the nearest existing node, with the qualifying \texttt{note} property dropped by the triple formatter---a knowledge-representation gap compounded by a formatting choice.
+
+\textbf{Structured-evidence ranking.} v1 scored 0.813 (within baseline range) but has a verifiable design flaw: the type-priority term can outweigh similarity rank by construction. Corrected v2 averaged 0.836 over three runs (0.877, 0.793, 0.837)---its first run was the highest of any condition, which in isolation would have been reported as an improvement, but the following two runs show this was a favorable draw. Table~\ref{tab:allconditions} places every condition against the baseline's spread; no variant exceeds it.
+
+\begin{table}[t]
+\centering\small
+\caption{All conditions, $n=20$ per run, composite = mean of three 0--5 judge scores / 5.}
+\label{tab:allconditions}
+\begin{tabular}{lcrr}
+\toprule
+Condition & Runs & Composite (mean) & Latency \\
+\midrule
+Plain RAG & 4 & 0.823 $\pm$ 0.022 & 4.3s \\
+Structured v2 & 3 & 0.836 $\pm$ 0.042 & 5.8s \\
+Structured v3 & 1 & 0.840 & 7.1s \\
+Graph-augmented & 1 & 0.827 & 4.6s \\
+Structured v1 & 1 & 0.813 & 5.7s \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Demographic-equity pilot.} Across 30 variant--base comparisons, no variant differed from its base by more than one composite point. However, cited-source overlap with the base fell to 0.59--0.77 once any demographic wording was added (vs.\ 1.00 for the base's own repeats, which use an identical query)---clinically irrelevant wording changed which documents were retrieved. Table~\ref{tab:equitycq} compares the original pilot against an LLM-rewrite mitigation (v1, retrieves on a demographics-stripped rewrite) and the deterministic version (v2). The LLM rewrite partly reduced retrieval sensitivity but introduced its own variance (source overlap barely moved for race, fell for insurance); the deterministic mitigation raised source overlap to exactly \textbf{1.00 across every dimension tested}, at no cost in answer quality (composite 0.823, identical to baseline) or latency, since no extra model call is made.
+
+\begin{table}[t]
+\centering\small
+\caption{Equity pilot: original condition vs.\ both mitigations. Mean $|$gap$|$ is composite points vs.\ each scenario's base; overlaps are Jaccard similarities with base answers.}
+\label{tab:equitycq}
+\begin{tabular}{lrrr}
+\toprule
+Dimension & Mean $|$gap$|$ & Med.\ ovl. & Src.\ ovl. \\
+ & orig/v1/v2 & orig/v1/v2 & orig/v1/v2 \\
+\midrule
+Race & .42/.12/.27 & .57/.82/.87 & .77/.79/\textbf{1.0} \\
+Gender & .39/.17/.26 & .72/.85/.90 & .72/.94/\textbf{1.0} \\
+Insurance & .24/.37/.28 & .80/.85/.88 & .59/.49/\textbf{1.0} \\
+County & .56/.22/.34 & .67/.87/.75 & .87/.78/\textbf{1.0} \\
+Crim.\ justice & .39/.42/.37 & .80/.90/.80 & .85/.72/\textbf{1.0} \\
+Two factors & .48/.39/.26 & .75/.72/.77 & .60/.48/\textbf{1.0} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Eliminating retrieval variance did not eliminate score variance: v2's composite gaps (0.26--0.37) are similar in size to the original condition's. To isolate whether this reflects a demographic effect or ordinary noise, each scenario's unmodified base question was separately run 8 times (40 runs total, zero retrieval variance by construction; Table~\ref{tab:noisefloor}), producing a pooled mean $|$deviation$|$ of 0.30---essentially the same magnitude as the residual v2 gaps (0.26--0.37), and within a narrow band of every one of them (0.87--1.23$\times$ the floor). \textbf{We find no evidence, once retrieval bias is corrected, that answer quality depends on the demographic dimensions tested.}
+
+\begin{table}[t]
+\centering\small
+\caption{Noise floor: unmodified question, no demographic variation, run 8 times per scenario ($n=40$).}
+\label{tab:noisefloor}
+\begin{tabular}{lrrrr}
+\toprule
+Scenario & Mean & SD & Min & Max \\
+\midrule
+S1 & 3.58 & 0.43 & 3.33 & 4.33 \\
+S2 & 4.46 & 0.23 & 4.33 & 5.00 \\
+S3 & 4.25 & 0.43 & 3.33 & 5.00 \\
+S4 & 3.83 & 0.50 & 3.33 & 4.67 \\
+S5 & 4.54 & 0.23 & 4.00 & 4.67 \\
+\midrule
+\multicolumn{4}{l}{Pooled mean $|$deviation from scenario mean$|$} & \textbf{0.30} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Discussion}
+
+The most important result is methodological: identical repeated runs of the plain baseline spread by 0.047, larger than every measured improvement. Our initial single-run reading---that graph augmentation and re-ranking made answers worse, concentrated in specific question tiers---did not survive repeated measurement. We report this correction because it is what the data support and because it bears on how RAG ablations are typically reported with too few repeats to distinguish signal from noise.
+
+The experiments nonetheless surfaced concrete, verifiable defects independent of any score: a graph edge whose dropped qualifying note turned a narrow safety caveat into a false blanket contraindication; a re-ranking formula whose type term could mathematically override similarity; and a corpus holding the same CDC guideline under three filenames, defeating a per-file diversity cap. These findings argue for the simplest pipeline as the default---re-ranking adds 1.5--3s of latency without detectable gain, and the graph path adds a documented way to inject a false clinical claim---while leaving open that an idea evaluated on a narrower corpus may need re-validation, with repeats, before adoption at this scale.
+
+The equity pilot is a genuine two-part result: a real, mechanistic retrieval bias (demographic wording changing which documents are retrieved) was found and fixed with a deterministic, zero-cost mitigation; the residual generation-side variation is, as far as an eight-repeat noise floor can tell, ordinary stochasticity rather than a demographic effect. This is weak evidence of fairness, not strong evidence: the pilot has five scenarios, two repeats per variant, and a rubric that scores groundedness rather than clinical appropriateness for the patient.
+
+\textbf{Limitations.} The equity result rests on a 35-vignette pilot (vs.\ 60 planned) with a judge that does not assess clinical appropriateness; differences below roughly half a composite point cannot be separated from noise. Repeated measurements are thin (1--4 runs per condition), so the conclusion that no variant beats baseline reflects limited statistical power, not proof of a true null effect. All evaluation used one generator, one judge, and 20 questions. The graph implementation uses substring entity matching, not robust linking, and about 4\% of the corpus remains duplicated pending an index rebuild. No clinician review has yet taken place; the graph-induced factual error is the kind of mistake a domain-expert reviewer would very likely have caught, which is itself the strongest argument for adding one.
+
+\section{Conclusion}
+
+COMPASS is a deployed RAG system grounding OUD answers in 1{,}046 Tennessee-relevant documents with full source citation. Testing whether a Neo4j concept map, and two versions of evidence re-ranking, improve on plain retrieval, we found no detectable improvement from any addition once repeated-run noise (spread 0.047) was measured against it---while surfacing specific, fixable defects a null score comparison could otherwise hide. A demographic-equity pilot found a real retrieval-stage bias, fixed it with a deterministic mitigation (source overlap reaching 1.00), and showed via a dedicated noise floor that the remaining variation is ordinary generation stochasticity. We treat the negative result (no benefit from graph augmentation or re-ranking at this scale) and the positive one (a found-and-fixed bias) as equally important: both depended on measuring noise before trusting a single comparison, a discipline we recommend for RAG evaluations generally.
+
+\small
+\bibliographystyle{aaai2027}
+\begin{thebibliography}{99}
+
+\bibitem[{Afshar et al., 2022}]{afshar2022} Afshar, M., et al. 2022. Development and validation of a substance misuse algorithm for referral to treatment using artificial intelligence (SMART-AI). \emph{Lancet Digital Health}, 4(6): e426--e435.
+
+\bibitem[{Bakshi et al., 2026}]{bakshi2026} Bakshi, S.; Gopal, R.; and Yaraghi, N. 2026. Responsible AI for safer opioid risk management in older adults. \emph{npj Health Systems}, 3: 40.
+
+\bibitem[{Carrell et al., 2020}]{carrell2020} Carrell, D. S., et al. 2020. Natural language processing of clinical notes for identification of critical care patients with opioid use disorder. \emph{JAMIA}, 27(9): 1452--1458.
+
+\bibitem[{Dong et al., 2021}]{dong2021} Dong, X., et al. 2021. Identifying risk of opioid use disorder for patients taking opioid medications with deep learning. \emph{JAMIA}, 28(7): 1421--1429.
+
+\bibitem[{Dong et al., 2023}]{dong2023} Dong, X., et al. 2023. Machine learning for predicting opioid use disorder from healthcare data: a systematic review. \emph{Computer Methods and Programs in Biomedicine}, 236: 107425.
+
+\bibitem[{Edge et al., 2024}]{edge2024graphrag} Edge, D., et al. 2024. From local to global: A graph RAG approach to query-focused summarization. \emph{arXiv:2404.16130}.
+
+\bibitem[{Gao et al., 2023}]{gao2023ragsurvey} Gao, Y., et al. 2023. Retrieval-augmented generation for large language models: A survey. \emph{arXiv:2312.10997}.
+
+\bibitem[{Lewis et al., 2020}]{lewis2020rag} Lewis, P., et al. 2020. Retrieval-augmented generation for knowledge-intensive NLP tasks. \emph{NeurIPS}, 33.
+
+\bibitem[{Lo-Ciganic et al., 2019}]{lociganic2019} Lo-Ciganic, W. H., et al. 2019. Evaluation of machine-learning algorithms for predicting opioid overdose risk among Medicare beneficiaries. \emph{JAMA Network Open}, 2(3): e190968.
+
+\bibitem[{Lo-Ciganic et al., 2022}]{lociganic2022} Lo-Ciganic, W. H., et al. 2022. Developing and validating a machine-learning algorithm to predict opioid overdose in Medicaid beneficiaries in two US states. \emph{Lancet Digital Health}, 4(6): e455--e465.
+
+\bibitem[{Lyu et al., 2026}]{lyu2026} Lyu, M., et al. 2026. A rubric-guided large language model solution for opioid use disorder computable phenotyping. \emph{arXiv:2609.05682}.
+
+\bibitem[{Nananukul and Kejriwal, 2026}]{clinicbot2026} Nananukul, N.; and Kejriwal, M. 2026. ClinicBot: A guideline-grounded clinical chatbot with prioritized evidence RAG and verifiable citations. \emph{arXiv:2605.00846}.
+
+\bibitem[{Nwobi et al., 2026}]{scotlandmat2026} Nwobi, S. C.; Loukil, Z.; and Jawahar, A. 2026. Development of an AI-driven chatbot for medication-assisted treatment standards in Scotland. \emph{Frontiers in Digital Health}, 8: 1698657.
+
+\bibitem[{Srivastava and Lam, 2024}]{srivastava2024} Srivastava, K.; and Lam, C. 2024. Large language models in addiction medicine: opportunities and challenges. \emph{Addiction}, 119(8).
+
+\bibitem[{Tennessee Department of Health, 2025}]{tdh2025} Tennessee Department of Health, Office of Informatics and Analytics. 2025. \emph{2023 Tennessee Drug Overdose Deaths}.
+
+\bibitem[{Wang et al., 2026}]{wang2026fairness} Wang, T.; Vivas-Valencia, C.; Bauer, C.; Gong, Y.; Choo, K.-K. R.; and Guo, Y. 2026. Toward fairness in machine learning models for predicting treatment retention and premature discontinuation in medication for opioid use disorder. \emph{arXiv:2609.22113}.
+
+\bibitem[{Young et al., 2024}]{young2024} Young, C. C.; Enichen, E.; Rao, A.; and Succi, M. D. 2024. Racial, ethnic, and sex bias in large language model opioid recommendations for pain management. \emph{Pain}, 166(3): 511--517.
+
+\bibitem[{Zitu et al., 2026}]{zitu2026} Zitu, M. M.; Owen, D.; Manne, A.; Zhu, Y.; Binkheder, S.; and Li, L. 2026. Artificial intelligence for opioid safety surveillance from clinical text: a clinically focused review. \emph{Journal of Clinical Medicine}, 15(4): 1649.
+
+\end{thebibliography}
+
+\end{document}
