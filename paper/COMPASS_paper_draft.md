@@ -1,8 +1,7 @@
 # COMPASS: A Retrieval-Augmented Generation System for Evidence-Grounded Opioid Use Disorder Guidance in Tennessee
 
-**Emma Baumgartner¹, T. Berg¹ (advisor), and Dr. Gerald Jones Jr.¹**
+**Emma Baumgartner¹, Tom Berg¹ (advisor), and Dr. Gerald Jones Jr.¹**
 ¹ Applied Systems Laboratory, Department of Industrial & Systems Engineering, University of Tennessee, Knoxville
-In partnership with the UTK Institute for Public Service
 
 *Draft — September 25, 2026. First full-draft pass; see status notes throughout. This Markdown version is kept in sync with `COMPASS_paper_draft.tex` (the compiled PDF is the canonical rendered form).*
 
@@ -307,7 +306,7 @@ The equity pilot adds a modest but useful result. We found no disparity larger t
 
 ### 5.2 Broader impact
 
-Independent of the graph-comparison question, COMPASS's document corpus, RAG pipeline, and Tennessee surveillance dashboards already constitute a working, deployed system that unifies clinical, research, surveillance, and policy information about OUD in one citeable, searchable interface — something Section 1 argues does not otherwise exist for Tennessee. The system's design goal of holding up across underinsured, rural, and justice-involved populations (Section 3.6) reflects the population most affected by Tennessee's overdose crisis, and its development in partnership with the UTK Institute for Public Service is intended to keep it accountable to practitioner needs rather than only to what is technically interesting to build.
+Independent of the graph-comparison question, COMPASS's document corpus, RAG pipeline, and Tennessee surveillance dashboards already constitute a working, deployed system that unifies clinical, research, surveillance, and policy information about OUD in one citeable, searchable interface — something Section 1 argues does not otherwise exist for Tennessee. The system's design goal of holding up across underinsured, rural, and justice-involved populations (Section 3.6) reflects the population most affected by Tennessee's overdose crisis, and the system's development is intended to keep it accountable to practitioner needs rather than only to what is technically interesting to build.
 
 ---
 
