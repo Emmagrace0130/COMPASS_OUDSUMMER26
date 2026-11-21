@@ -41,6 +41,10 @@ Tennessee has one of the highest opioid overdose death rates in the country, yet
 
 Tennessee has one of the highest opioid overdose death rates in the country \citep{tdh2025}. The information needed to treat, prevent, or plan around opioid use disorder (OUD) does not live in one place: clinical practice guidelines, the research evidence base for medications for OUD, state-level surveillance data, and policy documents are each held by different sources with no unified, citable point of access. A clinician or public health planner who wants a grounded answer to a concrete question currently has to search these sources independently, with no way to know if they found everything relevant.
 
+\section{Related Work}
+
+Retrieval-augmented generation grounds LLM generation in retrieved passages, reducing hallucination and enabling source attribution \citep{lewis2020rag}; COMPASS is planned around this now-standard retrieve-then-read pattern. Combining knowledge graphs with RAG has been explored to provide multi-hop reasoning and relationship context \citep{edge2024graphrag}, and a near-identical architecture, RAG plus an LLM plus a concept map, was independently built for Scotland's medication-assisted treatment standards \citep{scotlandmat2026}, which explicitly lists a graph-vs-plain-RAG ablation as future work; our planned evaluation is designed to run exactly that comparison. \citet{clinicbot2026} argue that clinical RAG systems should rank evidence by clinical significance rather than text similarity alone, motivating the evidence re-ranker we plan to test alongside the concept map. On the equity side, the literature is mixed: a fairness audit of machine-learning models for OUD treatment retention found real subgroup bias \citep{wang2026fairness}, while a study of GPT-4 and Gemini found no demographic effect on opioid-recommendation decisions \citep{young2024}. This disagreement is itself the motivation for testing the question directly on COMPASS rather than assuming either result generalizes.
+
 \section{Proposed System}
 
 We propose to address this with COMPASS, a retrieve-then-read RAG pipeline: a curated, screened document corpus spanning clinical, behavioral, and policy topic areas with particular depth on Tennessee, embedded and indexed for dense retrieval, paired with a large language model that generates answers only from retrieved passages and cites its sources. Alongside the retrieval pipeline, we plan to build a hand-authored concept map encoding relationships among medications, conditions, guidelines, and Tennessee-specific policy, intended to supply the system with relational context that plain chunk-level retrieval cannot represent on its own, such as which medications are contraindicated for which conditions.
@@ -59,9 +63,19 @@ We expect a modestly sized test set and a single LLM judge to limit how small an
 \bibliographystyle{aaai2027}
 \begin{thebibliography}{99}
 
+\bibitem[{Edge et al., 2024}]{edge2024graphrag} Edge, D., et al. 2024. From local to global: A graph RAG approach to query-focused summarization. \emph{arXiv:2404.16130}.
+
+\bibitem[{Lewis et al., 2020}]{lewis2020rag} Lewis, P., et al. 2020. Retrieval-augmented generation for knowledge-intensive NLP tasks. \emph{NeurIPS}, 33.
+
 \bibitem[{Nananukul and Kejriwal, 2026}]{clinicbot2026} Nananukul, N.; and Kejriwal, M. 2026. ClinicBot: A guideline-grounded clinical chatbot with prioritized evidence RAG and verifiable citations. \emph{arXiv:2605.00846}.
 
+\bibitem[{Nwobi et al., 2026}]{scotlandmat2026} Nwobi, S. C.; Loukil, Z.; and Jawahar, A. 2026. Development of an AI-driven chatbot for medication-assisted treatment standards in Scotland. \emph{Frontiers in Digital Health}, 8: 1698657.
+
 \bibitem[{Tennessee Department of Health, 2025}]{tdh2025} Tennessee Department of Health, Office of Informatics and Analytics. 2025. \emph{2023 Tennessee Drug Overdose Deaths}.
+
+\bibitem[{Wang et al., 2026}]{wang2026fairness} Wang, T.; Vivas-Valencia, C.; Bauer, C.; Gong, Y.; Choo, K.-K. R.; and Guo, Y. 2026. Toward fairness in machine learning models for predicting treatment retention and premature discontinuation in medication for opioid use disorder. \emph{arXiv:2609.22113}.
+
+\bibitem[{Young et al., 2024}]{young2024} Young, C. C.; Enichen, E.; Rao, A.; and Succi, M. D. 2024. Racial, ethnic, and sex bias in large language model opioid recommendations for pain management. \emph{Pain}, 166(3): 511--517.
 
 \end{thebibliography}
 
